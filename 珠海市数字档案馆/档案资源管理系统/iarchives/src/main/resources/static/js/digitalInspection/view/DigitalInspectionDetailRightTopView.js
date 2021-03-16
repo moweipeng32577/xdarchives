@@ -1,0 +1,97 @@
+Ext.define('DigitalInspection.view.DigitalInspectionDetailRightTopView', {
+    extend: 'Ext.tab.Panel',
+    xtype:'DigitalInspectionDetailRightTopView',
+    requires: [
+        'Ext.layout.container.Border'
+    ],
+    tabPosition: 'top',
+    tabRotation: 0,
+    activeTab: 0,
+    items: [{
+        title: '著录信息',
+        xtype: 'container',
+        layout:'form',
+        style:'overflow:auto;',
+        items:[
+            {
+                xtype: 'form',
+                layout:'form',
+                height:'100%',
+                items:[
+                    {xtype: 'textfield', fieldLabel: '题名',name:'title',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '全宗号',name:'funds',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '案卷号',name:'filecode',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '目录号',name:'catalog',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '顺序号',name:'innerfile',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '责任者',name:'responsible',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '文件编号',name:'filenumber',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '文件日期',name:'filedate',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '页数',name:'pages',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '保管期限',name:'entryretention',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '归档年度',name:'filingyear',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '机构问题',name:'organ',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '件号',name:'recordcode',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '分类号',name:'f03',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '份数',name:'fscount',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '档号',name:'archivecode',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '并列题名',name:'f37',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '副题名',name:'f38',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '人名',name:'f35',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '密件',name:'entrysecurity',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '附注',name:'f36',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '备注',name:'inspector',readOnly:true},
+                    {xtype: 'textfield', fieldLabel: '附件',name:'f44',readOnly:true},
+                ]
+            }
+        ]
+    }, {
+        title: '元数据',
+        layout: 'form',
+        xtype: 'container',
+        style:'overflow:auto;',
+        itemId: 'metadataId',
+        items: [
+            {
+                xtype: 'form',
+                layout:'form',
+                height:'100%',
+                items:[
+                    {xtype: 'button', itemId:'save', text: '保存', style:'border:0;'},
+                    {xtype: 'textfield', fieldLabel: 'id',name:'id',hidden:true},
+                    {xtype: 'textfield', fieldLabel: 'batchcode',name:'batchcode',hidden:true},
+                    {xtype: 'textfield', fieldLabel: 'mediaid',name:'mediaid',hidden:true},
+                    {xtype: 'textfield', fieldLabel: '档号',name:'archivecode'},
+                    {xtype: 'textfield', fieldLabel: '电子档案名称',name:'filename'},
+                    {xtype: 'textfield', fieldLabel: '扫描件页号',name:'scanpagecode'},
+                    {xtype: 'textfield', fieldLabel: '稿本代码',name:'qbcode'},
+                    {xtype: 'textfield', fieldLabel: '存储路径',name:'filepath'},
+                    {xtype: 'textfield', fieldLabel: '数字化时间',name:'digitaltime'},
+                    {xtype: 'textfield', fieldLabel: '数字化对象描述',name:'digitalobjdescribe'},
+                    {xtype: 'textfield', fieldLabel: '数字化授权描述',name:'describeaccreditdescribe'},
+                    {xtype: 'textfield', fieldLabel: '格式名称',name:'formatname'},
+                    {xtype: 'textfield', fieldLabel: '格式版本',name:'formatversion'},
+                    {xtype: 'textfield', fieldLabel: '色彩空间',name:'colorspace'},
+                    {xtype: 'textfield', fieldLabel: '压缩方案',name:'reduceplan'},
+                    {xtype: 'textfield', fieldLabel: '压缩比',name:'reduceratio'},
+                    {xtype: 'textfield', fieldLabel: '水平分辨率',name:'levelresolution'},
+                    {xtype: 'textfield', fieldLabel: '垂直分辨率',name:'verticalresolution'},
+                    {xtype: 'textfield', fieldLabel: '设备类型',name:'equipmenttype'},
+                    {xtype: 'textfield', fieldLabel: '设备制造商',name:'equipmentmanufacturer'},
+                    {xtype: 'textfield', fieldLabel: '设备型号',name:'equipmentmodel'},
+                    {xtype: 'textfield', fieldLabel: '设备感光器',name:'equipmentsensitization'},
+                    {xtype: 'textfield', fieldLabel: '数字化软件名称',name:'digitalsoftname'},
+                    {xtype: 'textfield', fieldLabel: '数字化软件版本',name:'digitalsoftversion'},
+                    {xtype: 'textfield', fieldLabel: '数字化软件生产商',name:'inspector'},
+                    {xtype: 'textfield', fieldLabel: '阅读所需软硬件条件',name:'digitalsoftvendor'},
+                    {xtype: 'textfield', fieldLabel: '数字化成果移交接收信息',name:'readsoftcondition'},
+                    {xtype: 'textfield', fieldLabel: '图像宽度',name:'picturewidth'},
+                    {xtype: 'textfield', fieldLabel: '图像高度',name:'pictureheight'},
+                    {xtype: 'textfield', fieldLabel: '位深度',name:'bitdepth'},
+                    {xtype: 'textfield', fieldLabel: '版权',name:'copyright'},
+                    {xtype: 'textfield', fieldLabel: '文件大小',name:'filesize'},
+                    {xtype: 'textfield', fieldLabel: 'MD5码',name:'f44',readOnly:true},
+                ]
+            }
+        ]
+    }],
+});

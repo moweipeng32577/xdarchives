@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" />
+    <style>
+        th,table{
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="layui-input-inline" style="width: 100px;">
+        <select name="month" lay-verify="" class="layui-input visitMonth" style="font-size: 15px">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <div class="layui-form-mid layui-word-aux">个月以内</div>
+    </div>
+    <div class="layui-input-inline " style="width: 120px;">
+        <input type="text" name="date" class="layui-input" id="visitDate">
+    </div>
+    <div class="layui-input-inline" style="width: 100px;">
+        <button class="layui-btn visitForm">查询</button>
+    </div>
+    <table class="layui-table" id="visitTable">
+        <colgroup class="colgroup"></colgroup>
+        <thead>
+            <tr class="th_date" style="text-align: center;"></tr>
+        </thead>
+        <tbody>
+            <tr class="tr_num"></tr>
+        </tbody>
+    </table>
+</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+
+    layui.use(['table', 'jquery', 'layer','laydate',"form"], function () {
+        var laydate = layui.laydate;
+        var visitDate;
+        laydate.render({
+            elem: '#visitDate', // 指定元素
+            type:'month',
+            value: new Date(),
+            isInitValue: false,
+            change: function(value, date, endDate) {
+                visitDate=value;
+            },
+            done: function(value, date, endDate){
+                visitDate=value;
+            }
+        });
+
+        $(".visitForm").on("click",function () {
+            if(visitDate==""||visitDate==null){
+                var myDate = new Date;
+                const year = myDate.getFullYear();
+                const mon = myDate.getMonth() + 1;
+                visitDate=year+"-"+mon;
+            }
+            $.ajax({
+                type: 'get',
+                url: "/log/getVisitNumAvg?month="+$(".visitMonth").val()+"&date="+visitDate,
+                async:false,
+                success: function (result) {
+                    var colgroup="<col width='100'>";
+                    var th_date = "<th>日期</th>";
+                    var tr_num = "<td>人次</td>";
+                    for(var key in result){
+                        colgroup+="<col width='100'>";
+                        th_date += `<th>${key}</th>`;
+                        tr_num += `<td>${result[key]}</td>`;
+                    }
+                    $(".colgroup").empty().append(colgroup);
+                    $(".th_date").empty().append(th_date);
+                    $(".tr_num").empty().append(tr_num);
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <!--<head th:include="include::comonHeader('磁盘空间')">-->
+  <head>
+    <meta charset="utf-8">
+    <!-- 引入 G2 文件 -->
+    <script src="../../js/g2/g2.min.js"></script>
+	<script src="../../js/g2/data-set.min.js"></script>
+  </head>
+  <body>
+    <!-- 创建图表容器 -->
+    <center>
+      <div style="height: 0px;"></div>
+      <h3 style="position:relative;font-size:10px"><span id="drivernumber"></span>盘空间使用情况(共<span id="disksize"></span>G)</h3><br/>
+      <div id="container"></div>
+    </center>
+  </body>
+  <script type="text/javascript" th:src="@{../../js/jquery/jquery-1.11.1.js}" ></script>
+</html>
+<script>
+    $.ajax('/diskspace/getDiskspace')
+        .success(function(result){
+            if(result.success){
+                $('#drivernumber').text(result.data.drivenumber);
+                $('#disksize').text(result.data.totalspace);
+                var diskdata = [
+                    { name: '已使用', value: result.data.usedpercent },
+                    { name: '剩余', value: result.data.freespercent }
+                ];
+
+                const dv = new DataSet.DataView();
+                dv.source(diskdata).transform({
+                    type: 'percent',
+                    field: 'value',
+                    dimension: 'name',
+                    as: 'percent'
+                });
+                const chart = new G2.Chart({
+                    container: 'container',
+                    width: 600,
+                    height: 350
+                });
+                chart.source(dv);
+                // 重要：绘制饼图时，必须声明 theta 坐标系
+                chart.coord('theta', {
+                    radius: 0.8 // 设置饼图的大小
+                });
+                chart.tooltip({
+                    showTitle: false
+                });
+                chart.intervalStack()
+                    .position('percent')
+                    .color('name')
+                    .tooltip('name*percent', (name, percent) => {
+                    return {
+                        name,
+                        value: (percent * 100).toFixed(2) + '%'
+                    };
+            })
+            .label('name', {
+                        formatter: (text, item, index) => {
+                        const point = item.point; // 每个弧度对应的点
+                let percent = point['percent'];
+                percent = (percent * 100).toFixed(2) + '%';
+                return text + ' ' + percent;
+            }
+            });
+                chart.render();
+            }
+        })
+//        .error(function(result){
+//            XD.msg(result.msg);
+//        });
+</script>

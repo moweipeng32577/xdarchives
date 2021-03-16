@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据管理')">
+</head>
+<body>
+<script src="../../js/batchModify/view/BatchModifyModifyFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyReplaceFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyAddFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyResultPreviewGrid.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../../js/comps/ElectronicSaveVersionFormView.js"></script>
+<script src="../../sockjs/sockjs.min.js"></script>
+<script src="../../sockjs/stomp.min.js"></script>
+<script src="../../js/management/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    //声像节点id
+    var  mediaNodeids = [[${mediaNodeids}]];
+    if(mediaNodeids != null) {
+        sessionStorage.clear();
+        for (var i = 0; i < mediaNodeids.length; i++) {
+            var nodeid = mediaNodeids[i];
+            if (nodeid != null)
+                sessionStorage.setItem("mediaNodeid_" + nodeid, "1");
+        }
+    }
+    //key == 1 (全宗卷管理)
+    var key =[[${key}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //var type = [[${type}]];
+    //审核入库成功提醒，移交节点的所有父节点
+    var parentNodeids = [[${parentNodeids}]];
+    //用户id
+    var userid = [[${userid}]];
+    var userRealname = [[${userRealname}]];
+    //是否显示电子文件重名命名设置
+    var showElectronicRename = [[${showElectronicRename}]];
+</script>
+</html>

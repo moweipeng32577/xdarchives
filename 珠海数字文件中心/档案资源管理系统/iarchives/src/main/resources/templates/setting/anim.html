@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+	</head>
+	
+	<style>
+		
+		
+	</style>
+	<body>
+		<form class="layui-form" action="" >
+		  <div class="layui-form-item" >
+		    <label class="layui-form-label">窗口动画</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="anim" value="7" title="无" checked>
+		      <input type="radio" name="anim" value="0" title="弹出">
+		      <input type="radio" name="anim" value="1" title="跳跃">
+		      <!--<input type="radio" name="anim" value="2" title="向上">-->
+		      <input type="radio" name="anim" value="3" title="弯出">
+		      <input type="radio" name="anim" value="4" title="翻滚">
+		      <input type="radio" name="anim" value="5" title="淡入">
+		    </div>
+		  </div>
+		</form>
+		<hr/>
+		
+	</body>
+</html>
+<script src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script>
+    var anim = parent.personalized1?(parent.personalized1.anim?parent.personalized1.anim:'1'):"1";
+	for(var i=0;i<$('input').length;i++){
+        if($($('input')[i]).val()==anim){
+            $($('input')[i])[0].setAttribute("checked","true");
+        }
+    }
+layui.use('form', function(){
+  var form = layui.form;
+   //layer.msg('00');
+  //监听提交
+
+  var index = 1;
+  
+  form.on('radio', function(data){
+   	//console.log(data.value);
+   	 layer.close(index);
+     index = panel(data.value);
+  });
+
+    panel(parseInt(anim));
+
+    function panel(i){
+        index = layer.open({
+            type: 1,
+            title:'动画',
+            shade:0,
+            anim:i,
+            resize:false,
+            move:false,
+            area: ['60%', '60%'],
+            content:''
+        });
+        parent.personalized1.anim = i;
+        $('#zts', window.parent.document).attr('anim',i);
+        $('#zts', window.parent.document).click();
+        return index;
+    }
+
+});
+
+
+
+</script>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('实体档案出库')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/storeroom/outware/app.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+</body>
+<script th:inline="javascript">
+    var templateNodeid = [[${templateNodeid}]];
+    var functionButton = [[${functionButton}]];
+    var borrowCode = [[${borrowCode}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+</script>
+</html>

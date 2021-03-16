@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('自助查询')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/touch/app.js"></script>
+<link href="../js/audio/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../js/photoview/css/photoview.css"/>
+<link href="../js/audio/css/audio.css" rel="stylesheet"/>
+<link href="../js/video/css/video-js.css" rel="stylesheet"/>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../js/flowplayerFlash/flowplayer.min.js"></script>
+<script src="../js/audio/js/audio.js"></script>
+<script src="../js/video/js/video.min.js"></script>
+<script src="../js/comps/MediaFormView.js"></script>
+<script src="../../js/photoview/js/photoview.js"></script>
+<script src="../js/comps/DynamicFormView.js"></script>
+</body>
+<script th:inline="javascript">
+    var buttonflag = [[${buttonflag}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //判断是否馆库查询
+    var titleflag = [[${titleflag}]];
+    //判断是否开启即时搜索
+    var instantSearch = [[${instantSearch}]];
+    //判断是否自主查询
+    var type = [[${type}]];
+    var resultType = [[${resultType}]];//是否是声像的页面
+    var borrrowSendmsg = [[${borrrowSendmsg}]]; //查档是否短信通知
+    var printSendmsg = [[${printSendmsg}]];//电子打印是否短信通知
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    var systemType = [[${systemType}]];//政务网1  局域网0
+    var opensxMiedata = [[${opensxMiedata}]];//声像开放是否缩列图显示
+</script>
+<style>
+.custom-grid-row{
+    height: 2rem;
+}
+</style>
+</html>

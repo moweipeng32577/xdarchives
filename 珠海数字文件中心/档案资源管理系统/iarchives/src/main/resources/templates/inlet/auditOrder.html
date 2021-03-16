@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('待审核和消息')">
+</head>
+<body>
+<link rel="stylesheet" href="../../js/trumbowyg/design/css/trumbowyg.css">
+<script src="../../js/trumbowyg/trumbowyg.js"></script>
+<script src="../../js/auditOrder/app.js"></script>
+<script src="../../ext/ux/Datetimefield.js"></script>
+</body>
+<script th:inline="javascript">
+    var realname = [[${realname}]];
+    var auditType = [[${auditType}]];
+</script>
+</html>

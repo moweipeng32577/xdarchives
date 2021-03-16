@@ -1,0 +1,21 @@
+Ext.define('Lot.model.DeviceDiagnoseModel',{
+    extend:'Ext.data.Model',
+    fields:[{name:'diagnosename',
+        mapping:'deviceDiagnose.diagnosename'
+    },{
+        name:'diagnosecode',
+        mapping:'deviceDiagnose.diagnosecode'
+    },{
+        name:'faultcause',
+        mapping:'deviceDiagnose.faultcause'
+    },{
+        name:'suggest',
+        mapping:'deviceDiagnose.suggest'
+    },{
+        name:'createdate',
+        mapping:'deviceDiagnose.createdate'
+    },{
+        name:'modifydate',
+        mapping:'deviceDiagnose.modifydate'
+    }]
+});

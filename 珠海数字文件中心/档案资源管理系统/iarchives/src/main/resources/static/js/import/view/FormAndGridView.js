@@ -1,0 +1,23 @@
+/**
+ * 表单与表格视图
+ */
+Ext.define('Import.view.FormAndGridView',{
+    extend:'Ext.panel.Panel',
+    xtype:'importformAndGrid',
+    layout:'border',
+    items:[{
+    	region:'center',//中间
+    	flex:2,//占三分之二
+    	itemId:'northform',//上方的表单视图
+    	xtype:'importform'//表单类型
+    },{
+    	region:'south',//南部
+    	flex:1,//占三分之一
+    	itemId:'southviewgrid',//下方的表格视图
+        xtype:'importgrid',//表格类型
+        split:true,
+	    collapsible:true,
+        collapseToolText:'收起',
+        expandToolText:'展开'
+    }]
+});

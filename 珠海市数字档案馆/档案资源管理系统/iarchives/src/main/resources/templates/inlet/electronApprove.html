@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('电子查档')">
+</head>
+<link href="../js/audio/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../js/photoview/css/photoview.css"/>
+<link href="../js/audio/css/audio.css" rel="stylesheet"/>
+<link href="../js/video/css/video-js.css" rel="stylesheet"/>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/electronApprove/app.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../js/flowplayerFlash/flowplayer.min.js"></script>
+<script src="../js/audio/js/audio.js"></script>
+<script src="../js/video/js/video.min.js"></script>
+<script src="../js/comps/MediaFormView.js"></script>
+<script src="../../js/photoview/js/photoview.js"></script>
+<script src="../js/comps/DynamicFormView.js"></script>
+<body>
+<style>
+    .x-panel-header-default{
+        /*background-color:rgba(30,144,255,0.5);*/
+        /*background:none;*/
+    }
+</style>
+<script th:inline="javascript">
+    var taskid = [[${taskid}]];
+    var flowsText = [[${flowsText}]];
+    var nodeId = [[${nodeId}]];
+    var iflag = [[${iflag}]];
+    var type = [[${type}]];
+    var borrrowSendmsg = [[${borrrowSendmsg}]]; //查档是否短信通知
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    //报表服务
+    var reportServer = [[${reportServer}]];
+</script>
+</body>
+</html>

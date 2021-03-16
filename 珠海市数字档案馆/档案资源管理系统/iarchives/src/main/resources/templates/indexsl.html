@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>测试页面</title>
+    <link rel="Shortcut Icon" href="img/icon/favicon.ico"/>
+    <link rel="stylesheet" href="js/layui/css/layui.css"/>
+    <link rel="stylesheet" th:href="@{js/zui/css/zui.min.css}" />
+    <script type="text/javascript" src="js/myfocus/myfocus-2.0.4.min.js"></script>
+    <!--引入jquery-->
+    <script type="text/javascript" src="../../jquery/jquery-1.11.1.js"></script>
+    <style>
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size:11px;
+            color:#333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+        table.gridtable th {
+            word-break:keep-all;           /* 不换行 */
+            white-space:nowrap;          /* 不换行 */
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+        table.gridtable td {
+            word-break:keep-all;           /* 不换行 */
+            white-space:nowrap;          /* 不换行 */
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+
+        /*div外框*/
+        .scrollDiv {height:75%;clear: both;
+            border: 1px solid #EEEEEE;
+            OVERFLOW: scroll;width: 98%;overflow-x: auto;}
+
+        .test3 {text-align:center}
+
+    </style>
+</head>
+<body>
+<center>
+    <form action="" method="post" name="form1" id="form1">
+
+        <div>search：</div>
+        <textarea name="stl" id="stl" style="size:10px;font-size:18px;  width:98%;height:100px" onblur="clearOther()" > </textarea>
+        <input  type="hidden" name="pageNo" id="pageNo" value="1"/>
+
+    </form>
+</center>
+<div id="input0">
+    <input type="button" value="just do it" onclick="searchS()"/>
+    <input  id="input1" type="button" value="上一页" onclick="searchUp()" style='display:none;'/>
+    <input  id="input2" type="button" value="下一页" onclick="searchDown()" style='display:none;'/>
+    <span id="desc1"></span>
+</div>
+<div id="test3" class="test3"></div>
+<div id="test1">
+    <center>
+        <div id="scrollDiv" class="scrollDiv" >
+            <table id="table1" class="gridtable">
+
+
+            </table>
+        </div>
+    </center>
+</div>
+</body>
+<script th:inline="javascript">
+    var personalized = [[${personalized}]];
+</script>
+<script type="text/javascript" th:src="@{sockjs/sockjs.min.js}" ></script>
+<script type="text/javascript" th:src="@{sockjs/stomp.min.js}" ></script>
+</html>
+<script src="../js/layui/layui.js"></script>
+<script>
+
+    function searchS(){
+
+        $.ajax({
+            url:'/search/main',//提交地址
+            data:$("#form1").serialize(),//将表单数据序列化
+            dataType: 'text',
+            type:"POST",
+            success:function(data){
+                //alert(data);
+                //alert(data.indexOf("]"));
+
+                if(data.indexOf("]")>0){
+                    //alert("是数组");
+                    var myobj=eval(data);
+                    if(myobj.length>24){
+                        $("#input1").show();
+                        $("#input2").show();
+                    }else if((myobj.length<24)&&(myobj.length>0)){
+                        $("#input2").hide();
+                    }
+                    var a=$("#pageNo").val();
+                    $("#desc1").text("当前数据：第 "+25*(a-1)+" 至 "+(25*(a-1)+myobj.length-1)+" 条");
+                    //alert("myobj[0]:   "+myobj[0]);
+                    //data=[{"ispublicuser":"false","postalcode":"","deptinfoid":"1043119409412201989","unitcode":"f5c5a23f-59cc-4c1b-bf2b-9c9982f3bf41","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"726e9b83-8aff-4e14-ad5c-36805598cf9c","usertype":"2","whenchanged":"20120514094557","im":"","id":"1005282488750566004","mobilephone":"","systype":"0","username":"toa\\wangmanchun","userpassword":"8088595446","useremail":"","domain":"toa","realname":"王满春","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"553311902342448538","unitcode":"cca45a73-6453-4736-908d-2eccfb9620e9","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"e0e32db6-afc1-4679-9576-36778f6b2397","usertype":"2","whenchanged":"20120515033059","im":"","id":"845474537415983018","mobilephone":"","systype":"0","username":"toa\\wzzhangchen","userpassword":"dfd3cefb2146515f","useremail":"","domain":"toa","realname":"张晨","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1232668697109053500","unitcode":"9e8c1e2c-adb2-44be-9efb-b48da99f7353","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"18854a1b-3720-4d8b-8c8c-367af1b8c476","usertype":"2","whenchanged":"20120511064549","im":"","id":"831181240359666048","mobilephone":"","systype":"0","username":"toa\\lijuan1","userpassword":"a838657a74","useremail":"lijuan1@office.cgbchina","domain":"toa","realname":"李娟","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1324162582519874870","unitcode":"b1d22c63-80f3-41ca-aa3e-062f9e537a8d","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"ce1c71bd-67c2-4d3b-94ee-3685c83e142e","usertype":"2","whenchanged":"20121123234601","im":"","id":"902996456366637120","mobilephone":"","systype":"0","username":"toa\\linguanhua","userpassword":"e54156465153","useremail":"linguanhua@office.cgbchina","domain":"toa","realname":"林冠华","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"889195675452547743","unitcode":"9a7a5fe8-b5d2-4db7-ab6c-f2395577ec38","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"9ecdc669-5a95-4a25-865f-368630702206","usertype":"2","whenchanged":"20120515034559","im":"","id":"743437585117486209","mobilephone":"","systype":"0","username":"toa\\zhengqiuting","userpassword":"560a2418047b01","useremail":"","domain":"toa","realname":"郑秋婷","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1232668697109053500","unitcode":"9e8c1e2c-adb2-44be-9efb-b48da99f7353","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"dfef5033-576a-418f-abd0-368a49cce2fa","usertype":"2","whenchanged":"20120511061552","im":"","id":"1599123891529622203","mobilephone":"","systype":"0","username":"toa\\fengwei139","userpassword":"2fdf371d54670705","useremail":"fengwei139@office.cgbchina","domain":"toa","realname":"冯巍","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1585546243937218482","unitcode":"0eb8ff9e-045e-4081-a37c-279442e88595","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"c0dde1c2-6dd8-4cb6-bc48-368bdf61b94c","usertype":"2","whenchanged":"20120426024515","im":"","id":"1178088919994302558","mobilephone":"","systype":"0","username":"toa\\yushuxin","userpassword":"f5753d535f59","useremail":"","domain":"toa","realname":"于淑鑫","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"877525825534109873","unitcode":"6a5ea3f6-d23c-4654-878c-42b7977f7557","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"966b28f5-b58c-4874-95ec-3692d3ad2f6f","usertype":"2","whenchanged":"20150106062823","im":"","id":"806943891772607609","mobilephone":"","systype":"0","username":"toa\\luojian","userpassword":"8078595446","useremail":"luojian@office.cgbchina","domain":"toa","realname":"罗建","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1319381077955934539","unitcode":"30cbe092-886c-4de9-b8fe-0da7ab6ffc2b","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"3237edb0-31a7-4d5c-8a3c-36965a78fabf","usertype":"2","whenchanged":"20141125035707","im":"","id":"810046948197990680","mobilephone":"","systype":"0","username":"toa\\zhuziwen","userpassword":"f2f6f0c651595e","useremail":"zhuziwen@office.cgbchina","domain":"toa","realname":"朱子文","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1324162582519874870","unitcode":"b1d22c63-80f3-41ca-aa3e-062f9e537a8d","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"ea8b891b-bdc8-4715-9e06-3696a84d9daf","usertype":"2","whenchanged":"20121123233110","im":"","id":"1284709054721294334","mobilephone":"","systype":"0","username":"toa\\ganxingmei","userpassword":"7a2e233d4d5619","useremail":"ganxingmei@office.cgbchina","domain":"toa","realname":"甘行梅","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"966774763385544784","unitcode":"93f0a076-a9a6-4822-a40d-928f2508fdee","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"5e10c10d-c5c9-43c0-8b02-369a0bae7155","usertype":"2","whenchanged":"20120515033059","im":"","id":"1278037254273925847","mobilephone":"","systype":"0","username":"toa\\zhouding","userpassword":"29c147515e7a","useremail":"zhouding@office.cgbchina","domain":"toa","realname":"周鼎","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1437311286227224722","unitcode":"805c306c-ed48-4c27-b502-587de0866d2e","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"c10055cf-751c-47f2-9884-369a14cbdcef","usertype":"2","whenchanged":"20120426024515","im":"","id":"991270880206957081","mobilephone":"","systype":"0","username":"toa\\yumiao","userpassword":"ae1640b10d6765","useremail":"","domain":"toa","realname":"于淼","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1232668697109053500","unitcode":"9e8c1e2c-adb2-44be-9efb-b48da99f7353","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"04bb32b5-786e-40ec-887d-369e4ea5bff6","usertype":"2","whenchanged":"20120514094557","im":"","id":"1192082617181126548","mobilephone":"","systype":"0","username":"toa\\liutiehui","userpassword":"1ece8b4c510804","useremail":"","domain":"toa","realname":"刘铁辉","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1232668697109053500","unitcode":"9e8c1e2c-adb2-44be-9efb-b48da99f7353","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"7b9af43d-3834-48f8-a61a-36a14c60b464","usertype":"2","whenchanged":"20120426024512","im":"","id":"704505865086366654","mobilephone":"","systype":"0","username":"toa\\hezhijiang","userpassword":"44907e7b7b","useremail":"hezhijiang@office.cgbchina","domain":"toa","realname":"何志江","telephone":""},{"ispublicuser":"false","postalcode":"","deptinfoid":"1232668697109053500","unitcode":"9e8c1e2c-adb2-44be-9efb-b48da99f7353","status":"0","remark":"","font":"","stylelinks":"","isly":"true","userid":"4e606e73-749d-43ce-98a8-36a3d9299277","usertype":"2","whenchanged":"20120511060053","im":"","id":"1292005376083312001","mobilephone":"","systype":"0","username":"toa\\huangguxiang","userpassword":"8dc124516844","useremail":"huangguxiang@office.cgbchina","domain":"toa","realname":"黄谷祥","telephone":""}];
+                    $("#table1").text("");
+                    $("#test3").text(" ");
+                    $("#table1").append("<tr id='th0' class='scrollColThead'></tr>");
+
+                    var sn=$("#stl").val();
+                    sn=sn.toLowerCase();
+                    var sn2=sn.substring(sn.indexOf("select")+6,sn.indexOf("from"));
+
+                    var arr=[];
+                    //截取判断
+                    if(sn2.indexOf(",")>0){
+                        sn2=$.trim(sn2);
+                        arr=sn2.split(",");
+                    }else{
+                        for(var key in myobj[0]){
+                            arr.push(key);
+                        }
+                        arr.sort();
+                    }
+
+                    for(var i=0;i<arr.length;i++){
+                        var k=arr[i];
+                        $("#th0").append("<th class='scrollRowThead'>"+k+"</th>");
+                    }
+
+                    for(var i=0;i<myobj.length;i++) {
+                        $("#table1").append("<tr id='tr_"+i+"'></tr>");
+                        for(var j=0;j<arr.length;j++){
+                            var k=arr[j];
+                            $("#tr_"+i).append("<td class='scrollRowThead'>"+myobj[i][k]+"</td>");
+                        }
+                    }
+                }else if(data=="0"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("不执行此类语句");
+                    $("#test3").text("不执行此类语句");
+                }else if(data=="-2"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("无查询结果");
+                    $("#test3").text("无查询结果");
+                }else if(data==""){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("语句错误");
+                    $("#test3").text("语句错误");
+                }else if(data=="10003A"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("执行成功");
+                    $("#test3").text("暂不支持此db查询");
+                }else if(data=="10002A"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("执行成功");
+                    $("#test3").text("执行成功");
+                }else if(data=="10001A"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("ok");
+                    $("#test3").text("ok");
+                }else if(data=="10000A"){
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    $("#table1").text(" ");
+                    $("#test3").text(" ");
+
+                }else{
+                    $("#input1").hide();
+                    $("#input2").hide();
+                    $("#table1").text("");
+                    $("#desc1").text("");
+                    //$("#table1").text("执行成功,受影响"+data+"行");
+                    $("#test3").text("执行成功,受影响"+data+"行");
+                }
+
+            }
+        });
+
+    }
+
+    function searchUp(){
+        var a=$("#pageNo").val();
+        if(parseInt(a)-1>0){
+            $("#pageNo").val(parseInt(a)-1);
+            searchS();
+        }else{
+            alert("已是第一页");
+        }
+    }
+
+    function searchDown(){
+        var a=$("#pageNo").val();
+        //alert(parseInt(a)+1);
+        $("#pageNo").val(parseInt(a)+1);
+        searchS();
+    }
+
+    function clearOther(){
+        $("#pageNo").val(1);
+        $("#input1").hide();
+        $("#input2").hide();
+        $("#desc1").text("");
+    }
+</script>

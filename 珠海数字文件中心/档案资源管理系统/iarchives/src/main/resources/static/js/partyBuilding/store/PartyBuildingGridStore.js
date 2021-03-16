@@ -1,0 +1,16 @@
+Ext.define('PartyBuilding.store.PartyBuildingGridStore',{
+    extend:'Ext.data.Store',
+    model:'PartyBuilding.model.PartyBuildingGridModel',
+    pageSize:XD.pageSize,
+    remoteSort:true,
+    proxy:{
+        type:'ajax',
+        url:'/partyBuilding/getPartyBuilding',
+        extraParams:{},
+        reader:{
+            type:'json',
+            rootProperty:'content',
+            totalProperty:'totalElements'
+        }
+    }
+});

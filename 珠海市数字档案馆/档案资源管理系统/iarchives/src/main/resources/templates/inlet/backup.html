@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据备份')">
+</head>
+<body>
+<script src="../../js/backup/app.js"></script>
+<script src="../../sockjs/sockjs.min.js"></script>
+<script src="../../sockjs/stomp.min.js"></script>
+</body>
+<script th:inline="javascript">
+    //用户id
+    var userid = [[${userid}]];
+</script>
+</html>

@@ -1,0 +1,38 @@
+/**
+ * Created by Leo on 2020/9/19 0019.
+ */
+/**
+ * 设备类型表单视图
+ */
+Ext.define('Lot.view.device.DeviceTypeFormView',{
+    extend:'Ext.form.FormPanel',
+    xtype:'DeviceTypeFormView',
+    bodyPadding:15,
+    defaults:{
+        xtype:'textfield',
+        anchor:'98%'
+    },
+    items:[{
+        name:'id',
+        xtype:'hidden'
+    },{
+        name:'typeName',
+        xtype:'textfield',
+        fieldLabel:'设备类型名称'
+    },{
+        name:'typeCode',
+        xtype:'textfield',
+        fieldLabel:'设备类型编码'
+    },{
+        name:'typeMap',
+        xtype:'textfield',
+        fieldLabel:'设备平面图'
+    }],
+    buttons:[{
+        text:'保存',
+        itemId:'saveBtn'
+    },{
+        text:'关闭',
+        itemId:'closeBtn'
+    }]
+});

@@ -1,0 +1,16 @@
+Ext.define('Notice.store.NoticeStore',{
+    extend:'Ext.data.Store',
+    model:'Notice.model.NoticeModel',
+    pageSize:XD.pageSize,
+    remoteSort:true,
+    proxy:{
+        type:'ajax',
+        url:'/notice/getNotices',
+        extraParams:{},
+        reader:{
+            type:'json',
+            rootProperty:'content',
+            totalProperty:'totalElements'
+        }
+    }
+});

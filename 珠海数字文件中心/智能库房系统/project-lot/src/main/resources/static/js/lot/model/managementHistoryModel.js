@@ -1,0 +1,15 @@
+Ext.define('Lot.model.managementHistoryModel',{
+    extend:'Ext.data.Model',
+    fields:[
+        {
+            name:'time',
+            mapping:'time'
+        },{
+            name:'capturevalue',
+            mapping:'capturevalue'
+        },{
+            name:'type',
+            mapping:'type'
+        }
+    ]
+});

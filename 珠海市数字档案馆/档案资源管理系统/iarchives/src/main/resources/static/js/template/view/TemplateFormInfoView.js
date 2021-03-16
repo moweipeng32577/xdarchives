@@ -1,0 +1,10 @@
+Ext.define('Template.view.TemplateFormInfoView',{
+    extend:'Ext.panel.Panel',
+    xtype:'templateFormInfoView',
+    layout:'border',
+    items:[{
+    	region:'center',//中间
+    	itemId:'northform',//上方的表单视图
+    	xtype:'templateFormView'//表单类型
+    }]
+});

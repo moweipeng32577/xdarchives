@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('日志管理')">
+</head>
+<body>
+<script src="../../js/log/app.js"></script>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var openSxData = [[${openSxData}]];
+</script>
+</body>
+</html>

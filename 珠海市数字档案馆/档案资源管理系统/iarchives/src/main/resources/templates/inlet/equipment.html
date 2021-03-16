@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('设备管理')">
+</head>
+<body>
+<link rel="stylesheet" href="../../js/trumbowyg/design/css/trumbowyg.css">
+<script src="../../js/trumbowyg/trumbowyg.js"></script>
+<script src="../../js/equipment/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+</script>
+</html>

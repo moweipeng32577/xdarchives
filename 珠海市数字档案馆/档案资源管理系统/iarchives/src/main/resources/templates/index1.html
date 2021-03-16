@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8" />
+	<title>档案管理系统</title>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel = "Shortcut Icon" th:href="@{img/icon/favicon.ico}"/>
+	<link rel="stylesheet" href="js/layui/css/layui.css"/>
+	<script th:inline="javascript">
+        var sysType=[[${sysType}]];//系统类型,用于统一登录平台
+	</script>
+	<style>
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-height: 768px;
+			margin: 0px;
+			padding: 0px;
+			overflow: hidden;
+		}
+
+		.layui-layer-title{
+			background:  #3498d5 !important;
+		}
+
+		.layerTitleIcon{
+			width:30px;
+			height:30px;
+			margin-right: 5px;
+		}
+
+		.layui-layer-min,.layui-layer-setwin .layui-layer-max,.layui-layer-setwin .layui-layer-close1{
+			display: inline-block;
+			height:25px !important;
+			background: rgba(255,255,255,.5);
+			padding:1px 10px !important;
+			top:-6px;
+			border-radius: 7px;
+			-webkit-box-shadow:0 2px 15px rgba(0, 0, 0, 0.2);
+			box-shadow:0 2px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		.layui-layer-min cite{
+			position: absolute !important;
+			left:8px !important;
+		}
+
+		.layui-layer-setwin a{
+			margin-left:5px !important;
+			text-decoration: none;
+		}
+
+		.layui-layer-setwin .layui-layer-max cite{
+			width:15px;
+			height: 15px;
+			border:2px solid #fff;
+			position: absolute !important;
+			left:8px !important;
+			top:5px !important;
+		}
+
+		.layui-layer-setwin .layui-layer-close1{
+			background:#f06565;
+		}
+
+		.layui-layer-setwin .layui-layer-close1 cite{
+			width:15px;
+			height: 15px;
+			position: absolute !important;
+			/*left:7px !important;*/
+			top:-2px !important;
+			font-size:28px;
+			color: #fff;
+		}
+
+		.xdmain{
+			width: 100%;
+			height: 100%;
+		}
+
+		.xdmenus{
+			position:fixed;
+			top:0px;
+			z-index: 100000001;
+			width: 100%;
+			height: 90px;
+			background-image: url(img/headerBg.png);
+			background-size:100% 100% ;
+		}
+
+		.xdcontent{
+			position:absolute;
+			top:131px;
+			width: 100%;
+		}
+
+		.xdnav{
+			position:absolute;
+			z-index: 1;
+			top:90px;
+			width: 100%;
+			height: 40px;
+			background: #f8f8f8;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+		}
+
+		.xdwindow{
+			width: 100%;
+			height: 100%;
+			background: #abcdef;
+		}
+
+		.xdmenusleft{
+			float: left;
+			min-width: 1000px;
+			width:80%;
+			height: 100%;
+		}
+
+		.xdlogoimgdiv,.xdmenusdiv{
+			height: 100%;
+			float: left;
+		}
+
+		.xdlogoimgdiv{
+			padding:0 30px;
+		}
+
+
+		/*.xdmenusdivtp{
+            margin-left: 30px;
+            overflow: hidden;
+            width:500px;
+        }*/
+
+		.xdmenusdiv{
+			/*overflow: hidden;*/
+			min-width:700px;
+			height: 100%;
+		}
+
+
+
+		.xdlogoimgdiv img{
+			padding-top: 8%;
+		}
+
+		.xdmenusdiv>ul{
+			list-style-type: none;
+			margin: 0px;
+			padding: 0px;
+			position: relative;
+			/*left:-300px;*/
+		}
+
+		.xdmenusdiv>ul>li{
+			float: left;
+			min-width: 100px;
+			height: 90px;
+			text-align: center;
+			color: #fff;
+			font-family: "微软雅黑";
+			position:relative;
+			transition: all .5s ease;
+		}
+
+		.xdmenusdiv>ul>li:hover{
+			cursor: pointer;
+			background: rgba(255,255,255,.3);
+		}
+		.xdmenusdiv>ul>li>img{
+			margin-top: 15px;
+			margin-bottom: 5px;
+			width: 35px;
+			height: 35px;
+		}
+
+		.xdmenusright{
+			float: right;
+			min-width: 100px;
+			width:18%;
+			min-width: 200px;
+			height: 100%;
+		}
+
+		.xduserdiv{
+			float: right;
+			height: 100%;
+			padding: 0 10px;
+			color: #fff;
+		}
+
+		.xduserdiv:hover{
+			cursor: pointer;
+		}
+
+		.xduserdiv img,.xdmsg img{
+			width:30px;
+			height: 30px;
+			position: relative;
+			top:25px
+		}
+
+		.xdmsg img{
+			width:auto;
+			height:auto;
+			top:27px
+		}
+
+		.xduserdiv span{
+			position:relative;
+			top:30px;
+			left:5px;
+		}
+
+		.xdmsg{
+			float: right;
+			min-width: 70px;
+			height: 100%;
+			text-align: center;
+		}
+
+		.iselect{
+			position: absolute;
+			min-width:180px;
+			top:90px;
+			left:0px;
+			border-radius:2px;
+			background: #fff;
+			-webkit-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+			-moz-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+			box-shadow:1px 1px 50px rgba(0,0,0,.3);
+		}
+
+		.itriangle{
+			width: 0;
+			height: 0;
+			top:-17px;
+			left:15px;
+			position: absolute;
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-bottom: 17px solid #fb8989;
+		}
+
+		.iselecttext{
+			min-height: 30px;
+			transition: all .2s ease;
+			color: #000;
+			text-align: left;
+			border-bottom: 1px solid rgba(255,255,255,.3);
+		}
+
+		.idbselecttext{
+			float: left;
+			width:50%;
+			min-height: 30px;
+			transition: all .2s ease;
+			border-bottom: 1px solid rgba(255,255,255,.3);
+		}
+
+		.iselecttext:hover{
+			background:rgba(65,195,212,.7);
+			color:white !important;
+			cursor: pointer;
+		}
+
+		.idbselecttext:hover{
+			background: rgba(255,255,255,.3);
+			cursor: pointer;
+		}
+
+		.iselecttext span,.idbselecttext span{
+			position: relative;
+			line-height: 30px;
+			padding: 0px 10px;
+		}
+
+		.iselecttext img{
+			width:20px;
+			height:20px;
+			position: relative;
+			top:3px;
+		}
+
+		.menuleftgif,.menurightgif{
+			width:35px;
+			height:35px;
+			margin-top: 30px;
+			transition: all .5s ease;
+		}
+
+		.menuleftgif:hover,.menurightgif:hover,.xdmsg:hover{
+			cursor: pointer;
+		}
+
+		.menuleftgif{
+			float: left;
+		}
+
+		.menurightgif{
+			float: right;
+		}
+
+		@keyframes ianimRight {
+			from, to {
+				animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			}
+
+			from {
+				transform: translate3d(50px, 0, 0);
+				right:0px;
+			}
+
+			to {
+				transform: translate3d(0, 0, 0);
+				transform: none;
+			}
+		}
+
+		@keyframes ianimScale {
+			from, to {
+				animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			}
+
+			from {
+				transform:scale(.7);
+				right:0px;
+			}
+
+			to {
+				transform:scale(1);
+				transform: none;
+			}
+		}
+
+		.ianimScale {
+			animation-duration: .3s;
+			animation-fill-mode: both;
+			animation-name: ianimScale;
+		}
+
+		.ianimRight {
+			animation-duration: .5s;
+			animation-fill-mode: both;
+			animation-name: ianimRight;
+		}
+
+		.navtp{
+			min-width:100px;
+			height: 40px;
+			background: rgba(47,64,86,1);
+			float: left;
+			line-height: 40px;
+			padding:0 3px 0 10px;
+			margin-right:1px;
+			color: #fff;
+			position:relative;
+			border-radius:10px 10px 2px 2px;
+			margin-right: 3px;
+		}
+
+		.navtp:hover{
+			cursor: pointer;
+			background: rgba(47,64,86,.6);
+		}
+
+		.navtpclose{
+			position:relative;
+			display: inline-block;
+			top:13px;
+			width:15px;
+			height: 15px;
+			border-radius: 50%;
+			background: rgba(255,255,255,.5);
+		}
+
+		.navtpclose:hover{
+			cursor: pointer;
+			background: rgba(255,0,0,1);
+		}
+
+		.navtpimg{
+			width:16px;
+			height: 16px;
+			position:relative;
+			top:2px;
+		}
+
+		.navtpclose img{
+			position: relative;
+			top:-14px;
+			left:2.5px;
+		}
+
+		.xdframe,.xdframeHome{
+			width:100%;
+			height: 100%;
+			position: absolute;
+			transition:width .5s ease;
+		}
+
+		.iloading{
+			width:100%;
+			height:100%;
+			position: absolute;
+			background:rgba(0,0,0,.3);
+			-webkit-animation: iscale .2s ease-in-out;
+			animation: iscale .2s ease-in-out;
+		}
+
+		.iloading img{
+			position: relative;
+			top:40%;
+			left:50%;
+		}
+
+		.splitScreen,.closeAllnav{
+			float: right;
+			padding: 0 10px 0 0;
+			height: 40px;
+			line-height: 40px;
+		}
+
+		.closeAllnav:hover{
+			cursor: pointer;
+		}
+
+		.splitScreen:hover{
+			cursor: pointer;
+		}
+
+		iframe{
+			margin:0px;
+			padding: 0px;
+			border:0px;
+		}
+
+		.xdlogout{
+			position: absolute;
+			z-index: 10000000001;
+			width:100%;
+			height: 100%;
+			background: rgba(0,0,0,.3);
+			display: none;
+			transition: all .5s ease;
+		}
+
+		.xdlogoutpanel{
+			width:250px;
+			height: 150px;
+			border-radius: 3px;
+			background: #fff;
+			margin: auto;
+			position: relative;
+			top:30%;
+		}
+
+		.xdlogoutpanelup{
+			height: 100px;
+			text-align: center;
+			line-height: 100px;
+			font-size:1.2em;
+		}
+
+		.xdlogoutpaneldown{
+			height: 50px;
+			background:#F5F5F5	;
+			text-align: center;
+			line-height: 50px;
+			transition: all .3s ease;
+		}
+
+		.xdlogoutpaneldown:hover{
+			cursor: pointer;
+			background: rgba(255,0,0,.5);
+			color:#fff;
+		}
+
+		.spinner {
+			width: 80px;
+			height: 60px;
+			text-align: center;
+			font-size: 10px;
+			margin: auto;
+			margin-top: 20%;
+		}
+
+		.spinner > div {
+			background-color: #1E90FF;
+			height: 100%;
+			width: 6px;
+			margin: 0px 2px;
+			display: inline-block;
+
+			-webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+			animation: stretchdelay 1.2s infinite ease-in-out;
+		}
+
+		.spinner .rect2 {
+			-webkit-animation-delay: -1.1s;
+			animation-delay: -1.1s;
+		}
+
+		.spinner .rect3 {
+			-webkit-animation-delay: -1.0s;
+			animation-delay: -1.0s;
+		}
+
+		.spinner .rect4 {
+			-webkit-animation-delay: -0.9s;
+			animation-delay: -0.9s;
+		}
+
+		.spinner .rect5 {
+			-webkit-animation-delay: -0.8s;
+			animation-delay: -0.8s;
+		}
+
+		@-webkit-keyframes iscale {
+			0%{
+				opacity: 0;
+				-webkit-transform: scale(0.4);
+				transform: scale(1.0);
+			}
+			100% {
+				opacity: 1;
+				-webkit-transform: scale(1.0);
+				transform: scale(1.0);
+			}
+		}
+
+		@-webkit-keyframes stretchdelay {
+			0%, 40%, 100% {
+				-webkit-transform: scaleY(0.4)
+			}
+			20% {
+				-webkit-transform: scaleY(1.0)
+			}
+		}
+
+		@keyframes stretchdelay {
+			0%, 40%, 100% {
+				transform: scaleY(0.4);
+				-webkit-transform: scaleY(0.4);
+			}
+			20% {
+				transform: scaleY(1.0);
+				-webkit-transform: scaleY(1.0);
+			}
+		}
+
+		.iselect1{
+			position: relative;
+			top:0px;
+			min-width:70px;
+			min-height: 80px;
+			display: none;
+			top:50px;
+			left:20px;
+			z-index: 10;
+			border-radius:5px;
+			background: #fff;
+			-webkit-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+			-moz-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+			box-shadow:1px 1px 50px rgba(0,0,0,.3);
+		}
+
+		.itriangle1{
+			width: 0;
+			height: 0;
+			top:-17px;
+			left:35%;
+			position: absolute;
+			border-left: 15px solid transparent;
+			border-right: 15px solid transparent;
+			border-bottom: 17px solid #fff;
+		}
+
+		.iselecttext1{
+			width:100%;
+			height: 40px;
+			text-align: center;
+			transition: all .2s ease;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+		}
+
+		.iselecttext1:hover{
+			background: rgba(0,0,0,.1);
+			cursor: pointer;
+		}
+
+		.iselecttext1 span,.idbselecttext1 span{
+			position: relative;
+			color: #333333;
+			top:10px;
+			font-size: 1.1em;
+			line-height: 10px;
+			/*padding: 0px 10px;*/
+		}
+	</style>
+</head>
+<body>
+<div class="xdmain">
+	<div class="xdmenus">
+		<div class="xdmenusleft">
+			<div class="xdlogoimgdiv">
+				<img src="img/logo1.png" />
+			</div>
+			<div class="xdmenusdiv">
+				<img src="img/icon/left.gif"  class="menuleftgif" style="visibility: hidden;opacity: 0;"/>
+				<ul></ul>
+				<img src="img/icon/right.gif" class="menurightgif"/>
+			</div>
+		</div>
+		<div class="xdmenusright">
+			<div class="xdmsg">
+				<img src="img/home.png" style="width:30px;height: 30px;position: relative;"/>
+			</div>
+			<div class="xduserdiv">
+				<img src="img/user.png" /> <span th:text="${realname+',欢迎您'}" ></span>
+				<div class="iselect1 layui-anim layui-anim-upbit">
+					<div class="itriangle1"></div>
+					<div class="iselecttext1 virtualDesktop" ><span>虚拟桌面</span></div>
+					<div class="iselecttext1 manual" ><span>使用说明</span></div>
+					<div class="iselecttext1 changepwd" ><span>修改密码</span></div>
+					<div class="iselecttext1 logout" ><span>退 出</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="xdnav">
+		<div class="splitScreen" datastate="0">开启分屏</div>
+		<div class="closeAllnav">关闭全部 |</div>
+		<div style="float: left;width:3px;height:40px; "></div>
+	</div>
+	<div class="xdcontent">
+		<div class="xdframeHome"><iframe src="/message" style="width:100%;height: 100%;"></iframe></div>
+	</div>
+	<div class="xdlogout ">
+		<div class="xdlogoutpanel ianimScale">
+			<div class="xdlogoutpanelup">
+				<img src="img/why.png" style="width:55px;height:55px;position: relative;top:0px;"/> 确定退出吗?
+			</div>
+			<div class="xdlogoutpaneldown">
+				退 出
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script th:inline="javascript">
+    var personalized = [[${personalized}]];
+    var personalizedObject = JSON.parse(personalized)?JSON.parse(personalized):{};
+    var imgpath=[[${imgsrc}]];
+</script>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script type="text/javascript" th:src="@{js/layer/layer.js}" ></script>
+<script type="text/javascript" th:src="@{js/desktop/desktop1.js}" ></script>
+</html>

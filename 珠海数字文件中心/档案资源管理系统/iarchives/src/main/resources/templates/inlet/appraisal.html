@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('到期鉴定管理')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/appraisal/app.js"></script>
+</body>
+<script th:inline="javascript">
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    var appraisalSendmsg = [[${appraisalSendmsg}]]; //销毁是否短信通知
+    var appraisalNumber=[[${appraisalNumber}]]  //鉴定过期数量
+</script>
+</html>

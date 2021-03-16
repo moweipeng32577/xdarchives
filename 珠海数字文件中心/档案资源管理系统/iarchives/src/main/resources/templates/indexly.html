@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<head>
+    <meta charset="UTF-8">
+    <title>利用平台</title>
+    <link rel="Shortcut Icon" href="img/icon/title.jpg"/>
+    <link rel="stylesheet" href="js/layui/css/layui.css"/>
+    <link rel="stylesheet" th:href="@{js/zui/css/zui.min.css}" />
+    <!--<script type="text/javascript" src="js/myfocus/myfocus-2.0.4.min.js"></script>-->
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            background:#ededed;
+        }
+
+        .topBar {
+            position: fixed;
+            z-index: 10;
+            width: 100%;
+            height: 80px;
+            min-width: 1000px;
+            top: 0px;
+            left: 0px;
+            margin: auto;
+            background:#293b59;
+        }
+
+        .homePanel {
+            width: 100%;
+            height: 100%;
+            min-width: 1000px;
+
+        }
+
+        .logoDiv {
+            float: left;
+            margin-top: -5px;
+            margin-left: 60px;
+            height: 80px;
+            line-height: 80px;
+        }
+
+        .logoDiv img{
+            width:420px;
+            height:44px;
+        }
+
+        .gnUl, .userDiv ul {
+            margin: 0px;
+        }
+
+        .gnUl1{
+            display: none;
+            background: #fff;
+            flex-wrap: wrap;
+            justify-content: center;
+            height: 100%;
+            width: 198%;
+            margin-left: -48%;
+            text-align: center;
+            border-radius:5px;
+        }
+
+        .gnUl li {
+            float: right;
+            list-style: none;
+            height: 100%;
+            line-height:80px;
+            border-radius: 3px;
+            padding: 0 30px;
+            color: #fff;
+            font-size: 1.2em;
+            font-family: 雅黑;
+            transition: all .2s;
+        }
+
+        .gnUl1{
+            display: none;
+            background: #fff;
+            flex-wrap: wrap;
+            justify-content: center;
+            height: 100%;
+            width: 198%;
+            margin-left: -48%;
+            text-align: center;
+            border-radius:5px;
+            -webkit-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+            -moz-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+            box-shadow:1px 1px 50px rgba(0,0,0,.3);
+        }
+
+        .gnUl li:hover {
+            background: rgba(13, 150, 228,.8);
+            cursor: pointer;
+        }
+
+        .gnUl1 li:hover {
+            background: rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+
+        .gnUl li:active {
+            background: rgba(237, 242, 252, 0.7);
+        }
+
+        .gnUl1 div:hover{
+            background: rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+
+        .zw{
+            height:80px;
+        }
+
+        @media screen and (min-width:1024px)and (max-width: 1860px)  {
+            .gnUl{
+                float:right;
+            }
+
+            .logoDiv{
+                margin-left: 25px;
+                margin-top: -10px;
+            }
+
+            .logoDiv img{
+                /*height: 30px;*/
+            }
+
+            .gnUl li {
+                padding:0 20px;
+                line-height: 60px;
+                font-size: .9em !important;
+            }
+
+            .realname{
+                min-width: 120px;
+                max-width: 140px;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .qhli{
+                width: 150px;
+            }
+
+            .realname,.qhli{
+                font-size: .9em !important;
+            }
+
+            .userDiv ul li{
+                height: 60px !important;
+            }
+
+            .userDiv ul li:not(:last-child){
+                line-height: 60px !important;
+            }
+
+            .iselecttext span,.idbselecttext span,.gnUl1 span{
+                top:-10px !important;
+            }
+
+            #ptselect .iselecttext span,.idbselecttext span{
+                top:5px !important;
+            }
+
+            .topBar{
+                height:60px;
+            }
+
+            .zw{
+                height:60px;
+            }
+
+            .msgText {
+                width: 100% !important;
+            }
+
+            .themaDiv{
+                width: 350px !important;
+                height: 440px !important;
+            }
+
+            .openDaDiv,.jyDiv,.msgDiv{
+                width: 250px !important;
+                height: 440px !important;
+            }
+
+            .layui-table-view{
+                height: 390px !important;
+            }
+
+            .layui-table-body{
+                height: 350px !important;
+            }
+
+            .mk{
+                left:-30px !important;
+            }
+
+        }
+
+        @media screen and (max-width:1600px){
+            .themaDiv{
+                width: 400px !important;
+            }
+
+            .openDaDiv,.jyDiv,.msgDiv{
+                width: 300px !important;
+            }
+        }
+
+        @media screen and (max-width:1366px){
+            .tpDiv {
+                padding-top: 0px !important;
+            }
+
+            .themaDiv{
+                width: 350px !important;
+                height: 440px !important;
+            }
+
+            .openDaDiv,.jyDiv,.msgDiv{
+                width: 250px !important;
+                height: 440px !important;
+            }
+
+            .layui-table-view{
+                height: 390px !important;
+            }
+
+            .layui-table-body{
+                height: 350px !important;
+            }
+
+            .mk{
+                left:-30px !important;
+            }
+
+            .laytable-cell-3-title{
+                width: 140px !important;
+            }
+
+            .laytable-cell-3-postedman{
+                width: 107px !important;
+            }
+        }
+
+        @media screen and (max-width:1280px){
+            .gnUl li {
+                padding:0 15px;
+            }
+
+            .themaDiv{
+                width: 350px !important;
+                height: 440px !important;
+            }
+
+            .openDaDiv,.jyDiv,.msgDiv{
+                width: 250px !important;
+                height: 440px !important;
+            }
+
+            .layui-table-view{
+                height: 390px !important;
+            }
+
+            .layui-table-body{
+                height: 350px !important;
+            }
+
+            .tpDiv {
+                padding-top: 0px !important;
+            }
+        }
+
+        @media screen and (max-width:1024px){
+            .gnUl li {
+                padding:0 7px;
+            }
+
+            .logoDiv{
+                margin-left: 10px;
+            }
+
+            .userDiv{
+                margin-right: 0px !important;
+            }
+
+            .userDiv ul{
+                padding-left: 0px;
+            }
+
+            .userDiv ul li{
+                padding-left:0px !important;
+                padding-right: 5px !important;
+            }
+
+            .qhli{
+                width:100px;
+                padding: 0px !important;
+            }
+
+            .realname{
+                font-size: 13px !important;
+            }
+
+            .themaDiv{
+                width: 300px !important;
+                height: 420px !important;
+            }
+
+            .openDaDiv,.jyDiv,.msgDiv{
+                width: 200px !important;
+                height: 420px !important;
+            }
+
+            .layui-table-view{
+                height: 370px !important;
+            }
+
+            .layui-table-body{
+                height: 330px !important;
+            }
+
+            .mk{
+                left:-20px !important;
+            }
+
+            .tpDiv {
+                padding-top: 0px !important;
+            }
+        }
+
+        @keyframes showIn {
+            from, to {
+                animation-timing-function: ease;
+            }
+
+            from {
+                opacity: 0;
+                -webkit-transform: scale(.9);
+            }
+
+            to {
+                -webkit-transform: scale(1);
+            }
+        }
+
+        .showIn {
+            animation-name: showIn;
+            animation-duration: .5s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes showOut {
+            from, to {
+                animation-timing-function: ease;
+            }
+
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .showOut {
+            animation-name: showOut;
+            animation-duration: .5s;
+            animation-fill-mode: both;
+        }
+
+        .gnDiv {
+            width: 100%;
+            left: 0px;
+            position: absolute;
+            background: #fff;
+        }
+
+        .tpDiv {
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            height: 100%;
+            padding-top: 3%;
+            overflow-y: auto;
+        }
+
+        .focusDiv, .openDaDiv, .jyDiv, .themaDiv {
+            margin: 10px;
+            margin-top: 80px;
+            height: 550px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px 10px 4px 4px;
+        }
+
+        .msgDiv{
+            margin: 10px;
+            margin-top: 80px;
+            height: 550px;
+            border-radius: 10px 10px 4px 4px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .themaDiv{
+            width: 550px;
+        }
+
+        .focusDiv {
+            width: 540px;
+            height: 390px;
+        }
+
+        .openDaDiv {
+            width: 370px;
+        }
+
+        .jyDiv {
+            width: 370px;
+
+        }
+
+        .msgDiv {
+            width: 370px;
+            border-style:none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .iloading {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+        }
+
+        .imodal {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+        }
+
+        .spinner {
+            margin-top: 20%;
+            width: 80px;
+            height: 60px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .spinner > div {
+            background-color: #1E90FF;
+            height: 100%;
+            width: 6px;
+            margin: 0px 2px;
+            display: inline-block;
+
+            -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+            animation: stretchdelay 1.2s infinite ease-in-out;
+        }
+
+        .spinner .rect2 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        .spinner .rect3 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        .spinner .rect4 {
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+
+        .spinner .rect5 {
+            -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s;
+        }
+
+        @-webkit-keyframes stretchdelay {
+            0%, 40%, 100% {
+                -webkit-transform: scaleY(0.4)
+            }
+            20% {
+                -webkit-transform: scaleY(1.0)
+            }
+        }
+
+        @keyframes stretchdelay {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+                -webkit-transform: scaleY(0.4);
+            }
+            20% {
+                transform: scaleY(1.0);
+                -webkit-transform: scaleY(1.0);
+            }
+        }
+
+        .userDiv {
+            float: right;
+            margin-right: 50px;
+        }
+
+        .userDiv ul li{
+            position: relative;
+            float: right;
+            list-style: none;
+            height: 80px;
+            /*line-height: 80px;*/
+            padding: 0 10px;
+            color: #fff;
+            font-size: 1.3em;
+            font-family: 雅黑;
+            transition: all .2s;
+        }
+
+        .userDiv ul li:last-child{
+            width: 110px;
+        }
+
+        .userDiv ul li:not(:last-child){
+            line-height: 80px;
+        }
+
+        .userImg {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-top: -3px;
+            float: left;
+        }
+
+        .divTitle {
+            position: relative;
+            height: 50px;
+            border-radius: 10px 10px 0px 0px;
+            text-align: left;
+            background: rgba(41,59,89,.7);
+        }
+
+        .divTitle span {
+            display: inline-block;
+            margin: 13px 0px 0px 10px;
+            font-size:20px;
+            color: #fff;
+            font-family: 幼圆;
+        }
+
+        .divTitle a {
+            position: absolute;
+            right:10px;
+            top:13px;
+            font-size: 1.2em;
+            color: #FFF;
+            font-family: 幼圆;
+        }
+
+        .layui-table-view {
+            margin: 0px;
+        }
+
+        .layui-table-view .layui-table {
+            margin: 0px;
+            width: 100%;
+        }
+
+        .userhoverdiv {
+            display: none;
+            width: 100px;
+            height: 60px;
+            position: absolute;
+            z-index: 1000000001;
+            background: #fff;
+            top: 120px;
+            right: 3%;
+            -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+            -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+            box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+        }
+
+        .userhoverdiv ul {
+            list-style-type: none;
+            height: 100%;
+            margin: 0;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .userhoverdiv ul li {
+            height: 50%;
+            -webkit-box-shadow: 0 0 1px 1px #e2e2e2;
+            -moz-box-shadow: 0 0 1px 1px #e2e2e2;
+            box-shadow: 0 0 1px 1px #e2e2e2;
+            transition: all 200ms ease;
+            color: #8B6969;
+            line-height: 30px;
+        }
+
+        .userhoverdiv ul li:hover {
+            background: rgba(135, 206, 250, 0.5);
+            cursor: pointer;
+        }
+
+        .realname:hover {
+            cursor: pointer;
+        }
+
+        .moreA:hover {
+            cursor: pointer;
+        }
+
+        .borrowMsg{
+            position: absolute;
+            z-index: 100000000;
+            bottom: 0px;
+            width:100%;
+            height: 94%;
+            background:rgba(0,0,0,.8);
+            display: none;
+        }
+
+        .borrowMsgContent{
+            position: relative;
+            left:-5%;
+            width:110%;
+            padding-top: 3%;
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        .msgText{
+            width:70%;
+            min-height:50px;
+            margin: 0px auto;
+            font-size: 20px;
+            text-align: left;
+        }
+
+        .bottomBorder{
+            width:100%;
+            height: 1px;
+            background: rgba(255,255,255,.5);
+        }
+
+        .msgText table{
+            width:100%;
+        }
+        .msgText table tr td:nth-child(1),.msgText table tr td:nth-child(3){
+            text-align: center;
+           width:20%;
+        }
+
+        .msgText table tr td:nth-child(2){
+            /*text-align: center;*/
+        }
+        .borrowli:hover{
+            cursor: pointer;
+        }
+
+        .iselect{
+            position: relative;
+            top:0px;
+            min-width:70px;
+            min-height: 80px;
+            display: none;
+            /*left:150px;*/
+            z-index: 10;
+            border-radius:5px;
+            background: #fff;
+            -webkit-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+            -moz-box-shadow:1px 1px 50px rgba(0,0,0,.3);
+            box-shadow:1px 1px 50px rgba(0,0,0,.3);
+        }
+
+        #ptselect{
+            top:50px;
+            width:250px;
+        }
+
+        .itriangle{
+            width: 0;
+            height: 0;
+            top:-17px;/*首行三角*/
+            left:30%;
+            position: absolute;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 17px solid #fff;
+        }
+
+        .iselecttext{
+            /*width:100%;*/
+            height: 40px;
+            text-align: center;
+            transition: all .2s ease;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+
+        .iselecttext:hover{
+            background: rgba(0,0,0,.1);
+            cursor: pointer;
+        }
+
+        .iselecttext span,.idbselecttext span,.gnUl1 span{
+            position: relative;
+            top:-20px;
+            color: #333333;
+            font-size: 1.1em;
+            /*line-height: 10px;*/
+            /*padding: 0px 10px;*/
+        }
+        #ptselect .iselecttext span,.idbselecttext span{
+            top:5px;
+            font-size: 20px;
+        }
+        .test{
+            /*background-color: black;*/
+            /*background-color: rgba(0, 0, 0, 0.4);*/
+            color: #fff;
+            /*height: 40px;*/
+            /*text-align: center;*/
+            font-size: 18px;
+        }
+
+        .glpt{
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left:0;
+            right: 0;
+            margin: auto;
+            display: inline-block;
+            text-align: center;
+            width:96px;
+            height: 33px;
+            padding:5px;
+            border-radius: 5px;
+            /*background: #f4a22d;*/
+        }
+
+        .glpt:hover {
+            cursor: pointer;
+            /*background: #fbb654;*/
+        }
+
+        .fw-view{
+            position: relative;
+            margin: auto;
+            width:100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .fw-viewMake{
+            position: relative;
+            margin: auto;
+            width:100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+
+        .fw-img{
+            position: relative;
+            display: none;
+            width:100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        .fw-img>img{
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            margin:auto;
+            width:80%;
+        }
+        .fw-imgMake{
+            position: relative;
+            display: none;
+            width:100%;
+            height: 100%;
+            opacity: 1;
+        }
+
+        .fw-imgMake>img{
+            position:absolute;
+            top:0;
+            left:0;
+            bottom:0;
+            right:0;
+            margin:auto;
+            width:80%;
+        }
+
+        .fw-show{
+            display:block;
+            -webkit-animation: opacity-show .6s ease-in-out forwards;
+            animation: opacity-show .6s ease-in-out forwards;
+        }
+
+        .fw-hide{
+            display:none;
+            -webkit-animation: opacity-hide .6s 1 ease-in-out;
+            animation: opacity-hide .6s 1 ease-in-out;
+        }
+
+        .fw-lr_btn{
+             position: absolute;
+             top:35%;
+             width:50px;
+             height:50px;
+             z-index:2;
+             font-size: 30px;
+         }
+
+        .fw-lr_btnMake{
+            position: absolute;
+            top:35%;
+            width:50px;
+            height:50px;
+            z-index:2;
+            font-size: 30px;
+        }
+        ::selection{
+            background: transparent;
+        }
+
+        .fw-lr_btn:hover{
+            cursor: pointer;
+        }
+
+        .fw-right-btn{
+            right:0;
+            text-align: right;
+        }
+
+        @-webkit-keyframes opacity-show {
+            0%{
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes opacity-hide {
+            0%{
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .smallDiv{
+            height: 270px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        #questionnaire{
+            margin: 10px 0px 0px 0px;
+        }
+        .hidden-text{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .glmsg{
+            position: absolute;
+            top:-7px;
+            right:-5px;
+            display: none;
+        }
+
+        .bfmsg{
+            position: absolute;
+            top:15px;
+            right:1px;
+            display: none;
+        }
+
+        .stick-cls{
+            float: right;
+            display: inline-block;
+            background: red;
+            color:#fff;
+            border-radius: 5px;
+            margin-right:5px;
+            padding: 2px;
+        }
+        .qhli1{
+            display: none;
+        }
+        .footer{
+            position:fixed;
+            bottom:0px;
+            width:20%;
+            height:25px;
+            margin: 0 40% 0 40%;
+            text-align:center;
+            font-size:18px;
+        }
+    </style>
+</head>
+<body>
+<span class="userhoverdiv"><ul><li>退出</li></ul></span>
+<div class="topBar">
+    <div class="logoDiv">
+        <img src="img/chLoginImg/利用平台.png"/>
+    </div>
+    <div class="userDiv">
+        <ul>
+            <li class="borrowli"><i class="icon icon-envelope" style="font-size: 25px;"></i>
+                <span class="layui-badge bfmsg">0</span>
+            </li>
+            <li>
+                <div class="userImg">
+                    <img src="" style="border-radius: 50%;" class="imgsrc" width="30px" height="30px"/>
+                </div>
+                <span class="realname" style="min-width: 120px;display: inline-block;"></span>
+                <div class="iselect layui-anim layui-anim-upbit">
+                    <div class="itriangle"></div>
+                    <div class="iselecttext questionnaire" ><span>我的问卷</span></div>
+                    <div class="iselecttext selfPerformance" ><span>个人效绩</span></div>
+                    <div class="iselecttext appraise" ><span>我的评价</span></div>
+                    <div class="iselecttext manual" ><span>使用手册</span></div>
+                    <div class="iselecttext visitNum" ><span>访问人次</span></div>
+                    <div class="iselecttext changepwd" ><span>修改密码</span></div>
+                    <div class="iselecttext logout" ><span>退 出</span></div>
+                </div>
+            </li>
+            <!--<li class="qhli" th:class="${usertype}==1? 'qhli':'qhli qhli1'">-->
+            <li class="qhli">
+                &nbsp;&nbsp;&nbsp;
+                <span class="glpt">
+                     切换平台
+                    <span class="layui-badge glmsg">0</span>
+                </span>
+                <!--<div class="iselect layui-anim layui-anim-upbit" id="ptselect">-->
+                    <!--<div class="itriangle"></div>-->
+                    <!--<div class="iselecttext" systype="1" id="qh_gl"><span>档案资源管理系统</span></div>-->
+                    <!--<div class="iselecttext" systype="2" id="qh_sx"><span>声像系统</span></div>-->
+                    <!--<div class="iselecttext" systype="3" id="qh_sxly"><span>数字化加工辅助工具</span></div>-->
+                    <!--<div class="iselecttext" systype="4" id="qh_kf"><span>基础平台系统</span></div>-->
+                    <!--<div class="iselecttext" systype="5" id="qh_jh1"><span>目录中心系统</span></div>-->
+                    <!--<div class="iselecttext" systype="6" id="qh_jh2"><span>新闻影像采集归档管理系统</span></div>-->
+                    <!--<div class="iselecttext" systype="7" id="qh_jh3"><span>编研管理系统</span></div>-->
+                    <!--<div class="iselecttext" systype="8" id="qh_jh4"><span>库房管理系统</span></div>-->
+                <!--</div>-->
+                &nbsp;&nbsp;&nbsp;
+            </li>
+        </ul>
+    </div>
+    <ul class="gnUl">
+        <li id="li_questionnaire">调查问卷</li>
+        <li id="li_reservationService">预约服务</li>
+       <!-- <li id="li_reservationService">预约服务</li>-->
+        <li id="li_jyAdminsApprove">查档审批管理</li>
+        <li id="li_jyAdmins">查档申请管理</li>
+        <!--<li id="li_electron">权限档案</li>-->
+        <!--<li id=" li_simpleSearch">档案检索</li>-->
+        <li id="simpleSearchMenu" class="simpleSearchMenu">
+            档案检索
+            <div class="gnUl1 layui-anim layui-anim-upbit">
+                <div class="itriangle"></div>
+                <div class="iselecttext"  id="li_fullSearch"><span>全文检索</span></div>
+                <div class="iselecttext"  id="li_simpleSearch"><span>开放档案</span></div>
+                <div class="iselecttext"  id="li_metadataSearch"><span>元数据检索</span></div>
+                <div class="iselecttext"  id="li_simpleSearch_media"><span>声像开放</span></div>
+            </div>
+        </li>
+        <li id="li1" style="background: rgb(13, 150, 228);">首页</li>
+    </ul>
+</div>
+
+<div class="homePanel">
+    <div class="zw"></div>
+    <div id="gnDivli1" class=" gnDiv showIn" style="background: none;">
+<!--        要求有两个专题信息显示 一个来自档案系统专题研制 一个来自编研管理系统 的专题研制-->
+<!--        来自档案系统的-->
+        <div class="tpDiv">
+            <div class="themaDiv">
+                <div class="divTitle hidden-text">
+                    <span class="themalabelMake">专题信息</span><a class="moreAMake" id="ali_themalabelMakeSearch">更多》</a>
+                </div>
+                <div class="fw-viewMake">
+                    <div class="fw-lr_btnMake fw-left-btn">《</div>
+                    <div class="fw-lr_btnMake fw-right-btn">》</div>
+                </div>
+                <!--<div class="focusDiv">-->
+                    <!---->
+                <!--</div>-->
+            </div>
+<!--            <div class="themaDiv">-->
+<!--                <div class="divTitle hidden-text">-->
+<!--                    <span class="themalabel">专题信息</span><a class="moreA" id="ali_themalabelSearch">更多》</a>-->
+<!--                </div>-->
+<!--                <div class="fw-view">-->
+<!--                    <div class="fw-lr_btn fw-left-btn">《</div>-->
+<!--                    <div class="fw-lr_btn fw-right-btn">》</div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;<div class="focusDiv">&ndash;&gt;-->
+<!--                &lt;!&ndash;&ndash;&gt;-->
+<!--                &lt;!&ndash;</div>&ndash;&gt;-->
+<!--            </div>-->
+            <div class="openDaDiv">
+                <div class="divTitle hidden-text">
+                    <span>开放档案</span><a class="moreA" id="ali_simpleSearch">更多》</a>
+                </div>
+                <table class="layui-table" lay-data="{height:500,limit:10,even:true,url:'/indexly/getKfDate?number='+Math.random()}">
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'title', width:368, sort: true}">题名</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="jyDiv">
+                <div class="divTitle hidden-text">
+                    <span>查档信息</span><a
+                        class="moreA" id="ali_jyAdmins">更多》</a>
+                </div>
+                <table class="layui-table" lay-data="{height:500,even:true,limit:10, url:'/electron/getBorrowDocLyTable?number='+Math.random()}"
+                       lay-filter="borrowEvent">
+                    <thead>
+                    <tr>
+                        <th lay-data="{field:'borrowmd', width:100, sort: false,event:'setborrow'}">目的</th>
+                        <th lay-data="{field:'desci', width:166, sort: true,event:'setborrow'}">描述</th>
+                        <th lay-data="{field:'borrowdate', width:100, sort: false,event:'setborrow'}">时间</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="msgDiv">
+                <div class="smallDiv">
+                    <div class="divTitle hidden-text">
+                        <span>公告信息</span>
+                        <a class="moreA" id="ali_inform">更多》</a>
+                    </div>
+                    <table class="layui-table" lay-data="{height:500,limit:10,even:true,url:'/indexly/getInform?number='+Math.random()}"
+                           lay-filter="informEvent">
+                        <thead>
+                        <tr>
+                            <th lay-data="{field:'title', width:240, sort: true,event:'setText'}">信息</th>
+                            <th lay-data="{field:'postedman', width:127, sort: true,event:'setText'}">截止时间</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+<!--                <div class="smallDiv" id="questionnaire" >-->
+<!--                    <div class="divTitle hidden-text">-->
+<!--                        <span>调查问卷</span>-->
+<!--                        <a class="moreA" id="ali_questionnaire">更多》</a>-->
+<!--                    </div>-->
+<!--                    <table class="layui-table" lay-data="{height:240,even:true,url:'/indexly/getQuestionnaire?number='+Math.random()}"-->
+<!--                    lay-filter="questionnaireEvent">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th lay-data="{field:'title', width:240, sort: true,event:'answer'}">问卷名称</th>-->
+<!--                            <th lay-data="{field:'publishtime', width:127, sort: true,event:'answer'}">发布日期</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                    </table>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <!--<iframe src="http://127.0.0.1:8080/simpleSearch/main" style="width:100%;border:0px;height:100%;"></iframe>-->
+    </div>
+</div>
+<div class="borrowMsg layui-anim layui-anim-up">
+    <center>
+        <div class="borrowMsgContent">
+
+        </div>
+    </center>
+</div>
+<div class="footer" style="margin-bottom: 0px"></div>
+</body>
+<script th:inline="javascript">
+    var isLy = [[${isLy}]];
+    var realname = [[${realname}]];
+    var personalized = [[${personalized}]];
+    var personalizeds = JSON.parse(personalized);
+    var userid = [[${userid}]];
+    var imgsrc = [[${imgsrc}]];
+    var usertype = [[${usertype}]];
+    var platformopen=[[${platformopen}]];
+    var loginname=[[${loginname}]];
+    var sysType=[[${sysType}]];
+    var visitNum=[[${visitNum}]];
+    var systemLoginType=[[${systemLoginType}]];
+    var changePwd=[[${changePwd}]];//强制修改密码
+    var timeStamp=[[${timeStamp}]];//日期标记
+</script>
+<script type="text/javascript" th:src="@{sockjs/sockjs.min.js}" ></script>
+<script type="text/javascript" th:src="@{sockjs/stomp.min.js}" ></script>
+</html>
+<script src="../js/layui/layui.js"></script>
+<script>
+
+
+    layui.use(['table', 'jquery', 'layer'], function () {
+        var $ = layui.jquery
+            , table = layui.table
+            , layer = layui.layer;
+        var thematictitle = [];
+        var count =0;
+
+        // $.ajax({
+        //     type: "post",
+        //     url: '/thematicUtilize/getThematic',
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         var html = '';
+        //         for (var i = 0; i < data.length; i++) {
+        //             if(i==0){$('.themalabel').text(data[i].title);}
+        //             html += '<div data-id="'+data[i].thematicid+'" class="fw-img '+(i==0?'fw-show':'')+'"><img src="/electronic/loadMediaThematic?eleid='+data[i].thematicid+'"/></div>';
+        //         }
+        //         $('.fw-view').append(html);
+        //         ////////////////////////////////////焦点图////////////////////////////////////////////////////
+        //         var isHover = false;
+        //         var _fw_view = document.querySelector('.fw-view');
+        //         var _fw_img = document.querySelectorAll('.fw-img');
+        //         var clock = _fw_img&&_fw_img.length>1?1:0;
+        //         _fw_view.onmouseover = function(){
+        //             isHover = true;
+        //         };
+        //
+        //         _fw_view.onmouseout = function(){
+        //             isHover = false;
+        //         };
+        //
+        //         setInterval(function(){
+        //             if(isHover){
+        //                 return;
+        //             }
+        //             changeImg();
+        //             clock = clock==(_fw_img.length-1)?0:clock+1;
+        //         },3000);
+        //
+        //         function changeImg(){
+        //             for(var _i in _fw_img){
+        //                 if(!isNaN(_i)){
+        //                     if(_i==clock){
+        //                         $('.themalabel').text(data[_i].title);
+        //                         _fw_img[_i].classList.remove('fw-hide');
+        //                         _fw_img[_i].classList.add('fw-show');
+        //                     }else{
+        //                         _fw_img[_i].classList.remove('fw-show');
+        //                         _fw_img[_i].classList.add('fw-hide');
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //
+        //         $('.fw-lr_btn').click(function(){
+        //             if(this.classList.contains('fw-left-btn')){
+        //                 clock -= (clock==0?0:1);
+        //             }else{
+        //                 clock += (clock==(_fw_img.length-1)?0:1);
+        //             }
+        //             changeImg();
+        //         });
+        //         /////////////////////////////////////////////////////////////////////////////////////
+        //     },
+        //     error: function () {
+        //         layer.msg('专题加载失败...', {icon: 5});
+        //     },
+        //     async: false
+        // });
+
+        if (!platformopen) {
+            $(".msgDiv").hide();
+        }
+        $.ajax({
+            type: 'POST',
+            url: imgsrc,
+            success: function(){
+                $(".imgsrc").attr("src", imgsrc);
+            },
+            error:function(){
+                $(".imgsrc").attr("src", "img/user_default.png");
+            }
+        });
+        if(systemLoginType=="0"){
+            $("#li_questionnaire").hide()
+        }
+        $(".footer").text("访问人次："+visitNum);
+        $.ajax({
+            type:'GET',
+            url:'/thematicMake/getThematicByStatus',
+            dataType:'json',
+            success: function (data) {
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    if(i==0){$('.themalabelMake').text(data[i].title);}
+                    html += '<div data-id="'+data[i].thematicid+'" class="fw-imgMake '+(i==0?'fw-show':'fw-hide')+'"><img src="/electronic/loadMediaThematic?type=ly&&eleid='+data[i].thematicid+'"/></div>';
+                }
+                $('.fw-viewMake').append(html);
+                ////////////////////////////////////焦点图////////////////////////////////////////////////////
+                var isHover = false;
+                var _fw_viewMake = document.querySelector('.fw-viewMake');
+                var _fw_imgMake = document.querySelectorAll('.fw-imgMake');
+                var clockMake = _fw_imgMake&&_fw_imgMake.length>1?1:0;
+                _fw_viewMake.onmouseover = function(){
+                    isHover = true;
+                };
+
+                _fw_viewMake.onmouseout = function(){
+                    isHover = false;
+                };
+
+                setInterval(function(){
+                    if(isHover){
+                        return;
+                    }
+                    changeImgMake();
+                    clockMake = clockMake==(_fw_imgMake.length-1)?0:clockMake+1;
+                },3000);
+
+                function changeImgMake(){
+                    for(var _i in _fw_imgMake){
+                        if(!isNaN(_i)){
+                            if(_i==clockMake){
+                                $('.themalabelMake').text(data[_i].title);
+                                _fw_imgMake[_i].classList.remove('fw-hide');
+                                _fw_imgMake[_i].classList.add('fw-show');
+                            }else{
+                                _fw_imgMake[_i].classList.remove('fw-show');
+                                _fw_imgMake[_i].classList.add('fw-hide');
+                            }
+                        }
+                    }
+                }
+
+                $('.fw-lr_btnMake').click(function(){
+                    if(this.classList.contains('fw-left-btn')){
+                        clockMake -= (clockMake==0?0:1);
+                    }else{
+                        clockMake += (clockMake==(_fw_imgMake.length-1)?0:1);
+                    }
+                    changeImgMake();
+                });
+            }
+        });
+
+        if (isLy == 'true') {
+            layer.msg('对不起您没有登录管理平台的权限', {icon: 2});
+        }
+
+        $('.realname').text(realname+',欢迎您');
+//        myFocus.set({id: 'focusDiv', autoZoom: true});
+
+        var pages = {
+            li1: '',
+            li_simpleSearch: '/simpleSearch/mainly?flag=1&v='+timeStamp,
+            li_simpleSearch_media:'/simpleSearch/mainly?flag=80&resultType=1&v='+timeStamp,//resultType : 是否是声像的查询页面，1 为是 空或者是 0 就不是
+            li_electron: '/electron/mainly?v='+timeStamp,
+            li_jyAdmins: '/jyAdmins/mainly?flag=1&v='+timeStamp,
+            li_jyAdminsApprove: '/jyAdmins/approvemainly?flag=3&v='+timeStamp,
+            //li_individualOpinion: '/feedback/mainly?flag=1&v='+timeStamp,
+            li_questionnaire:'questionnaireManagement/mainly?flag=1&type=1&v='+timeStamp,
+            li_fullSearch:'/fullSearch/mainly?v='+timeStamp,
+            li_reservationService:'/jyAdmins/yymainly?flag=1&isp=k69&v='+timeStamp,
+            li_metadataSearch:'/metadataSearch/mainly?flag=1&v='+timeStamp,
+        };
+
+        $("#simpleSearchMenu").hover(function(){
+            if($(this).attr('id') == 'simpleSearchMenu'){
+                if( $('.gnUl1').css("display") == '' || $('.gnUl1').css("display") == "none")
+                    $('.gnUl1').show();
+                else
+                    $('.gnUl1').hide();
+            }
+        });
+
+        $('.gnUl1 div').click(function () {
+            if($(this).attr('class')=='itriangle'){
+                return;
+            }
+            $('.borrowMsg').fadeOut(100);
+            var url = pages[$(this).attr('id')];
+            $('.gnDiv').removeClass('showIn').addClass('showOut').hide();
+            $('.gnDiv iframe').css('z-index', '0');
+            $('.topBar ul li').css({'border': '0px', 'background': ''});
+            $('#simpleSearchMenu').css({ 'background': 'rgba(13,150,228,1)'});
+            if ($('#gnDiv' + $(this).attr('id')).attr('id')) {
+                $('#gnDiv' + $(this).attr('id')).show().removeClass('showOut').addClass('showIn');
+                $('#gnDiv' + $(this).attr('id') + ' iframe').css('z-index', '1');
+                return;
+            }
+            var iloading = "<div class='iloading'><div class='imodal'><div class='spinner'><div class='rect1'></div><div class='rect2'></div>"
+                + "<div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div></div></div>";
+            var html = "<div id='gnDiv" + $(this).attr('id') + "' class='gnDiv anim showIn'>" + iloading + "<iframe  id='iframe" + $(this).attr('id') + "' src='" + url + "'  style='width:100%;border:0px;height:100%;z-index:1'></iframe></div>";
+
+            $('.homePanel').append(html);
+
+            $('#iframe' + $(this).attr('id')).load(function () {
+                $('.iloading').fadeOut(200);
+                console.log($('#iframe' + $(this).attr('id')).contents().find('head').length);
+                $($(this).contents().find('style')[0]).remove();
+                var rgb = !personalizeds ? '34,139,230' : personalizeds.rgb;
+                var ztsize = !personalizeds ? 'small' : personalizeds.ztsize;
+                $($(this).contents().find('head')[0]).append(getExtStyle(rgb, ztsize));
+            });
+            panelSize();
+        });
+
+        //强制修改初始密码
+        if(changePwd=='true'){
+            ifpanel1('修改初始密码', '/user/userMsg', '370px', '350px');
+            $('.layui-layer-setwin a').hide();//隐藏关闭按钮
+        }else if(changePwd=='new'){
+            ifpanel1('定期更新密码', '/user/userMsg', '370px', '350px');
+            $('.layui-layer-setwin a').hide();//隐藏关闭按钮
+        }
+
+        $('.gnUl li').click(function () {
+            if($(this).attr('id') == 'simpleSearchMenu'){
+                return;
+            }
+            $('.borrowMsg').fadeOut(100);
+            var url = pages[$(this).attr('id')];
+            $('.gnDiv').removeClass('showIn').addClass('showOut').hide();
+            $('.gnDiv iframe').css('z-index', '0');
+            $('.topBar ul li').css({'border': '0px', 'background': ''});
+            $(this).css({ 'background': 'rgba(13,150,228,1)'});
+            if ($('#gnDiv' + $(this).attr('id')).attr('id')) {
+                $('#gnDiv' + $(this).attr('id')).show().removeClass('showOut').addClass('showIn');
+                $('#gnDiv' + $(this).attr('id') + ' iframe').css('z-index', '1');
+                return;
+            }
+
+            var iloading = "<div class='iloading'><div class='imodal'><div class='spinner'><div class='rect1'></div><div class='rect2'></div>"
+                + "<div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div></div></div>";
+            var html = "<div id='gnDiv" + $(this).attr('id') + "' class='gnDiv anim showIn'>" + iloading + "<iframe  id='iframe" + $(this).attr('id') + "' src='" + url + "'  style='width:100%;border:0px;height:100%;z-index:1'></iframe></div>";
+
+            $('.homePanel').append(html);
+
+            $('#iframe' + $(this).attr('id')).load(function () {
+                $('.iloading').fadeOut(200);
+                console.log($('#iframe' + $(this).attr('id')).contents().find('head').length);
+                $($(this).contents().find('style')[0]).remove();
+                var rgb = !personalizeds ? '34,139,230' : personalizeds.rgb;
+                var ztsize = !personalizeds ? 'small' : personalizeds.ztsize;
+                $($(this).contents().find('head')[0]).append(getExtStyle(rgb, ztsize));
+            });
+
+            panelSize();
+        });
+
+        function getExtStyle(rgb, ztsize) {
+            var style = "<style>.x-panel-header-default,.x-window-header-default-top,.x-btn-default-small,.x-window-default," +
+                ".x-tab-bar-default,.x-panel-default-framed,.x-tool-img,.x-panel-default-outer-border-rbl{background-color:rgba(" + rgb + ",0.7) !important;border-color:rgba(" + rgb + ",0.7) !important;}" +
+                ".x-form-text,.x-tree-node-text ,.x-btn-icon-small-left,.x-btn-text,.x-btn-inner,.x-column-header-text-inner,.x-grid-td,.x-form-item-label-text,label,.x-window-text,.x-title-text-default{ font-size:" + ztsize + " !important;}" +
+                ".x-autocontainer-innerCt,.x-toolbar-text,.x-component,.x-progress-text,.x-form-display-field,.x-tab-inner-default,.webuploader-pick{font-size:" + ztsize + " !important;}.x-btn-over,.x-boundlist-item-over,.x-menu-item-focus,.x-menu-item-active{background-color:rgba(" + rgb + ",0.6) !important;border-color:rgba(" + rgb + ",0.6)!important;}.x-boundlist-selected{background-color:rgba(" + rgb + ",0.8) !important;border-color:rgba(" + rgb + ",0.8) !important;}" +
+                ".x-grid-item-focused{border-color:rgba(" + rgb + ",1) !important;border:1px solid rgba(" + rgb + ",1) !important;} .x-tree-view{overflow-x: auto !important;} .x-boundlist-item{font-size:"+ztsize+"}" +
+                ".listlibg{background:(" + rgb + ",0.7)!important;} .webuploader-pick{padding:10px 5px !important;}"+
+                "</style>";
+            return style;
+        }
+
+        $('.moreA').click(function () {
+            $('#' + $(this).attr('id').substring(1)).click();
+        });
+
+        /*$('.qhli').click(function () {
+            location.href = "/index?sysType=1";
+        });*/
+
+        $('.qhli .iselecttext').click(function () {
+
+            if($(this).attr('systype')){
+                var ran=Math.random();
+                var permiss=false;
+                var url='/isPermiss?loginname='+loginname+'&logintype='+$(this).attr('systype')+'&t='+ran;
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    async: false,
+                    dataType: 'json',
+                    success: function (data) {
+                        permiss = data.success;
+                    },
+                    error: function () {
+                        layer.msg('登录权限错误！', {icon: 5});
+                    }
+                });
+                if (permiss) {
+                    layer.msg('用户没有该平台权限');
+                    return;
+                }
+                location.href = "/index?sysType="+$(this).attr('systype');
+            }
+        });
+
+       /* $('.userDiv ul li:nth-child(2)').hover(function(){
+            $('.iselect').fadeIn();
+        },function(){
+            $('.iselect').fadeOut(100);
+        });*/
+
+        $('.userDiv ul li').hover(function(){
+            $(this).find('.iselect').fadeIn();
+        },function(){
+            $(this).find('.iselect').fadeOut(100);
+        });
+        $('.qhli').click(function () {
+//            location.href = "/index?sysType=1";
+            location.href ="/indexswitch?sysType="+sysType;
+        });
+
+        $('.changepwd').click(function(){
+            ifpanel1('用户信息', '/user/userMsg', '370px', '350px');
+        });
+
+        $('.visitNum').click(function () {
+            ifpanel1('访问人次', '/log/visitMain', '1000px',"400px");
+        });
+        function ifpanel1(titl, url, x, y,top) {
+            var index = layer.open({
+                title: titl,
+                type: 2,
+                skin: 'layui-layer-lan',
+                shade: 0,
+                offset: top?top:'100px',
+                content: url,
+                zIndex: layer.zIndex,
+                area: [x, y],
+                shade: 0.3,
+                resize: false,
+                success: function (layero, index) {
+                    if (layer.getChildFrame('.logotop').length > 0) {
+                        setTimeout(function(){
+                            location.href = "/index";
+                        },500);
+                    }
+                }
+            });
+            setzts1();
+            return index;
+        }
+
+        $('.logout').click(function () {
+            $('.borrowMsg,.iselect').fadeOut(100);
+            layer.confirm('确定退出？', {
+                title: '提示',
+                offset: '30%',
+                zIndex: layer.zIndex,
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.ajaxSettings.async = false;//同步
+                location.href = "/logoutt";
+            }, function () {
+            });
+        });
+
+        $('.userhoverdiv').hover(function () {
+        }, function () {
+        });
+
+        $('.userhoverdiv ul li').click(function () {
+            location.href = "/logoutt";
+        });
+
+        table.on('tool(informEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'setText') {
+                $(".layui-table-tips-c").click();
+                ifpanel1('查看公告', '/user/inform?msgid=' + data.id, '700px', '520px');
+            }
+        });
+        table.on('tool(borrowEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'setborrow') {
+                $(".layui-table-tips-c").click();
+                ifpanel1('查档信息', '/user/getborrowinform?docid=' + data.id, '400px', '450px');
+            }
+        });
+
+        table.on('tool(questionnaireEvent)',function (obj) {
+            var data = obj.data;
+            if (Date.parse(data.endtime) < new Date()) {
+                layer.msg('该问卷调查已结束！');
+                return;
+            }
+            if (obj.event === 'answer') {
+                $(".layui-table-tips-c").click();
+                var object = $(window).height()-$('.topBar').height()+"px";
+                ifpanel1('调查问卷', '/questionnaireManagement/mainly?flag=0&type=1&quesid=' + data.questionnaireID+'&title='+data.title + '&v='+timeStamp, '100%',object,$('.topBar').height()+"px");
+                // ifpanel1('调查问卷', '/questionnaireManagement/mainly?flag=0&type=1&quesid=' +
+                //     data.questionnaireID+'&title='+data.title,'100%','100%');
+                // ifpanel1(' ', '/questionnaireManagement/mainly?flag=0&type=1&quesid=' + data.questionnaireID+'&title='+data.title,'100%','100%','');
+                // ifpanel1(' ', '/questionnaireManagement/questionnaireMsg?type=1&quesid=' + data.questionnaireID+'&title='+data.title,'100%','100%','');
+            }
+        });
+
+        $("body").on("click", ".fw-img", function() {
+            var obj = this;
+            var height = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('专题信息', 'infoCompilation/thematicele?thematicid='+$(obj).attr('data-id'), '100%',height,$('.topBar').height()+"px");
+        });
+
+        $('#ali_inform').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('公告信息', '/inform/mainly?flag=1&v='+timeStamp, '100%',obj,$('.topBar').height()+"px");
+        });
+
+        $('#ali_questionnaire').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('调查问卷', '/questionnaireManagement/mainly?flag=1&type=1&v='+timeStamp, '100%',obj,$('.topBar').height()+"px");
+        });
+
+        $('#ali_themalabelSearch').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('专题信息', '/thematicUtilize/mainly?flag=1&v='+timeStamp, '100%',obj,$('.topBar').height()+"px");
+        });
+        $('#ali_themalabelMakeSearch').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('专题信息', '/thematicMakeUtilize/main', '100%',obj,$('.topBar').height()+"px");
+        });
+
+        $('.appraise').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('我的评价', '/feedback/mainly?flag=2&v='+timeStamp, '100%',obj,$('.topBar').height()+"px");
+        });
+
+        $('.questionnaire').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('我的问卷', '/questionnaireManagement/mainly?type=2&v='+timeStamp, '100%',obj,$('.topBar').height()+"px");
+        });
+
+        $('.selfPerformance').click(function () {
+            var obj = $(window).height()-$('.topBar').height()+"px";
+            ifpanel1('个人效绩', '/selfPerformance/main', '100%',obj,$('.topBar').height()+"px");
+        });
+
+        function ifpanel1(titl, url, x, y,top) {
+            var index = layer.open({
+                title: titl,
+                type: 2,
+                skin: 'layui-layer-lan',
+                shade: 0,
+                offset: top?top:'100px',
+                content: url,
+                zIndex: layer.zIndex,
+                area: [x, y],
+                shade: 0.3,
+                resize: false,
+                end: function () {layer.open关闭事件
+                    $.ajax({
+                        type: 'get',
+                        url: '/indexly/getBorrowFinishMsgCount',
+                        success: function(data){
+                            if(data!=0){
+                                $('.bfmsg').show().text(data);
+                            }else {
+                                $('.bfmsg').hide();
+                            }
+                        },
+                        error:function(){
+                            layer.msg('审批完结提醒加载失败...', {icon: 5});
+                        }
+                    });
+                }
+            });
+
+            setzts1();
+            return index;
+        }
+
+        function setzts1() {
+            var zts = '#' + $('#zts').attr('zts');
+            var rgb = $('#zts').attr('rgb');
+            var ztsize = $("#zts").attr("ztsize");
+            $('.layui-layer-title').css({
+                color: '#fff',
+                background: zts
+            });
+
+            $('#buttom').css({
+                background: 'rgba(' + rgb + ',0.6)'
+            });
+
+            $('.menuleft,.box ul li ul').css({
+                background:'linear-gradient(to left, rgba('+rgb+',0.4), rgba('+rgb+',0.9))'
+            });
+
+            $('.ititle').css({
+                background: zts
+            });
+            $('.layui-layer-title').css({'font-size': ztsize});
+        }
+
+        $(window).resize(function () {
+            panelSize();
+        });
+
+        function panelSize() {
+            $('.homePanel').height($(window).height()-$('.topBar').height());
+            $('.gnDiv').height($('.homePanel').height());
+            $('.fw-view').height($('.fw-view').height()-$('.divTitle').height())
+            $('.fw-viewMake').height($('.fw-viewMake').height()-$('.divTitle').height())
+        }
+        panelSize();
+
+        $.ajax({
+            type: 'get',
+            url: '/indexly/getBorrowFinishMsgCount?number='+Math.random(),
+            success: function(data){
+                if(data!=0){
+                    $('.bfmsg').show().text(data);
+                }else {
+                    $('.bfmsg').hide();
+                }
+            },
+            error:function(){
+                layer.msg('审批完结提醒加载失败...', {icon: 5});
+            }
+        });
+
+        $('.borrowli').click(function(){
+                var obj = $(window).height()-$('.topBar').height()+"px";
+                ifpanel1('审批完结提醒', '/indexly/borrowly', '100%',obj,$('.topBar').height()+"px");
+        });
+
+        var socket = new SockJS("/websocket");
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            stompClient.subscribe('/message', function(respnose){
+               getMsg();
+               getBorrowFinish();
+            });
+            stompClient.subscribe('/user/'+userid+'/message', function(respnose){
+                getMsg();
+                getBorrowFinish();
+            });
+        });
+
+        function getMsg(){
+            var result,count = 0;
+            $.ajax({
+                type: "post",
+                url: '/user/getmsg',
+                dataType:'json',
+                success: function (data) {
+                    result = data;
+                },
+                error:function(){
+                    layer.msg('通知加载失败...', {icon: 5});
+                },
+                async:false
+            });
+            for(var i=0;i<result.length;i++){
+//                if(result[i].msgtype!='1'){
+                    count++;
+//                }
+            }
+
+            if(count!=0){
+                $('.glmsg').show().text(count);
+            }
+            return count;
+        }
+        getMsg();
+        function getBorrowFinish(){
+            $.ajax({
+                type: 'get',
+                url: '/indexly/getBorrowFinishMsgCount?number='+Math.random(),
+                async:false,
+                success: function(data){
+                    if(data!=0){
+                        $('.bfmsg').show().text(data);
+                    }else {
+                        $('.bfmsg').hide();
+                    }
+                },
+                error:function(){
+                    layer.msg('审批完结提醒加载失败...', {icon: 5});
+                }
+            });
+        }
+        $(".qhli").click(function(){
+            $.ajax({
+                type: "post",
+                url: '/user/platformchange',
+                data:{'userid':userid,
+                    'changetype':"1"
+                },
+                success: function (result) {
+                }
+            });
+        });
+
+        $(".manual").click(function(){//不同手册的切换
+            $.ajax({
+                type: "post",
+                url: '/getProductMsg',
+                data:{},
+                success: function (result) {
+                    if(result.data[0]=="普通版"){//普通版没有利用平台
+
+                    }
+                    if(result.data[0]=="高级版"){
+                        window.open('/doc/高级版/用户手册.pdf');
+                    }
+                    if(result.data[0]=="增强版"){
+                        window.open('/doc/增强版/用户手册.pdf');
+                    }
+                }
+            });
+        });
+
+    });
+
+
+
+
+
+</script>

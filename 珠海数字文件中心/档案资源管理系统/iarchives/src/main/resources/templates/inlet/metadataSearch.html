@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('元数据检索')">
+</head>
+<body>
+<script src="../../js/metadataSearch/app.js"></script>
+<!--<script src="../../ext/ux/DatetimePicker.js"></script>-->
+</body>
+<script th:inline="javascript">
+    // var open = [[${open}]];
+    // var functionButton = [[${functionButton}]];
+    // var buttonflag = [[${buttonflag}]];
+    var buttonflag = [[${buttonflag}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //判断是否馆库查询
+    var titleflag = [[${titleflag}]];
+    //判断是否开启即时搜索
+    var instantSearch = [[${instantSearch}]];
+    //判断是否自主查询
+    var type = [[${type}]];
+</script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据开放')">
+</head>
+<body>
+<style>
+    .x-panel-header-default{
+        /*background-color:rgba(30,144,255,0.5);*/
+        /*background:none;*/
+    }
+</style>
+<script th:inline="javascript">
+    var taskid = [[${taskid}]];
+    var flowsText = [[${flowsText}]];
+    var nodeId = [[${nodeId}]];
+    var iflag = [[${iflag}]];
+    var type = [[${type}]];
+    var openSendmsg = [[${openSendmsg}]]; //开放是否短信通知
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    var approveText = [[${approveText}]];
+    var realName = [[${realName}]];
+    var reportServer = [[${reportServer}]];
+    var systemLoginType = [[${systemLoginType}]];
+</script>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/openApprove/app.js"></script>
+</body>
+</html>

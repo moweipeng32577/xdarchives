@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.wisdom</groupId>
+	<artifactId>xdarchives</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>xdarchives</name>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.6.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<!--修改thymeleaf版本-->
+		<thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
+		<thymeleaf-layout-dialect.version>2.1.0</thymeleaf-layout-dialect.version>
+		<!-- 版本号样式-->
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+	</properties>
+
+	<dependencies>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>7.0.0.jre8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jacob-project</groupId>
+			<artifactId>jacob</artifactId>
+			<version>1.18</version>
+		</dependency>
+		<!-- 邮件-->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>net.lingala.zip4j</groupId>
+			<artifactId>zip4j</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.solr</groupId>
+			<artifactId>solr-solrj</artifactId>
+			<version>6.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.barcode4j</groupId>
+			<artifactId>barcode4j-light</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.52</version>
+		</dependency>
+
+		<!--Oracle-->
+		<dependency>
+			<groupId>ojdbc</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.itextpdf.tool</groupId>
+			<artifactId>xmlworker</artifactId>
+			<version>5.5.11</version>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apdplat</groupId>
+            <artifactId>word</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hankcs</groupId>
+            <artifactId>hanlp</artifactId>
+            <version>portable-1.6.8</version>
+        </dependency>
+
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>1.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.senseyun.openapi</groupId>
+			<artifactId>SSRuntimeEasyJava</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.8.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.monitorjbl</groupId><!--用作解析大文本的excle文件,该版本已包含poi3.16-->
+			<artifactId>xlsx-streamer</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-net</groupId><!--apache 用于连接FTP-->
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.media</groupId>
+			<artifactId>jai_codec</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+			<version>1.20</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xdtech.project</groupId>
+			<artifactId>project-foursexverify</artifactId>
+			<version>0.0.5-CH-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xdtech.component</groupId>
+			<artifactId>component-storeroom</artifactId>
+			<version>0.0.5-CH-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xdtech.component</groupId>
+			<artifactId>component-smsclient</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xdtech.project</groupId>
+			<artifactId>project-lot</artifactId>
+			<version>0.0.4-CH-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gitee.qdbp.thirdparty</groupId>
+			<artifactId>ueditor</artifactId>
+			<version>1.4.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>1.22</version>
+		</dependency>
+
+		<!-- 用于获取音频信息的jar ______start  -->
+		<dependency>
+			<groupId>org</groupId>
+			<artifactId>jaudiotagger</artifactId><!--用于获取音频信息-->
+			<version>2.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.drewnoakes</groupId>
+			<artifactId>metadata-extractor</artifactId><!--用于获取图片信息-->
+			<version>2.8.1</version>
+		</dependency>
+		<!-- 用于获取音频信息的jar ______end  -->
+
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId><!--用于修改图片尺寸-->
+			<version>0.4.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.xdtech.chznkg</groupId>
+			<artifactId>chznkg</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>netca</groupId>
+			<artifactId>NetcaJCrypto</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>netca</groupId>
+			<artifactId>pdfsign</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>easyexcel</artifactId>
+			<version>2.1.6</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>jks</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<!--sms-->
+								<artifactItem>
+									<groupId>com.xdtech.component</groupId>
+									<artifactId>component-smsclient</artifactId>
+									<version>0.0.1-SNAPSHOT</version>
+									<type>jar</type>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<includes>**/*.properties</includes>
+								</artifactItem>
+								<!--智能库房资源-->
+								<artifactItem>
+									<groupId>com.xdtech.project</groupId>
+									<artifactId>project-lot</artifactId>
+									<version>0.0.4-CH-SNAPSHOT</version>
+									<type>jar</type>
+									<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+									<includes>**/*.js,**/*.html,**/img/equip/*.png,**/img</includes>
+									<excludes>**/include.html</excludes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--ureport报表-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webResources>
+						<resource>
+							<targetPath>WEB-INF/ureportfiles</targetPath>
+							<directory>src/main/resources/static/ureportfiles</directory>
+							<includes>
+								<include>
+									*.xml
+								</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+			<!--清除浏览器缓存-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<!-- 使用缓存 -->
+					<useCache>true</useCache>
+				</configuration>
+				<executions>
+					<!-- 在打包之前执行，打包后包含已经执行后的文-->
+					<execution>
+						<id>prepare-war</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>exploded</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.3</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 自动识别到项目target文件夹 -->
+					<basedir>${build.directory}</basedir>
+					<!-- 替换的文件所在目录或文件规则 -->
+					<includes>
+						<include>${build.finalName}/WEB-INF/classes/templates/*.html</include>
+						<include>${build.finalName}/WEB-INF/classes/templates/inlet/*.html</include>
+						<include>${build.finalName}/WEB-INF/classes/templates/inlet/storeroom/*.html</include>
+						<include>${build.finalName}/WEB-INF/classes/templates/inlet/reportManagement/*.html</include>
+					</includes>
+					<!-- 更改规则，在css/js文件末尾追加?v=时间戳，反斜杠表示字符转义 -->
+					<replacements>
+						<replacement>
+							<token>\.css\"</token>
+							<value>.css?v=${maven.build.timestamp}\"</value>
+						</replacement>
+						<replacement>
+							<token>\.css\'</token>
+							<value>.css?v=${maven.build.timestamp}\'</value>
+						</replacement>
+						<replacement>
+							<token>\.js\"</token>
+							<value>.js?v=${maven.build.timestamp}\"</value>
+						</replacement>
+						<replacement>
+							<token>\.js\'</token>
+							<value>.js?v=${maven.build.timestamp}\'</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>static/js/zui/fonts/**</exclude>
+					<exclude>static/js/zui/fonts/**</exclude>
+				</excludes>
+			</resource>
+			<!-- fonts file cannot use filter as the data structure of byte file will be changed via filter -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>static/js/zui/fonts/**</include>
+					<include>static/js/zui/fonts/**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>

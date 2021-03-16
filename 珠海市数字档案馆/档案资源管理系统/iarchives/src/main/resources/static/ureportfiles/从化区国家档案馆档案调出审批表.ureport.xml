@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?><ureport><cell expand="Down" name="A1" row="1" col="1" left-cell="root" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><dataset-value dataset-name="ds" aggregate="group" property="borrowcode" order="none" mapping-type="simple"></dataset-value><condition-property-item name="1=1" row-height="0"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition type="expression" op="==" id="undefined"><left><![CDATA[1]]></left><right><![CDATA[1]]></right></condition></condition-property-item></cell><cell expand="None" name="B1" row="1" col="2" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C1" row="1" col="3" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D1" row="1" col="4" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E1" row="1" col="5" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="F1" row="1" col="6" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="G1" row="1" col="7" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="H1" row="1" col="8" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="I1" row="1" col="9" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="J1" row="1" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A2" row="2" col="1" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B2" row="2" col="2" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C2" row="2" col="3" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D2" row="2" col="4" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E2" row="2" col="5" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="F2" row="2" col="6" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="G2" row="2" col="7" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="H2" row="2" col="8" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="I2" row="2" col="9" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="J2" row="2" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A3" row="3" col="1" left-cell="A1" top-cell="root" col-span="9"><cell-style font-size="18" forecolor="0,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[从化区国家档案馆档案调出审批表]]></simple-value></cell><cell expand="None" name="J3" row="3" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A4" row="4" col="1" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[调档人
+姓 名
+]]></simple-value></cell><cell expand="None" name="B4" row="4" col="2" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="borrowman" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="D4" row="4" col="4" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[单位(或地址)
+]]></simple-value></cell><cell expand="Down" name="E4" row="4" col="5" left-cell="A1" top-cell="root" col-span="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="comaddress" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="J4" row="4" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A5" row="5" col="1" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[联系电话
+]]></simple-value></cell><cell expand="None" name="B5" row="5" col="2" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="borrowmantel" order="none" mapping-type="simple"><condition property="borrowcode" op="==" id="undefined" type="property"><value><![CDATA[A1]]></value></condition></dataset-value></cell><cell expand="None" name="D5" row="5" col="4" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[调出原因
+]]></simple-value></cell><cell expand="Down" name="E5" row="5" col="5" left-cell="A1" top-cell="root" col-span="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="borrowmd" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="J5" row="5" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A6" row="6" col="1" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[接收单位
+]]></simple-value></cell><cell expand="None" name="B6" row="6" col="2" left-cell="A1" col-span="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="borroworgan" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="E6" row="6" col="5" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[受理时间
+]]></simple-value></cell><cell expand="None" name="G6" row="6" col="7" left-cell="A1" top-cell="root" col-span="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approvedate =ds.group(borrowdate);
+      var year = substring(approvedate,0,4);
+         var month = substring(approvedate,4,6);
+         var day = substring(approvedate,6,8);
+         return year+'年'+month+"月"+day+"日"
+]]></expression-value></cell><cell expand="None" name="J6" row="6" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A7" row="7" col="1" left-cell="A1" top-cell="root" col-span="9"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[调 出 案 卷 档 号
+]]></simple-value></cell><cell expand="None" name="J7" row="7" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A8" row="8" col="1" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[全宗号
+]]></simple-value></cell><cell expand="None" name="B8" row="8" col="2" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[门类
+]]></simple-value></cell><cell expand="None" name="C8" row="8" col="3" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[目录号(期限)
+]]></simple-value></cell><cell expand="None" name="E8" row="8" col="5" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[案卷号(件号)
+]]></simple-value></cell><cell expand="None" name="G8" row="8" col="7" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[页号]]></simple-value></cell><cell expand="None" name="H8" row="8" col="8" left-cell="A1" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[年份]]></simple-value></cell><cell expand="None" name="I8" row="8" col="9" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[卷/件]]></simple-value></cell><cell expand="None" name="J8" row="8" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="Down" name="A9" row="9" col="1" left-cell="J9" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="select" property="funds" order="asc" mapping-type="simple"></dataset-value></cell><cell expand="None" name="B9" row="9" col="2" left-cell="J9" fill-blank-rows="true"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var classlevel=ds.select(classlevel);
+var nodecode=ds.select(nodecode);
+if(classlevel != null){
+  if(classlevel==5){
+     if(substring(nodecode,0,3)=='zlgl'){
+  	 	return "资料管理";
+  	 }else{
+  	 	return "项目管理";
+     }
+  }else if(classlevel==8){
+  	 return "编研采集";
+  }else if(classlevel==2){
+  	 return "案卷管理";
+  }else if(classlevel==4){
+  	 return "已归管理";
+  }else if(classlevel==6){
+  	 return "文件管理";
+  }else if(classlevel==1){
+  	 return "卷内文件";
+  }else if(classlevel==0){
+  	 return "无";
+  }else if(classlevel==7){
+  	 return "全宗卷管理";
+  }else if(classlevel==3){
+  	 return "未归管理";
+  }
+}else{
+	return classlevel;
+}]]></expression-value></cell><cell expand="Down" name="C9" row="9" col="3" left-cell="J9" top-cell="root" fill-blank-rows="true" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" wrap-compute="false" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="select" property="catalog" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="E9" row="9" col="5" left-cell="J9" fill-blank-rows="true" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var fund=ds.select(funds);
+var filecode= ds.select(filecode);
+var recordcode=ds.select(recordcode);
+if(filecode == null||filecode==""){
+    return recordcode;
+}else if(recordcode==null||recordcode==""){
+    return filecode;
+}else{
+	return '';
+}]]></expression-value></cell><cell expand="Down" name="G9" row="9" col="7" left-cell="J9" top-cell="root" fill-blank-rows="true"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="select" property="pages" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="H9" row="9" col="8" left-cell="J9" top-cell="root" fill-blank-rows="true"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="select" property="filingyear" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="I9" row="9" col="9" left-cell="J9" fill-blank-rows="true"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var filecode= ds.select(filecode);
+var recordcode=ds.select(recordcode);
+if(filecode == null){
+    return "件";
+}else if(recordcode==null){
+    return "卷";
+}]]></expression-value></cell><cell expand="Down" name="J9" row="9" col="10" left-cell="A1" fill-blank-rows="true" multiple="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><dataset-value dataset-name="ds" aggregate="group" property="entryid" order="none" mapping-type="simple"></dataset-value><condition-property-item name="1=1" col-width="0"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition type="expression" op="==" id="undefined"><left><![CDATA[1]]></left><right><![CDATA[1]]></right></condition></condition-property-item></cell><cell expand="None" name="A10" row="10" col="1" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[受理提交
+]]></simple-value></cell><cell expand="None" name="C10" row="10" col="3" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[批准调出档案审批人]]></simple-value></cell><cell expand="Down" name="E10" row="10" col="5" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds" aggregate="group" property="approveman" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="G10" row="10" col="7" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[受理调档
+]]></simple-value></cell><cell expand="None" name="I10" row="10" col="9" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[出库时间
+]]></simple-value></cell><cell expand="None" name="J10" row="10" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A11" row="11" col="1" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[经办人(签名)
+]]></simple-value></cell><cell expand="None" name="C11" row="11" col="3" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[部门负责人(签名)
+]]></simple-value></cell><cell expand="None" name="E11" row="11" col="5" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[副馆长(签名)
+]]></simple-value></cell><cell expand="None" name="G11" row="11" col="7" left-cell="A1" top-cell="root" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[经办人(签名)
+]]></simple-value></cell><cell expand="None" name="I11" row="11" col="9" left-cell="A1" row-span="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approvedate=outTime.group(waretime);
+if(approvedate==null||approvedate==""){
+	return "";
+}else{
+var year = substring(approvedate,0,4);
+var month = substring(approvedate,5,7);
+var day = substring(approvedate,8,10);
+var time = substring(approvedate,11,13);
+var minute = substring(approvedate,14,16);
+return year+'年'+month+"月"+day+"日"+time+"时"+minute+"分";
+}]]></expression-value></cell><cell expand="None" name="J11" row="11" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A12" row="12" col="1" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="left" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approve=flow.group(approve)
+var text = flow.group(text)
+var state = flow.group(state);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+  	var app1 = flow.group(app1)
+	var app2 = flow.group(app2)
+	var app3 = flow.group(app3)
+      if(app1!=null&&app1!=''&&substring(app1,0,1)=='1'){
+          return substring(app1,indexof(app1,'-')+1)
+      }else if(app2!=null&&app2!=''&&substring(app2,0,1)=='1'){
+          return substring(app2,indexof(app2,'-')+1)
+      }else if(app3!=null&&app3!=''&&substring(app3,0,1)=='1'){
+          return substring(app3,indexof(app3,'-')+1)
+      }else{
+          return "";
+      }
+}else{
+ 	return ""
+}]]></expression-value></cell><cell expand="None" name="C12" row="12" col="3" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="left" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approve=flow.group(approve)
+var text = flow.group(text)
+var state = flow.group(state);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+  	var app1 = flow.group(app1)
+	var app2 = flow.group(app2)
+	var app3 = flow.group(app3)
+    if(app1!=null&&app1!=''&&substring(app1,0,1)=='2'){
+		return substring(app1,indexof(app1,'-')+1)
+	}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='2'){
+		return substring(app2,indexof(app2,'-')+1)
+	}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='2'){
+		return substring(app3,indexof(app3,'-')+1)
+	}else{
+     	return "";
+    }
+}else{
+ 	return ""
+}]]></expression-value></cell><cell expand="None" name="E12" row="12" col="5" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="left" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approve=flow.group(approve)
+var text = flow.group(text)
+var state = flow.group(state);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+  	var app1 = flow.group(app1)
+	var app2 = flow.group(app2)
+	var app3 = flow.group(app3)
+	var app4 = flow.group(app4)
+    if(app1!=null&&app1!=''&&substring(app1,0,1)=='3'){
+		return substring(app1,indexof(app1,'-')+1)
+	}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='3'){
+		return substring(app2,indexof(app2,'-')+1)
+	}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='3'){
+		return substring(app3,indexof(app3,'-')+1)
+    }else if(app4!=null&&app4!=''&&substring(app4,0,1)=='3'){
+		return substring(app4,indexof(app4,'-')+1)
+	}else{
+     	return "";
+    }
+}else{
+ 	return ""
+}]]></expression-value></cell><cell expand="Down" name="G12" row="12" col="7" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="left" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="outTime" aggregate="group" property="description" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="J12" row="12" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A13" row="13" col="1" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='1'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='1'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='1'){
+  name= substring(app3,2,indexof(app3,'-'));
+}
+if(name!=""){
+var realname= flow.group(realname,text==name);
+var approve=flow.group(approve);
+var text = flow.group(text);
+var state = flow.group(state);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+    if(app1!=null&&app1!=''&&substring(app1,0,1)=='1'){
+		return realname;
+	}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='1'){
+		return realname
+	}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='1'){
+		return realname
+	}else{
+     	return "";
+    }
+}else{
+ 	return ""
+}
+}]]></expression-value></cell><cell expand="None" name="C13" row="13" col="3" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='2'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='2'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='2'){
+  name= substring(app3,2,indexof(app3,'-'));
+}
+if(name!=""){
+var approve=flow.group(approve);
+var text = flow.group(text);
+var state = flow.group(state);
+var realname= flow.group(realname,text==name);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+    if(app1!=null&&app1!=''&&substring(app1,0,1)=='2'){
+		return realname;
+	}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='2'){
+		return realname
+	}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='2'){
+		return realname
+	}else{
+     	return "";
+    }
+}else{
+ 	return ""
+}
+}]]></expression-value></cell><cell expand="None" name="E13" row="13" col="5" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var app4 = flow.group(app4);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='3'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='3'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='3'){
+  name= substring(app3,2,indexof(app3,'-'));
+}else if(app4!=null&&app4!=''&&substring(app4,0,1)=='3'){
+  name= substring(app4,2,indexof(app4,'-'));
+}
+if(name!=""){
+var approve=flow.group(approve);
+var text = flow.group(text);
+var state = flow.group(state);
+var realname= flow.group(realname,text==name);
+if(text=='结束'||state=='处理中'){
+  return ''
+}else if(approve !=null && approve!=''){
+    if(app1!=null&&app1!=''&&substring(app1,0,1)=='3'){
+		return realname;
+	}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='3'){
+		return realname
+	}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='3'){
+		return realname
+    }else if(app4!=null&&app4!=''&&substring(app4,0,1)=='3'){
+		return realname
+	}else{
+     	return "";
+    }
+}else{
+ 	return ""
+}
+}]]></expression-value></cell><cell expand="Down" name="G13" row="13" col="7" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="outTime" aggregate="group" property="wareuser" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="J13" row="13" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A14" row="14" col="1" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='1'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='1'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='1'){
+  name= substring(app3,2,indexof(app3,'-'));
+}
+if(name!=""){
+var text = flow.group(text);
+var approvedate =flow.group(approvedate,text==name);
+var state = flow.group(state);
+if(approvedate != null && approvedate != ''){
+  var fdatelength = length(approvedate);
+  if(text=='结束'||state=='处理中'){
+  	return ''
+  }else if(fdatelength >= 10){
+      var year = substring(approvedate,0,4);
+         var month = substring(approvedate,4,6);
+         var day = substring(approvedate,6,8);
+         var time = substring(approvedate,8,10);
+         var minute = substring(approvedate,10);
+         return year+'年'+month+"月"+day+"日"+time+"时"+minute+"分";
+
+    }else{
+      return '';
+    }
+}else{
+      return '';
+}
+}]]></expression-value></cell><cell expand="None" name="C14" row="14" col="3" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='2'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='2'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='2'){
+  name= substring(app3,2,indexof(app3,'-'));
+}
+if(name!=""){
+var text = flow.group(text);
+var approvedate =flow.group(approvedate,text==name);
+var state = flow.group(state);
+if(approvedate != null && approvedate != ''){
+  var fdatelength = length(approvedate);
+  if(text=='结束'||state=='处理中'){
+  	return ''
+  }else if(fdatelength >= 10){
+      var year = substring(approvedate,0,4);
+         var month = substring(approvedate,4,6);
+         var day = substring(approvedate,6,8);
+         var time = substring(approvedate,8,10);
+         var minute = substring(approvedate,10);
+         return year+'年'+month+"月"+day+"日"+time+"时"+minute+"分";
+
+    }else{
+      return '';
+    }
+}else{
+      return '';
+}
+}]]></expression-value></cell><cell expand="None" name="E14" row="14" col="5" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var app1 = flow.group(app1);
+var app2 = flow.group(app2);
+var app3 = flow.group(app3);
+var app4 = flow.group(app4);
+var name="";
+if(app1!=null&&app1!=''&&substring(app1,0,1)=='3'){
+  name= substring(app1,2,indexof(app1,'-'));
+}else if(app2!=null&&app2!=''&&substring(app2,0,1)=='3'){
+  name= substring(app2,2,indexof(app2,'-'));
+}else if(app3!=null&&app3!=''&&substring(app3,0,1)=='3'){
+  name= substring(app3,2,indexof(app3,'-'));
+}else if(app4!=null&&app4!=''&&substring(app4,0,1)=='3'){
+  name= substring(app4,2,indexof(app4,'-'));
+}
+if(name!=""){
+var text = flow.group(text);
+var approvedate =flow.group(approvedate,text==name);
+var state = flow.group(state);
+if(approvedate != null && approvedate != ''){
+  var fdatelength = length(approvedate);
+  if(text=='结束'||state=='处理中'){
+  	return ''
+  }else if(fdatelength >= 10){
+      var year = substring(approvedate,0,4);
+         var month = substring(approvedate,4,6);
+         var day = substring(approvedate,6,8);
+         var time = substring(approvedate,8,10);
+         var minute = substring(approvedate,10);
+         return year+'年'+month+"月"+day+"日"+time+"时"+minute+"分";
+
+    }else{
+      return '';
+    }
+}else{
+      return '';
+}
+}]]></expression-value></cell><cell expand="None" name="G14" row="14" col="7" left-cell="A1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="right" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var approvedate=outTime.group(waretime);
+if(approvedate==null||approvedate==""){
+	return "";
+}else{
+var year = substring(approvedate,0,4);
+var month = substring(approvedate,5,7);
+var day = substring(approvedate,8,10);
+var time = substring(approvedate,11,13);
+var minute = substring(approvedate,14,16);
+return year+'年'+month+"月"+day+"日"+time+"时"+minute+"分";
+}]]></expression-value></cell><cell expand="None" name="J14" row="14" col="10" left-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><row row-number="1" height="8" band="headerrepeat"/><row row-number="2" height="5" band="headerrepeat"/><row row-number="3" height="74" band="headerrepeat"/><row row-number="4" height="29" band="headerrepeat"/><row row-number="5" height="29" band="headerrepeat"/><row row-number="6" height="29" band="headerrepeat"/><row row-number="7" height="35" band="headerrepeat"/><row row-number="8" height="33" band="headerrepeat"/><row row-number="9" height="41"/><row row-number="10" height="33" band="footerrepeat"/><row row-number="11" height="29" band="footerrepeat"/><row row-number="12" height="25" band="footerrepeat"/><row row-number="13" height="25" band="footerrepeat"/><row row-number="14" height="25" band="footerrepeat"/><column col-number="1" width="56"/><column col-number="2" width="80"/><column col-number="3" width="60"/><column col-number="4" width="62"/><column col-number="5" width="62"/><column col-number="6" width="61"/><column col-number="7" width="63"/><column col-number="8" width="63"/><column col-number="9" width="64"/><column col-number="10" width="74"/><datasource name="NeoUnit" type="buildin"><dataset name="ds" type="sql"><sql><![CDATA[${
+  return "select td.classlevel,td.nodecode,d.approve,d.approveman,d.borroworgan,d.borrowmd,d.comaddress,d.borrowmantel,d.borrowdate,d.borrowman,d.borroworgan,d.borrowmd,d.borrowcode,d.borrowts, m.returntime ,m.borrowcode,i.entryid,i.filecode,i.catalog,i.funds, i.archivecode,i.fscount,i.title,i.pages,i.recordcode,i.filingyear,m.renewreason from tb_borrowdoc d left join tb_borrowmsg m on d.borrowcode = m.borrowcode left join tb_entry_index i on m.entryid = i.entryid inner join tb_data_node td on i.nodeid=td.nodeid where docid in(\'" + replace(param("docid"),",","\',\'") + "\')"
+}]]></sql><field name="classlevel"/><field name="nodecode"/><field name="approve"/><field name="approveman"/><field name="borroworgan"/><field name="borrowmd"/><field name="comaddress"/><field name="borrowmantel"/><field name="borrowdate"/><field name="borrowman"/><field name="borroworgan"/><field name="borrowmd"/><field name="borrowcode"/><field name="borrowts"/><field name="returntime"/><field name="borrowcode"/><field name="entryid"/><field name="filecode"/><field name="catalog"/><field name="funds"/><field name="archivecode"/><field name="fscount"/><field name="title"/><field name="pages"/><field name="recordcode"/><field name="filingyear"/><field name="renewreason"/><parameter name="docid" type="String" default-value=""/></dataset><dataset name="outTime" type="sql"><sql><![CDATA[${
+  return "select * from st_outware where borrowcodes like \'%"+param("borrowcode")+"%\' "
+}]]></sql><field name="outid"/><field name="confirmtime"/><field name="description"/><field name="warenum"/><field name="waretime"/><field name="waretype"/><field name="wareuser"/><field name="borrowcodes"/><parameter name="borrowcode" type="String" default-value=""/><parameter name="app1" type="String" default-value=""/><parameter name="app2" type="String" default-value=""/><parameter name="app3" type="String" default-value=""/></dataset><dataset name="flow" type="sql"><sql><![CDATA[${
+  return "select f.flowsid,d.desci,d.lymode,d.docid,d.borrowman,d.borroworgan,d.borrowmd,d.borrowcode,d.borrowts,d.borrowdate,f.text,f.spman,f.state,f.approvedate,d.approve,u.realname,\'"+param("app1")+"\' as app1,\'"+param("app2")+"\' as app2,\'"+param("app3")+"\' as app3,\'"+param("app4")+"\' as app4 from tb_flows f left join tb_borrowdoc d on d.borrowcode=f.msgid left join tb_user u on u.userid=f.spman where d.docid in(\'" + replace(param("docid"),",","\',\'") + "\')"
+}]]></sql><field name="flowsid"/><field name="desci"/><field name="lymode"/><field name="docid"/><field name="borrowman"/><field name="borroworgan"/><field name="borrowmd"/><field name="borrowcode"/><field name="borrowts"/><field name="borrowdate"/><field name="text"/><field name="spman"/><field name="state"/><field name="approvedate"/><field name="approve"/><field name="realname"/><field name="app1"/><field name="app2"/><field name="app3"/><field name="app4"/><parameter name="app1" type="String" default-value=""/><parameter name="app2" type="String" default-value=""/><parameter name="app3" type="String" default-value=""/><parameter name="docid" type="String" default-value=""/><parameter name="app4" type="String" default-value=""/></dataset></datasource><paper type="A4" left-margin="14" right-margin="14"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   top-margin="28" bottom-margin="28" paging-mode="fixrows" fixrows="20"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   width="595" height="842" orientation="portrait" footerEnabled="false" html-report-align="center" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper></ureport>

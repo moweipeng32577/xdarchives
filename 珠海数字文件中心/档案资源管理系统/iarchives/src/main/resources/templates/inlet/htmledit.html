@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="UTF-8">
+	<title>富文本编辑器</title>
+	<link rel="stylesheet" href="../../js/trumbowyg/design/css/trumbowyg.css">
+
+	<script src="../../js/jquery/jquery-1.11.1.js"></script>
+	<script src="../../js/trumbowyg/trumbowyg.js"></script>
+	<script src="../../js/trumbowyg/langs/zh_cn.js"></script>
+	<script src="../../js/trumbowyg/plugins/base64/trumbowyg.base64.js"></script>
+	<script src="../../js/trumbowyg/plugins/upload/trumbowyg.upload.min.js"></script>
+	<style type="text/css">
+		a:link {
+			font-size: 15px;
+			color: #000000;
+			text-decoration: none;
+		}
+		a:visited {
+			font-size: 15px;
+			color: #000000;
+			text-decoration: none;
+		}
+		a:hover {
+			font-size: 15px;
+			color: #CD0000;
+			text-decoration: underline;
+		}
+
+		.fixed{ position:fixed; left:20px; bottom:5px; width:100%; height:auto; background-color:#fff; z-index:9999;}
+	</style>
+</head>
+<body>
+	<div >
+		<h3 id="title" style="text-align: center" ></h3>
+		<p id="date" style="text-align: center"></p>
+		<div id="customized-buttonpane" class="editor" style="margin:5px;"></div>
+		<div id="fileDiv">
+		</div>
+	</div>
+</body>
+<script th:inline="javascript">
+    var inform = [[${inform}]];
+    var electronics = [[${electronics}]];
+</script>
+<script>
+    Date.prototype.format = function (format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    $.trumbowyg.btnsGrps.test = [
+        'blod',
+        '|', 'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull','|',
+        'foreColor',
+        'backColor'
+    ];
+
+    $('#customized-buttonpane').trumbowyg({
+        lang: 'zh_cn',
+        closable: true,
+        mobile: true,
+        fixedBtnPane: true,
+        fixedFullWidth: true,
+        autogrow: true,
+        btnsDef: {
+            // Create a new dropdown
+            image: {
+                dropdown: ['insertImage', 'upload'],
+                ico: 'insertImage'
+            }
+        },
+        plugins: {
+            upload: {
+                serverPath:'/upload',
+                //fileFieldName:'',
+                //data:'',
+                //headers:'',
+                //xhrFields:'',
+                //urlPropertyName:'',
+                //statusPropertyName:'',
+                success:function(data, trumbowyg, $modal, values){
+
+                },
+                error:function(data, trumbowyg, $modal, values){
+
+                }
+            }
+        },
+        btns: [
+            'viewHTML',              //转换成html格式
+            '|', 'formatting',         //格式化，排布大小方案
+            '|', 'btnGrp-semantic',    //字体的倾斜，加粗，中间划线
+            '|', 'btnGrp-test',        //试验，有此项，则会出现左对齐，居中，右对齐，两端对齐
+            'btnGrp-lists',       //list，前面加序号或者圆点符号
+            '|', 'image',              //图片
+            '|', 'horizontalRule'     //增加分隔符
+        ]
+    });
+    $('.trumbowyg-close-button').hide();
+
+    if(inform){
+        $('#title').text(inform.title);
+        $('#date').text('发布日期：'+new Date(inform.informdate).format("yyyy-MM-dd hh:mm:ss"));
+        $('#customized-buttonpane').html(inform.text);
+        hideButton();
+    }
+
+    if(electronics){
+        var html="<div class='fixed'>相关附件：(双击文件可以下载)<br>";
+        for(var i=0;i<electronics.length;i++){
+            html+="&nbsp;&nbsp;&nbsp;&nbsp;<a href='/inform/openFile?eleid="+electronics[i].eleid+"&fileName="+electronics[i].filename+"'>"+electronics[i].filename+"</a><br>";
+        }
+        $('#fileDiv').html(html);
+    }
+
+    function getHtml(){
+        return $('.editor').trumbowyg('html')==''?$('.editor').html():$('.editor').trumbowyg('html');
+	}
+
+    function setHtml(html){
+        $('.editor').html(html);
+    }
+
+    function hideButton() {
+        $('.trumbowyg-button-pane').hide();
+    }
+
+</script>
+</html>

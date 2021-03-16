@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据开放')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/dataOpen/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var state = [[${state}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    var openSendmsg = [[${openSendmsg}]]; //开放是否短信通知
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+</script>
+</html>

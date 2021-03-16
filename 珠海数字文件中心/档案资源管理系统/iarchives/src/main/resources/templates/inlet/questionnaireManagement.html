@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('问卷管理')">
+</head>
+<body>
+<link rel="stylesheet" href="../../js/trumbowyg/design/css/trumbowyg.css">
+<script src="../../js/trumbowyg/trumbowyg.js"></script>
+<script src="../../js/questionnaireManagement/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var reportServer = [[${reportServer}]];
+    var type = [[${type}]];//用于判断是否已发布
+    var flag = [[${flag}]];
+    var quesid = [[${quesid}]];
+    var title = [[${title}]];
+</script>
+</html>

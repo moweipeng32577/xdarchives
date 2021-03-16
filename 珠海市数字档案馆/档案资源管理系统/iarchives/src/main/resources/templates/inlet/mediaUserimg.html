@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>个性头像</title>
+    <style>
+
+        html, body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .tapdiv img{
+            width:360px;
+            height:360px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="center">
+    <div id="tapdiv" class="tapdiv">
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    var filesrc = [[${imgsrc}]];
+</script>
+</html>
+<script>
+    var img = document.createElement('img');
+    img.setAttribute('src', filesrc);
+    document.getElementById('tapdiv').appendChild(img);
+</script>

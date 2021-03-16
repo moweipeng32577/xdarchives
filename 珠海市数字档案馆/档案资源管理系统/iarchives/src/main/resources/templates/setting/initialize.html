@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<style>
+
+            html,body{
+                margin: 0px;
+                padding:0px;
+                width:100%;
+                height:100%;
+                overflow: hidden;
+                background-size: 100% 100%;
+                background-image: url(img/background/bg2.jpg);
+            }
+
+			.layui-form-item{
+				margin:0px !important;
+			}
+
+			.buttonDiv{
+                background: #1babff;
+				height:35px;
+				width:100%;
+				text-align: center;
+				position: absolute;
+				bottom: 0px;
+                left: 0px;
+				text-align: center;
+				line-height:35px;
+				font-size:1.2em;
+				color:#484f56;
+				transition: all .2s;
+                color:#fff;
+			}
+
+			.buttonDiv:hover{
+				background: #00BFFF;
+				cursor: pointer;
+			}
+
+            .centerDiv{
+                width:70%;
+                height: 100%;
+                margin: auto;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+
+            .subDiv{
+                position: relative;
+                width:100%;
+                background: rgba(255,255,255,.8);
+                padding:0px 10%;
+                padding-bottom: 10%;
+                border-radius: 5px;
+            }
+
+            .subTitle{
+                margin: auto;
+                text-align: center;
+                font-size: 30px;
+                padding: 30px;
+                color: rgba(0,0,0,.7);
+            }
+
+            .layui-input,.layui-form-label{
+                background-color: rgba(255,255,255,.6) !important;
+            }
+
+            @keyframes ianimRight {
+                from, 60%, 75%, 90%, to {
+                    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+                }
+
+                from {
+                    opacity: 0;
+                    transform: translate3d(1000px, 0, 0);
+                }
+
+                60% {
+                    opacity: 1;
+                    transform: translate3d(-25px, 0, 0);
+                }
+
+                75% {
+                    transform: translate3d(10px, 0, 0);
+                }
+
+                90% {
+                    transform: translate3d(-5px, 0, 0);
+                }
+
+                to {
+                    transform: none;
+                }
+            }
+
+            .ianimRight {
+                animation-duration: 1s;
+                animation-fill-mode: both;
+                animation-name: ianimRight;
+            }
+
+            .layui-form-label{
+                width:150px !important;
+            }
+
+            .layui-input{
+                width:93% !important;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="centerDiv">
+            <div class="subDiv">
+                <div class="subTitle">首次登录请设置您的信息</div>
+                <div class="layui-form-item" style="height:40px;line-height: 40px;">
+                    &nbsp;&nbsp;<span style="font-size: 1.3em;color: rgba(0,0,0,.7);">机构全宗设置</span>
+                </div>
+                <form class="layui-form layui-form-pane" action="" >
+                    <div class="layui-form-item organcls">
+                        <label class="layui-form-label">机构名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="organname"  required  placeholder="全宗单位" lay-verify="required"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+
+                    <!--<div class="layui-form-item  organcls">-->
+                        <!--<label class="layui-form-label">机构分类号</label>-->
+                        <!--<div class="layui-input-block">-->
+                            <!--<input type="text" name="organcode"  required placeholder="001" lay-verify="required"  autocomplete="off" class="layui-input" >-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="layui-form-item fundscls">
+                        <label class="layui-form-label">全宗名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="qzname"  required  placeholder="全宗单位" lay-verify="required"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item fundscls">
+                        <label class="layui-form-label">全宗号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="qzcode"  required  placeholder="001" lay-verify="required"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="height:60px;line-height: 60px;">
+                    &nbsp;&nbsp;<span style="font-size: 1.3em;color: rgba(0,0,0,.7);">账号密码设置</span>
+                        <form class="layui-form" action="" >
+                            <input type="checkbox" name="consistent" title="密码一致">
+                        </form>
+                    </div>
+                    <div class="layui-form-item pwdccls">
+                        <label class="layui-form-label">系统管理员(xitong)</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="xtpwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item pwdcls">
+                        <label class="layui-form-label">安全保密员(aqbm)</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="bmpwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item pwdcls">
+                        <label class="layui-form-label">安全审计员(aqsj)</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="sjpwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item pwdcls">
+                        <label class="layui-form-label">档案员(dauser)</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="dapwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item pwdcls">
+                        <label class="layui-form-label">审核员(shuser)</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="shpwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </form>
+                <div class="buttonDiv">
+                    完&nbsp;&nbsp;&nbsp;&nbsp;成
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+			var flag = '0';
+			layui.use('form', function(){
+			    var form = layui.form,
+				layer = layui.layer;
+                var consistent = false;
+                form.on('checkbox', function(data){
+                    consistent =  data.elem.checked;
+                    if(consistent){
+                        $('.pwdccls>.layui-form-label').text('一致密码');
+                        $('.pwdcls').hide(300);
+                    }else{
+                        $('.pwdccls>.layui-form-label').text('系统管理员(xitong)');
+                        $('.pwdcls').show(300);
+                    }
+                });
+
+			    $('.buttonDiv').click(function(){
+			        var regex = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{3,30}$/;
+			        var pwdArray = ['xtpwd','bmpwd','sjpwd','dapwd','shpwd'];
+                    var textArray = ['organname','qzname','qzcode'];
+                    for(var index in textArray){
+                        if($('input[name="'+textArray[index]+'"]').val()==''){
+                            layer.msg('请填写完整机构全宗信息', {icon: 5});
+                            return;
+                        }
+                    }
+                    if(consistent){
+                        if(!regex.test($('input[name="xtpwd"]').val())){
+                            layer.msg('请输入3-30位字符，必须由数字和字母组合', {icon: 5});
+                            return;
+                        }
+                    }else{
+                        for(var index1 in pwdArray){
+                            if(!regex.test($('input[name="'+pwdArray[index1]+'"]').val())){
+                                layer.msg('请输入3-30位字符，必须由数字和字母组合', {icon: 5});
+                                return;
+                            }
+                        }
+                    }
+
+                    var organname = $('input[name="organname"]').val();
+//                    var organcode = $('input[name="organcode"]').val();
+                    var fundsname = $('input[name="qzname"]').val();
+                    var fundscode = $('input[name="qzcode"]').val();
+                    var xtpwd = $('input[name="xtpwd"]').val();
+                    var bmpwd = $('input[name="bmpwd"]').val();
+                    var sjpwd = $('input[name="sjpwd"]').val();
+                    var dapwd = $('input[name="dapwd"]').val();
+                    var shpwd = $('input[name="shpwd"]').val();
+                    $.ajax({
+                        type: "post",
+                        url: '/initdata',
+                        data:{
+							'organname':organname,
+//                            'organcode':organcode,
+							'fundsname':fundsname,
+							'fundscode':fundscode,
+                            'xtpwd':xtpwd,
+                            'bmpwd':bmpwd,
+                            'sjpwd':sjpwd,
+                            'dapwd':dapwd,
+                            'shpwd':shpwd,
+                            'consistent':consistent
+						},
+                        dataType:'json',
+                        success: function (data) {
+                            if(data.success==true){
+                                layer.msg(data.msg, {icon: 6});
+                                setTimeout(function(){
+                                    location.href = '/index';
+                                },500);
+							}else{
+                                layer.msg(data.msg, {icon: 5});
+							}
+                        },
+                        error:function(data){
+                            layer.msg('修改失败...', {icon: 5});
+                        },
+                        async:false
+                    });
+
+                });
+			});
+
+</script>

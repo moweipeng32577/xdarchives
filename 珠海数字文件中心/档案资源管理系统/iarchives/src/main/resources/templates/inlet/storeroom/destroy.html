@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('实体档案出库')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/storeroom/destroy/app.js"></script>
+</body>
+<script th:inline="javascript">
+    //报表服务
+    var reportServer = [[${reportServer}]];
+</script>
+</html>

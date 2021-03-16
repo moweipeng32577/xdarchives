@@ -1,0 +1,16 @@
+Ext.define('QuestionnaireManagement.store.QuestionnaireManagementGridStore',{
+    extend:'Ext.data.Store',
+    model:'QuestionnaireManagement.model.QuestionnaireManagementGridModel',
+    pageSize:XD.pageSize,
+    remoteSort:true,
+    proxy:{
+        type:'ajax',
+        url:'/questionnaireManagement/getQuestionnaires',
+        extraParams:{},
+        reader:{
+            type:'json',
+            rootProperty:'content',
+            totalProperty:'totalElements'
+        }
+    }
+});

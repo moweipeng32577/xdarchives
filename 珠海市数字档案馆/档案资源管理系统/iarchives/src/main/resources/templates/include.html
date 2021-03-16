@@ -1,0 +1,56 @@
+﻿<head th:fragment="comonHeader(title)" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <meta charset="UTF-8">
+    <!--IE浏览器设置，如果装有chromefarme，则用其渲染，如果没有安装则使用最新的IE版本渲染-->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--extjs及中文包引入-->
+    <script type="text/javascript" src="../../ext/ext-all.js"></script>
+    <script type="text/javascript" src="../../ext/ext-locale-zh_CN.js"></script>
+    <script type="text/javascript" src="../../ext/theme-triton.js"></script>
+    <!--extjs样式引入-->
+    <link rel="stylesheet" type="text/css" href="../../ext/ux-all.css"/>
+    <link rel="stylesheet" type="text/css" href="../../ext/theme-triton-all_1.css"/>
+    <link rel="stylesheet" type="text/css" href="../../ext/theme-triton-all_2.css"/>
+    <link rel="stylesheet" type="text/css" href="../../ext/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="../../ext/data-view.css"/>
+    <!--引入extjs组件-->
+    <script src="../../ext/ux/ProgressBarPager.js"></script>
+    <script src="../../ext/ux/MutiDateField.js"></script>
+    <script src="../../ext/ux/BoxReorderer.js"></script>
+    <script src="../../ext/ux/TabReorderer.js"></script>
+    <script src="../../ext/ux/DatetimePicker.js"></script>
+    <script src="../../ext/ux/DataView/Animated.js"></script>
+    <!--<script src="../../ext/ux/Datetimefield.js"></script>-->
+    <script src="../../ext/componets/SearchField.js"></script>
+    <script src="../../ext/componets/MultiSelect.js"></script>
+    <script src="../../ext/componets/ItemSelector.js"></script>
+    <!--引入jquery-->
+    <script type="text/javascript" src="../../jquery/jquery-1.11.1.js"></script>
+    <!--引入文件上传组件-->
+    <link rel="stylesheet" type="text/css" href="../../webuploader/webuploader.css"/>
+    <script type="text/javascript" src="../../webuploader/webuploader.js"></script>
+    <!--引入自定义组件-->
+    <script src="../../js/comps/BasicGridView.js"></script>
+    <script src="../../js/comps/EntryGridView.js"></script>
+    <script src="../../js/comps/DynamicFormView.js"></script>
+    <script src="../../js/comps/DynamicGridView.js"></script>
+    <script src="../../js/comps/ElectronicView.js"></script>
+    <script src="../../js/comps/SolidView.js"></script>
+    <script src="../../js/comps/LongView.js"></script>
+    <script src="../../js/comps/JSUtils.js"></script>
+    <script src="../../js/comps/BasicDataView.js"></script>
+    <script src="../../js/comps/MediaListSort.js"></script>
+    <!--引用报表JS-->
+    <!--<script src="../../js/comps/FineReport.js"></script>-->
+    <!--引入DataView组件-->
+    <script src="../../ext/ux/DataView/DragSelector.js"></script>
+    <script src="../../ext/ux/DataView/LabelEditor.js"></script>
+    <script src="../../ext/ux/DataView/Animated.js"></script>
+    <!--引入echarts-->
+    <script type="text/javascript" src="../../js/echarts/echarts.common.min.js"></script>
+
+    <title th:text="${title}"></title>
+    <script th:inline="javascript">
+        Ext.useShims=true
+    </script>
+</head>

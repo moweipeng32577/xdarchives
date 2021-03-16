@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('归还管理')">
+</head>
+<body>
+<script src="../../js/restitutionAdmins/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var taskid = [[${taskid}]];
+    var borrowmsgid = [[${borrowmsgid}]];
+    var borrowflag = [[${borrowflag}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //taskid = undefined;//需求变更暂时去除催还通知定位具体条目
+    //borrowmsgid = undefined;
+</script>
+<object id="CertCtl" name="CertCtl" type="application/cert-reader" width="0" height="0">
+    该浏览器不支持身份证阅读器控件！
+</object>
+</html>

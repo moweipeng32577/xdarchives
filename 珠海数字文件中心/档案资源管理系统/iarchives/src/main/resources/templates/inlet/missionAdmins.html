@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('待办事项')">
+</head>
+<body>
+<script src="../../js/mission/app.js"></script>
+<script src="../../js/netca/netcawebsocket.js"></script>
+<script src="../../js/netca/netcaseal.js"></script>
+<script src="../../js/netca/base64.min.js"></script>
+<script src="../../js/netca/json2.js"></script>
+</body>
+<script th:inline="javascript">
+    var info = [[${info}]];
+    var reportServer = [[${reportServer}]];
+    var netcatUse = [[${netcatUse}]];
+</script>
+</html>

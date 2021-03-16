@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8" />
+	<title>数字档案馆</title>
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<script th:inline="javascript">
+        var sysType=[[${sysType}]];//系统类型,用于统一登录平台
+        var realname = [[${realname}]];//用户备注名，用于系统登录权限
+        var loginname=[[${loginname}]];//登录名，过滤没有权限的功能
+
+		if(sysType == 1){
+            document.title = '数字档案长期存储系统';
+		}
+        else if(sysType == 3){
+            document.title = '数字化加工(辅助工具)';
+        }
+        else if(sysType == 4){
+            document.title = '基础平台系统';
+        }
+		else if(sysType == 5 ){
+            document.title = '目录中心系统';
+		}
+        else if(sysType == 6 ){
+            document.title = '新闻采集系统';
+        }
+        else if(sysType == 7 ){
+            document.title = '编研管理系统';
+        }
+        else if(sysType == 8 ){
+            document.title = '环境控制系统';
+        }else if(sysType == 11 ){
+            document.title = '立档单位在线归档系统';
+        }
+	</script>
+	<link rel = "Shortcut Icon" th:href="@{img/icon/title.jpg}"/>
+	<link rel="stylesheet" th:href="@{js/zui/css/zui.min.css}" />
+	<link rel="stylesheet" th:href="@{css/desktop.css}" />
+	<link rel="stylesheet" th:href="@{js/desktop/list/list.css}" />
+</head>
+<body>
+<div id="main">
+	<!--桌面区域-->
+	<div id="body">
+		<div class="container-fluid">
+			<div class="row"></div>
+		</div>
+	</div>
+</div>
+
+<!-- 信息面板-->
+<div id="msgpanel"></div>
+
+<!--菜单区域-->
+<div id="menu">
+	<div class="menuleft" >
+		<div class="box" style="height: 100%"></div>
+	</div>
+	<div class="menuright">
+		<div class="menurightbg">
+
+		</div>
+
+		<ul class="list-group list-grouppy">
+
+			<!--<li class="list-group-item" linum="7" th:align="center"><img src="" class="userheadimg" id="userimgid"/></a></li>-->
+			<li class="list-group-item userMsg hidden-text" linum="0"><img src="" class="userheadimg"><br/><a class="realname"><div style="height:10px;"></div></a></li>
+			<!--<div class="hide-li"><li class="list-group-item unifyctrl" linum="6"><a class="platform_a">&nbsp;&nbsp;<i class="icon icon-cloud"></i> &nbsp;&nbsp;利用平台</a></li></div>-->
+			<li class="list-group-item ptqhli"><a>&nbsp;&nbsp;<i class="icon icon-tablet"></i> &nbsp;&nbsp;切换平台</a>
+				<ul class="isptqhli">
+					<li class="list-group-item " linum="21" id="zh_zy"><a>&nbsp;<span class="xd-icon xd-icon-s">A</span> &nbsp;&nbsp;档案资源管理系统</a></li>
+					<li class="list-group-item " linum="22" id="zh_sx"><a>&nbsp;<span class="xd-icon xd-icon-s">B</span> &nbsp;&nbsp;声像系统</a></li>
+					<li class="list-group-item " linum="23" id="zh_szh"><a>&nbsp;<span class="xd-icon xd-icon-s">C</span> &nbsp;&nbsp;数字化加工辅助工具</a></li>
+					<li class="list-group-item " linum="24" id="zh_jc"><a>&nbsp;<span class="xd-icon xd-icon-s">D</span> &nbsp;&nbsp;基础平台系统</a></li>
+					<li class="list-group-item " linum="25" id="zh_ml"><a>&nbsp;<span class="xd-icon xd-icon-s">E</span> &nbsp;&nbsp;目录中心系统</a></li>
+					<li class="list-group-item " linum="26" id="zh_xw"><a>&nbsp;<span class="xd-icon xd-icon-s">F</span> &nbsp;&nbsp;新闻影像采集归档管理系统</a></li>
+					<li class="list-group-item " linum="27" id="zh_by"><a>&nbsp;<span class="xd-icon xd-icon-s">G</span> &nbsp;&nbsp;编研管理系统</a></li>
+					<li class="list-group-item " linum="28" id="zh_kf"><a>&nbsp;<span class="xd-icon xd-icon-s">H</span> &nbsp;库房管理系统</a></li>
+					<li class="list-group-item " linum="29" id="zh_cx"><a>&nbsp;<span class="xd-icon xd-icon-s">I</span> &nbsp;&nbsp;&nbsp;利用平台</a></li>
+				</ul>
+			</li>
+			<!--<li class="list-group-item unifyctrl hidden-text" linum="9"><a>&nbsp;&nbsp;<i class="icon icon-laptop"></i> &nbsp;&nbsp;后台风格桌面</a></li>-->
+			<li class="list-group-item unifyctrl hidden-text" linum="8"><a>&nbsp;&nbsp;<i class="icon icon-list-ol"></i> &nbsp;&nbsp;使用手册</a></li>
+			<li class="list-group-item gxhli unifyctrl" ><a>&nbsp;&nbsp;<i class="icon icon-group"></i> &nbsp;&nbsp;个性化</a>
+				<ul class="isgxhli">
+					<li class="list-group-item " linum="*" style="display: none;"></li>
+					<li class="list-group-item " linum="1"><a>&nbsp;<i class="icon icon-coffee"></i> &nbsp;&nbsp;主 题</a></li>
+					<li class="list-group-item " linum="2"><a>&nbsp;<i class="icon icon-spin icon-spinner-indicator"></i> &nbsp;&nbsp;动 效</a></li>
+					<li class="list-group-item " linum="3"><a>&nbsp;<i class="icon icon-picture"></i> &nbsp;&nbsp;壁 纸</a></li>
+					<li class="list-group-item " linum="5"><a>&nbsp;<i class="icon icon-edit"></i> &nbsp;&nbsp;字 体</a></li>
+				</ul>
+			</li>
+			<li class="list-group-item" linum="4"><a>&nbsp;&nbsp;<i class="icon icon-off"></i> &nbsp;&nbsp;注 销</a></li>
+		</ul>
+
+	</div>
+</div>
+
+<!--底部bar-->
+<div id="buttom">
+	<div id="left-tools">
+		<!--<i class="icon icon-th-large"></i>-->
+		<img src="img/menu.png" class="icon-th-large" style="padding:10px;position: relative;left:10px;"/>
+	</div>
+	<div class="btabs">
+	</div>
+	<div id="right_tools">
+		<!--<i class="icon icon-envelope imsg"></i>
+		<i class="icon"></i>
+		<span class="rbzy" style="border-left: 1px solid #e2e2e2;height:45px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		-->
+		<div class="rbzy"></div>
+		<div class="imsg"><i class="icon icon-envelope"></i><div class="msgnum">0</div></div>
+
+	</div>
+</div>
+</div>
+
+<!-- 个性化-->
+<div id="zts" zts="2F85D6" rgb="47,133,214" anim="7" ck="0" ckb="1E90FF" bg="sky.jpg" ztsize="small"></div>
+
+</body>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script type="text/javascript" th:src="@{js/jquery/jquery.json.min.js}" ></script>
+<script type="text/javascript" th:src="@{js/layer/layer.js}" ></script>
+<script type="text/javascript" th:src="@{js/desktop/list/list1.js}" ></script>
+<script type="text/javascript" th:src="@{js/desktop/imsg.js}" ></script>
+<script type="text/javascript" th:src="@{js/desktop/desktop.js}" ></script>
+<script type="text/javascript" th:src="@{sockjs/sockjs.min.js}" ></script>
+<script type="text/javascript" th:src="@{sockjs/stomp.min.js}" ></script>
+<script th:inline="javascript">
+    var personalized = [[${personalized}]];
+    var personalizedObject = JSON.parse(personalized)?JSON.parse(personalized):{};
+    var personalized1 = JSON.parse(personalized)?JSON.parse(personalized):{};
+    var realname = [[${realname}]];
+    var loginname=[[${loginname}]];
+    var userid = [[${userid}]];
+    var imgpath=[[${imgsrc}]];
+    var userDoc=[[${doc}]];
+    var platformopen=[[${platformopen}]];
+//	if(!platformopen) {
+//		$(".hide-li").hide();
+//	}
+	var single = [[${single}]];
+	if(single){
+		$(".gxhli").hide();
+	}
+
+	var changePwd=[[${changePwd}]];//强制修改密码
+</script>
+
+</html>
+
+<script>
+	$(function () {
+        if(!personalizedObject.path) {
+            $(".userheadimg").attr("src", "img/user_default.png");
+        }else{
+            $.ajax({
+                type: 'POST',
+                url: imgpath,
+                success: function(){
+                    $(".userheadimg").attr("src", imgpath);
+                },
+                error:function(){
+                    $(".userheadimg").attr("src", "img/user_default.png");
+                }
+            });
+        }
+
+    });
+
+
+
+    var lastTime = new Date().getTime();
+    var currentTime = new Date().getTime();
+    var timeOut = 15 * 60 * 1000; //设置超时时间： 15分
+	//var timeOut =  15*1000; //设置超时时间： 15分
+
+    $(function(){
+        /* 鼠标移动事件 */
+        $(document).mouseover(function(){
+            lastTime = new Date().getTime(); //更新操作时间
+
+        });
+    });
+
+    function toLoginPage(){
+        currentTime = new Date().getTime(); //更新当前时间
+        if(currentTime - lastTime > timeOut){ //判断是否超时
+            window.close();//关闭当前页
+			location.href = "/logoutt";//刷新父级页面;
+        }
+    }
+
+    /* 定时器
+     * 间隔5秒检测是否长时间未操作页面
+     */
+    window.setInterval(toLoginPage, 5000);
+
+</script>

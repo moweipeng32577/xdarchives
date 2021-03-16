@@ -1,0 +1,20 @@
+.box{padding:0px;}
+.box ul{margin:0px; padding:0px; list-style:none;border: 0;}
+.box ul li{ margin: 0px 2px 0px 0px; padding: 0px; width: 264px; height: 35px; display: block; border-radius: 0px;
+    /*border-bottom:1px solid #e0e0e0 !important;*/
+    border: 0; }
+.box ul li a{color: #000000 !important;text-align:center; width:264px; height:37px; line-height:35px; display:block; text-decoration:none;}
+.subulli{
+    max-height:350px;overflow-y:auto;overflow-x:hidden;background-color:#fff;display:none;position:relative; top:-37px; left:260px;width:190px;z-index: 2;-webkit-box-shadow:0 0 10px rgba(0, 0, 0, .6);  -moz-box-shadow:0 0 10px rgba(0, 0, 0, .6);  box-shadow:0 0 10px rgba(0, 0, 0, .6);
+}
+.box ul li ul{width:100%;height:100%;}
+.box ul li ul li{margin:0px 0px 0px 0px; padding:0px ;width:190px;}
+.box ul li ul li a{text-align: left !important;margin-left:10px;}
+.box ul li:hover{cursor: pointer;background:rgba(135,206,250,0.5) !important;}
+.box ul li ul li:hover{cursor: pointer;background:rgba(135,206,250,0.7) !important;}
+.thirdh{background-color: #1E90FF;}
+.leftd{float:left;width:70%;text-align: left;}
+.leftd i{margin-left: 10px;}
+.rightd{float:right;width:30%;text-align: right;}
+.rightd i{margin-right:10px;}
+			

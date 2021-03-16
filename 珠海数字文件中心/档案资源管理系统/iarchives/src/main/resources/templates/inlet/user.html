@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('用户管理')">
+</head>
+<body>
+<style>
+    /*.x-panel-header-default,.x-window-header-default-top,.x-btn-default-small,.x-window-default{*/
+    /*background-color:rgba(255,144,255,0.5);*/
+    /*border-color:rgba(255,144,255,0.5);*/
+    /*}*/
+    /*.x-tree-node-text ,.x-btn-icon-small-left,.x-btn-text,.x-btn-inner,.x-column-header-text-inner,.x-grid-td,.x-form-item-label-text{  height:16px;  font-size:15px;  }*/
+</style>
+<script src="../../js/user/app.js"></script>
+<script src="../../netca/netcawebsocket.js"></script>
+<script src="../../netca/usrBind.js"></script>
+<script src="../../js/netca/netcaseal.js"></script>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var userType = [[${userType}]];
+    var showChildUser = [[${showChildUser}]];
+    var openSxData = [[${openSxData}]];
+    var netcatUse = [[${netcatUse}]];//是否使用网证通电子签章  1使用  0禁用
+</script>
+</body>
+</html>

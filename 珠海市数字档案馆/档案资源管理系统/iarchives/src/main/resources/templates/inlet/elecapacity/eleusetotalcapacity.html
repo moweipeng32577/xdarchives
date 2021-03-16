@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>ECharts</title>
+  <!-- 引入 echarts.js -->
+  <script src="../../echarts/echarts.js"></script>
+  <script type="text/javascript" th:src="@{../../js/jquery/jquery-1.11.1.js}" ></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="margin-left:10%;width: 600px;height:350px;"></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    var xdata;
+    var ydata;
+    $.ajax('/elecapacity/getsumZX')
+        .success(function(result) {
+            if (result.success) {
+                xdata=result.data.date;
+                ydata=result.data.num;
+
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: '电子文件数量增长趋势'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: xdata
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data:ydata,
+                        type: 'line',
+                        // 显示数值
+                        itemStyle : { normal: {label : {show: true}}}
+                    }]
+                };
+                myChart.setOption(option);
+            }
+            else{
+
+            }
+        });
+
+</script>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('新建查询账号')">
+</head>
+<body>
+<script src="../../js/findAccount/app.js"></script>
+</body>
+<script th:inline="javascript">
+    //用户id
+    var loginUserid = [[${userid}]];
+    var borrrowSendmsg = [[${borrrowSendmsg}]]; //查档是否短信通知
+</script>
+
+<object id="CertCtl" name="CertCtl" type="application/cert-reader" width="0" height="0">
+    该浏览器不支持身份证阅读器控件！
+</object>
+
+</html>

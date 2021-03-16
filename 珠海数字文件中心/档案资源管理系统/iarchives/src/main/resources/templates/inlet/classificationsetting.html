@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('分类设置')">
+</head>
+<body>
+<script src="../../js/classificationsetting/app.js"></script>
+<script th:inline="javascript">
+    var syncUserid = [[${userid}]];
+    var loginname = [[${loginname}]];
+    var openSxData = [[${openSxData}]];
+</script>
+</body>
+</html>

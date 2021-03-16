@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>数据交换平台</title>
+    <link rel = "Shortcut Icon" href="img/icon/title.jpg"/>
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/myfocus/myfocus-2.0.4.min.js" ></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            background:#ededed;
+        }
+
+        .topBar {
+            position: fixed;
+            z-index: 10;
+            width: 100%;
+            height:10%;
+            min-height: 60px;
+            min-width: 1000px;
+            top: 0px;
+            left: 0px;=
+        margin: auto;
+            background:#293b59;
+        }
+
+        .homePanel {
+            width: 100%;
+            height: 100%;
+            min-width: 1000px;
+
+        }
+
+        .logoDiv {
+            float: left;
+            margin-top: -5px;
+            margin-left: 60px;
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .logoDiv img{
+            height:55px;
+        }
+
+        .gnUl, .userDiv ul {
+            margin: 0px;
+        }
+
+        .gnUl li {
+            float: right;
+            list-style: none;
+            height: 100%;
+            line-height:100px;
+            padding: 0 30px;
+            color: #fff;
+            font-size: 1.2em;
+            font-family: 雅黑;
+            transition: all .2s;
+        }
+
+        .gnUl li:hover {
+            background: rgba(13, 150, 228,.8);
+            /*transform: scale(1.2);*/
+            /*-webkit-transform: scale(1.2);*/
+            /*-moz-transform: scale(1.2);*/
+            /*-o-transform: scale(1.2);*/
+            /*-ms-transform: scale(1.2);*/
+            cursor: pointer;
+        }
+
+        .gnUl li:active {
+            background: rgba(237, 242, 252, 0.7);
+        }
+
+        @media screen and (max-width: 1370px) {
+            .gnUl{
+                position: absolute;
+                left:300px;
+            }
+
+            .logoDiv{
+                margin-left: 5px;
+                margin-top: -20px;
+            }
+
+            .logoDiv img{
+                height: 30px;
+            }
+
+            .gnUl li {
+                padding:0 20px;
+                line-height: 60px;
+                font-size: .9em !important;
+            }
+
+            .userDiv ul li {
+                height: 60px !important;
+                line-height: 60px !important;
+                font-size: .9em !important;
+            }
+
+            .topBar{
+                height:60px;
+            }
+        }
+
+        @keyframes showIn {
+            from, to {
+                animation-timing-function: ease;
+            }
+
+            from {
+                opacity: 0;
+                -webkit-transform: scale(.9);
+            }
+
+            to {
+                -webkit-transform: scale(1);
+            }
+        }
+
+        .showIn {
+            animation-name: showIn;
+            animation-duration: .5s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes showOut {
+            from, to {
+                animation-timing-function: ease;
+            }
+
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .showOut {
+            animation-name: showOut;
+            animation-duration: .5s;
+            animation-fill-mode: both;
+        }
+
+        .gnDiv {
+            width: 100%;
+            height: 90%;
+            left: 0px;
+            position: absolute;
+            background: #fff;
+        }
+
+        .tpDiv {
+            display: -webkit-flex;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            height: 100%;
+            padding-top: 3%;
+            overflow-y: auto;
+        }
+
+        .focusDiv, .openDaDiv, .jyDiv, .msgDiv {
+            margin: 10px;
+            margin-top: 80px;
+            height: 550px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .focusDiv {
+            width: 550px;
+            height: 540px;
+        }
+
+        .openDaDiv {
+            width: 370px;
+        }
+
+        .jyDiv {
+            width: 370px;
+
+        }
+
+        .msgDiv {
+            width: 370px;
+
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .iloading {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+        }
+
+        .imodal {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+        }
+
+        .spinner {
+            margin-top: 20%;
+            width: 80px;
+            height: 60px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .spinner > div {
+            background-color: #1E90FF;
+            height: 100%;
+            width: 6px;
+            margin: 0px 2px;
+            display: inline-block;
+
+            -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+            animation: stretchdelay 1.2s infinite ease-in-out;
+        }
+
+        .spinner .rect2 {
+            -webkit-animation-delay: -1.1s;
+            animation-delay: -1.1s;
+        }
+
+        .spinner .rect3 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+
+        .spinner .rect4 {
+            -webkit-animation-delay: -0.9s;
+            animation-delay: -0.9s;
+        }
+
+        .spinner .rect5 {
+            -webkit-animation-delay: -0.8s;
+            animation-delay: -0.8s;
+        }
+
+        @-webkit-keyframes stretchdelay {
+            0%, 40%, 100% {
+                -webkit-transform: scaleY(0.4)
+            }
+            20% {
+                -webkit-transform: scaleY(1.0)
+            }
+        }
+
+        @keyframes stretchdelay {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+                -webkit-transform: scaleY(0.4);
+            }
+            20% {
+                transform: scaleY(1.0);
+                -webkit-transform: scaleY(1.0);
+            }
+        }
+
+        .userDiv {
+            float: right;
+            margin-right: 50px;
+        }
+
+        .userDiv ul li {
+            float: right;
+            list-style: none;
+            height: 100px;
+            line-height: 100px;
+            padding: 0 10px;
+            color: #fff;
+            font-size: 1.3em;
+            font-family: 雅黑;
+            transition: all .2s;
+        }
+
+        .userImg {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-top: -3px;
+            float: left;
+        }
+
+        .divTitle {
+            height: 50px;
+            text-align: center;
+            background: rgba(41,59,89,.7);
+        }
+
+        .divTitle span {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 1.5em;
+            color: #fff;
+            font-family: 幼圆;
+        }
+
+        .divTitle a {
+            position: relative;
+            left: 90px;
+            font-size: 1.2em;
+            color: #ABCDEF;
+            font-family: 幼圆;
+        }
+
+        .layui-table-view {
+            margin: 0px;
+        }
+
+        .layui-table-view .layui-table {
+            margin: 0px;
+            width: 100%;
+        }
+
+        .userhoverdiv {
+            display: none;
+            width: 100px;
+            height: 60px;
+            position: absolute;
+            z-index: 1000000001;
+            background: #fff;
+            top: 120px;
+            right: 3%;
+            -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+            -moz-box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+            box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+        }
+
+        .userhoverdiv ul {
+            list-style-type: none;
+            height: 100%;
+            margin: 0;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .userhoverdiv ul li {
+            height: 50%;
+            -webkit-box-shadow: 0 0 1px 1px #e2e2e2;
+            -moz-box-shadow: 0 0 1px 1px #e2e2e2;
+            box-shadow: 0 0 1px 1px #e2e2e2;
+            transition: all 200ms ease;
+            color: #8B6969;
+            line-height: 30px;
+        }
+
+        .userhoverdiv ul li:hover {
+            background: rgba(135, 206, 250, 0.5);
+            cursor: pointer;
+        }
+
+        .qhli:hover {
+            cursor: pointer;
+        }
+
+        .realname:hover {
+            cursor: pointer;
+        }
+
+        .moreA:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topBar">
+    <div class="logoDiv">
+        <img src="img/logo.png"/>
+    </div>
+    <div class="userDiv">
+        <ul>
+            <!--<li><div class="userImg"><img src="img/user.jpg" style="border-radius: 50%;" width="30px" height="30px"/></div>&nbsp;温金华</li>-->
+            <li>登录页面</li>
+
+        </ul>
+    </div>
+    <ul class="gnUl">
+        <li id="li2">数据移交</li>
+        <li id="li3">数据存储</li>
+        <li id="li4">数据接收</li>
+    </ul>
+</div>
+
+<div class="homePanel">
+    <div style="height:10%;"></div>
+    <div id="gnDivli1" class="tpDiv gnDiv showIn" style="background: none;">
+    </div>
+
+</div>
+</body>
+<script th:inline="javascript">
+    var isLy = [[${isLy}]];
+</script>
+</html>
+<script src="../js/layui/layui.js"></script>
+<script>
+
+    layui.use(['table','jquery','layer'], function(){
+        var $ = layui.jquery
+            ,table = layui.table
+            ,layer = layui.layer;
+
+        if(isLy=='true'){
+            layer.msg('对不起您没有登录管理平台的权限', {icon: 2});
+        }
+        myFocus.set({id: 'focusDiv'});
+        var pages = {
+            li1:'',
+            li2:'/exchangeTransfer/main',
+            li3:'/exchangeStorage/main',
+            li4:'/exchangeReception/main'
+        };
+
+        $('.topBar ul li').click(function(){
+            var url = pages[$(this).attr('id')];
+            $('.gnDiv').removeClass('showIn').addClass('showOut').hide();
+            $('.gnDiv iframe').css('z-index','0');
+            $('.topBar ul li').css('background','none');
+            $(this).css('background','rgba(237,242,252,0.7)');
+            //$('.gnDiv').css('z-index','0');
+            //console.log($('#gnDiv'+$(this).attr('id')).attr('id'));
+            if($('#gnDiv'+$(this).attr('id')).attr('id')){
+                $('#gnDiv'+$(this).attr('id')).show().removeClass('showOut').addClass('showIn');
+                $('#gnDiv'+$(this).attr('id')+' iframe').css('z-index','1');
+                return;
+            }
+            var iloading = "<div class='iloading'><div class='imodal'><div class='spinner'><div class='rect1'></div><div class='rect2'></div>"
+                +"<div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div></div></div>";
+            var html = "<div id='gnDiv"+$(this).attr('id')+"' class='gnDiv anim showIn'>"+iloading+"<iframe  id='iframe"+$(this).attr('id')+"' src='"+url+"'  style='width:100%;border:0px;height:100%;z-index:1'></iframe></div>";
+            $('.homePanel').append(html);
+
+            $('#iframe'+$(this).attr('id')).load(function(){
+                $('.iloading').fadeOut(200);
+            });
+
+        });
+
+        $('.userDiv ul li').click(function(){
+            location.href = "/login";
+        });
+        $("#li4").click();
+    });
+
+</script>

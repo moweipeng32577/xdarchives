@@ -1,0 +1,398 @@
+package com.wisdom.web.entity;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+
+@Entity
+public class Tb_entry_index_capture {
+
+	@Id
+	@GenericGenerator(name = "idGenerator", strategy = "uuid") // 生成32位UUID
+	@GeneratedValue(generator = "idGenerator")
+	@Type(type = "com.wisdom.util.OracleCharIDType")
+	@Column(columnDefinition = "char(36)")
+	private String entryid;
+	@Column(columnDefinition = "varchar(100)")
+	private String archivecode;
+	@Column(columnDefinition = "varchar(30)")
+	private String catalog;
+	@Column(columnDefinition = "varchar(30)")
+	private String descriptiondate;// 著录时间
+	@Column(columnDefinition = "varchar(30)")
+	private String descriptionuser;// 著录用户
+	@Type(type = "com.wisdom.util.OracleCharIDType")
+	@Column(columnDefinition = "char(36)")
+	private String eleid;
+	@Column(columnDefinition = "varchar(15)")
+	private String entryretention;
+	@Column(columnDefinition = "varchar(15)")
+	private String duetime;// 到期时间
+	@Column(columnDefinition = "varchar(10)")
+	private String entrysecurity;// 密级
+	@Column(columnDefinition = "varchar(100)")
+	private String entrystorage;// 存储位置
+	@Column(columnDefinition = "varchar(10)")
+	private String filecode;// 案卷号
+	@Column(columnDefinition = "varchar(20)")
+	private String filedate;
+	@Column(columnDefinition = "varchar(200)")
+	private String filenumber;
+	@Column(columnDefinition = "varchar(8)")
+	private String filingyear;
+	@Column(columnDefinition = "varchar(200)")
+	private String keyword;// 主题词
+	@Column(columnDefinition = "varchar(20)")
+	private String flagopen;// 开放状态
+	@Column(columnDefinition = "varchar(20)")
+	private String funds;
+	@Column(columnDefinition = "varchar(10)")
+	private String innerfile;// 卷内顺序号
+	@Type(type = "com.wisdom.util.OracleCharIDType")
+	@Column(columnDefinition = "char(36)")
+	private String nodeid;
+	@Column(columnDefinition = "varchar(100)")
+	private String organ;// 机构/问题
+	@Column(columnDefinition = "varchar(15)")
+	private String pageno;// 页号
+	@Column(columnDefinition = "varchar(10)")
+	private String pages;// 页数
+	@Column(columnDefinition = "varchar(10)")
+	private String recordcode;// 件号
+	@Column(columnDefinition = "varchar(100)")
+	private String responsible;// 责任者
+	@Column(columnDefinition = "varchar(20)")
+	private String serial;// 文件流水号
+	@Column(columnDefinition = "varchar(1000)")
+	private String title;
+	@Column(columnDefinition = "varchar(30)")
+	private String opendate;// 开放时间
+	@Column(columnDefinition = "varchar(10)")
+	private String fscount;// 份数
+	@Column(columnDefinition = "varchar(10)")
+	private String kccount;// 库存份数
+	@Column(columnDefinition = "varchar(10)")
+	private String sparefield1;
+	@Column(columnDefinition = "varchar(10)")
+	private String sparefield2;
+	@Column(columnDefinition = "varchar(10)")
+	private String sparefield3;
+	@Column(columnDefinition = "varchar(10)")
+	private String sparefield4;
+	@Column(columnDefinition = "varchar(10)")
+	private String sparefield5;
+	@Column(columnDefinition = "varchar(10)")
+	private Integer sortsequence;//归档顺序
+	@Transient
+	private String nodefullname;
+
+	public String getDuetime() {
+		return duetime;
+	}
+
+	public void setDuetime(String duetime) {
+		this.duetime = duetime;
+	}
+
+	public String getOpendate() {
+		return opendate;
+	}
+
+	public void setOpendate(String opendate) {
+		this.opendate = opendate;
+	}
+
+	public String getEntryid() {
+		return entryid == null ? null : entryid.trim();
+	}
+
+	public void setEntryid(String entryid) {
+		this.entryid = entryid;
+	}
+
+	public String getNodeid() {
+		return nodeid;
+	}
+
+	public void setNodeid(String nodeid) {
+		this.nodeid = nodeid;
+	}
+
+	public String getEleid() {
+		return eleid;
+	}
+
+	public void setEleid(String eleid) {
+		this.eleid = eleid;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getFilenumber() {
+		return filenumber;
+	}
+
+	public void setFilenumber(String number) {
+		this.filenumber = number;
+	}
+
+	public String getArchivecode() {
+		return archivecode;
+	}
+
+	public void setArchivecode(String archivecode) {
+		this.archivecode = archivecode;
+	}
+
+	public String getFunds() {
+		return funds;
+	}
+
+	public void setFunds(String funds) {
+		this.funds = funds;
+	}
+
+	public String getCatalog() {
+		return catalog;
+	}
+
+	public void setCatalog(String catalog) {
+		this.catalog = catalog;
+	}
+
+	public String getFilecode() {
+		return filecode;
+	}
+
+	public void setFilecode(String file) {
+		this.filecode = file;
+	}
+
+	public String getInnerfile() {
+		return innerfile;
+	}
+
+	public void setInnerfile(String innerfile) {
+		this.innerfile = innerfile;
+	}
+
+	public String getFilingyear() {
+		return filingyear;
+	}
+
+	public void setFilingyear(String filingyear) {
+		this.filingyear = filingyear;
+	}
+
+	public String getEntryretention() {
+		return entryretention;
+	}
+
+	public void setEntryretention(String retention) {
+		this.entryretention = retention;
+	}
+
+	public String getOrgan() {
+		return organ;
+	}
+
+	public void setOrgan(String organ) {
+		this.organ = organ;
+	}
+
+	public String getRecordcode() {
+		return recordcode;
+	}
+
+	public void setRecordcode(String recordcode) {
+		this.recordcode = recordcode;
+	}
+
+	public String getEntrysecurity() {
+		return entrysecurity;
+	}
+
+	public void setEntrysecurity(String security) {
+		this.entrysecurity = security;
+	}
+
+	public String getPages() {
+		return pages;
+	}
+
+	public void setPages(String pages) {
+		this.pages = pages;
+	}
+
+	public String getPageno() {
+		return pageno;
+	}
+
+	public void setPageno(String pageno) {
+		this.pageno = pageno;
+	}
+
+	public String getFiledate() {
+		return filedate;
+	}
+
+	public void setFiledate(String filedate) {
+		this.filedate = filedate;
+	}
+
+	public String getResponsible() {
+		return responsible;
+	}
+
+	public void setResponsible(String responsible) {
+		this.responsible = responsible;
+	}
+
+	public String getSerial() {
+		return serial;
+	}
+
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
+
+	public String getFlagopen() {
+		return flagopen;
+	}
+
+	public void setFlagopen(String open) {
+		this.flagopen = open;
+	}
+
+	public String getEntrystorage() {
+		return entrystorage;
+	}
+
+	public void setEntrystorage(String storage) {
+		this.entrystorage = storage;
+	}
+
+	public String getDescriptiondate() {
+		return descriptiondate;
+	}
+
+	public void setDescriptiondate(String descriptiondate) {
+		this.descriptiondate = descriptiondate;
+	}
+
+	public String getDescriptionuser() {
+		return descriptionuser;
+	}
+
+	public void setDescriptionuser(String descriptionuser) {
+		this.descriptionuser = descriptionuser;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getFscount() {
+		return fscount == null ? null : fscount.trim();
+	}
+
+	public void setFscount(String fscount) {
+		this.fscount = fscount;
+	}
+
+	public String getKccount() {
+		return kccount;
+	}
+
+	public void setKccount(String kccount) {
+		this.kccount = kccount;
+	}
+
+	public String getNodefullname() {
+		return nodefullname;
+	}
+
+	public void setNodefullname(String nodefullname) {
+		this.nodefullname = nodefullname;
+	}
+	
+	public String getSparefield1() {
+		return sparefield1;
+	}
+
+	public void setSparefield1(String sparefield1) {
+		this.sparefield1 = sparefield1;
+	}
+
+	public String getSparefield2() {
+		return sparefield2;
+	}
+
+	public void setSparefield2(String sparefield2) {
+		this.sparefield2 = sparefield2;
+	}
+
+	public String getSparefield3() {
+		return sparefield3;
+	}
+
+	public void setSparefield3(String sparefield3) {
+		this.sparefield3 = sparefield3;
+	}
+
+	public String getSparefield4() {
+		return sparefield4;
+	}
+
+	public void setSparefield4(String sparefield4) {
+		this.sparefield4 = sparefield4;
+	}
+
+	public String getSparefield5() {
+		return sparefield5;
+	}
+
+	public void setSparefield5(String sparefield5) {
+		this.sparefield5 = sparefield5;
+	}
+
+	public Integer getSortsequence() {
+		return sortsequence;
+	}
+
+	public void setSortsequence(Integer sortsequence) {
+		this.sortsequence = sortsequence;
+	}
+
+	@Override
+	public String toString() {
+		return "Tb_entry_index_capture [entryid=" + entryid + ", archivecode=" + archivecode + ", catalog=" + catalog
+				+ ", descriptiondate=" + descriptiondate + ", descriptionuser=" + descriptionuser + ", eleid=" + eleid
+				+ ", entryretention=" + entryretention + ", entrysecurity=" + entrysecurity + ", entrystorage="
+				+ entrystorage + ", filecode=" + filecode + ", filedate=" + filedate + ", filenumber=" + filenumber
+				+ ", filingyear=" + filingyear + ", keyword=" + keyword + ", flagopen=" + flagopen + ", funds=" + funds
+				+ ", innerfile=" + innerfile + ", nodeid=" + nodeid + ", organ=" + organ + ", pageno=" + pageno
+				+ ", pages=" + pages + ", recordcode=" + recordcode + ", responsible=" + responsible + ", serial="
+				+ serial + ", title=" + title + ", opendate=" + opendate + ", fscount=" + fscount + ", kccount="
+				+ kccount + ", sparefield1=" + sparefield1 + ", sparefield2=" + sparefield2 + ", sparefield3="
+				+ sparefield3 + ", sparefield4=" + sparefield4 + ", sparefield5=" + sparefield5 + ", nodefullname="
+				+ nodefullname + "]";
+	}
+
+	public String toFieldnameString() {
+		return "entryid, nodeid, eleid, title, keyword, filenumber, archivecode, funds, catalog, filecode, innerfile, filingyear, entryretention, organ, recordcode, "
+				+ "entrysecurity, pages, pageno, filedate, responsible, serial, flagopen, entrystorage, descriptiondate, descriptionuser, fscount, kccount, opendate, "
+				+ "sparefield1, sparefield2, sparefield3, sparefield4, sparefield5";
+	}
+}

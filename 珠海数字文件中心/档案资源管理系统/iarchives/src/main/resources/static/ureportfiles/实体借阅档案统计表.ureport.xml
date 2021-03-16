@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><ureport><cell expand="None" name="A1" row="1" col="1" top-cell="root" col-span="6"><cell-style font-size="20" forecolor="0,0,0" align="center" valign="middle"></cell-style><simple-value><![CDATA[实体借阅档案统计表]]></simple-value></cell><cell expand="None" name="G1" row="1" col="7" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A2" row="2" col="1"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[单位：]]></simple-value></cell><cell expand="None" name="B2" row="2" col="2" col-span="5"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="left" valign="middle"></cell-style><expression-value><![CDATA[var organname = organ.select(organname);
+var count = organ.count(organname);
+if(organname == null || organname == ''){
+   return '所有单位';
+}
+else{
+  if(count > 3){
+    return get(organ.select(organname),1,"organname") + ',' + get(organ.select(organname),2,"organname") + ',' + get(organ.select(organname),3,"organname") + '....'
+  }
+  else{
+   return organname;
+  }
+}]]></expression-value></cell><cell expand="None" name="G2" row="2" col="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A3" row="3" col="1" top-cell="root" col-span="5"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[分类]]></simple-value></cell><cell expand="None" name="F3" row="3" col="6" top-cell="root"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[小计]]></simple-value></cell><cell expand="None" name="G3" row="3" col="7" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="Down" name="A4" row="4" col="1"><cell-style font-size="11" forecolor="0,0,0" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds1" aggregate="group" property="classid" order="none" mapping-type="dataset" mapping-dataset="ds1" mapping-key-property="classid" mapping-value-property="classname"></dataset-value></cell><cell expand="Down" name="B4" row="4" col="2"><cell-style font-size="11" forecolor="0,0,0" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds2" aggregate="group" property="classid" order="none" mapping-type="dataset" mapping-dataset="ds2" mapping-key-property="classid" mapping-value-property="classname"><condition property="parentclassid" op="==" id="undefined" type="property" join="and"><value><![CDATA[A4]]></value></condition><condition property="parentclassid" op="!=" id="undefined" type="property" join="and"><value><![CDATA['']]></value></condition></dataset-value></cell><cell expand="Down" name="C4" row="4" col="3"><cell-style font-size="11" forecolor="0,0,0" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds3" aggregate="group" property="classid" order="none" mapping-type="dataset" mapping-dataset="ds3" mapping-key-property="classid" mapping-value-property="classname"><condition property="parentclassid" op="==" id="undefined" type="property" join="and"><value><![CDATA[B4]]></value></condition><condition property="parentclassid" op="!=" id="undefined" type="property" join="and"><value><![CDATA['']]></value></condition></dataset-value></cell><cell expand="Down" name="D4" row="4" col="4"><cell-style font-size="11" forecolor="0,0,0" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds4" aggregate="group" property="classid" order="none" mapping-type="dataset" mapping-dataset="ds4" mapping-key-property="classid" mapping-value-property="classname"><condition property="parentclassid" op="==" id="undefined" type="property" join="and"><value><![CDATA[C4]]></value></condition><condition property="parentclassid" op="!=" id="undefined" type="property" join="and"><value><![CDATA['']]></value></condition></dataset-value></cell><cell expand="Down" name="E4" row="4" col="5"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="ds5" aggregate="group" property="classid" order="none" mapping-type="dataset" mapping-dataset="ds5" mapping-key-property="classid" mapping-value-property="classname"><condition property="parentclassid" op="==" id="undefined" type="property" join="and"><value><![CDATA[D4]]></value></condition><condition property="parentclassid" op="!=" id="undefined" type="property" join="and"><value><![CDATA['']]></value></condition></dataset-value></cell><cell expand="None" name="F4" row="4" col="6"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="tj" aggregate="select" property="count" order="none" mapping-type="simple"><condition property="classid" op="==" id="undefined" type="property"><value><![CDATA[G4]]></value></condition></dataset-value></cell><cell expand="None" name="G4" row="4" col="7" left-cell="E4" top-cell="root"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><expression-value><![CDATA[if(E4 != null && E4 != ''){
+ return E4;
+}
+else if (D4 != null && D4 != ''){
+ return D4;
+}
+else if(C4 != null && C4 != ''){
+ return C4;
+}
+else if(B4 != null && B4 != ''){
+ return B4
+}
+else{
+ return A4
+}]]></expression-value><condition-property-item name="隐藏" col-width="0"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition type="expression" op="==" id="undefined"><left><![CDATA[1]]></left><right><![CDATA[1]]></right></condition></condition-property-item></cell><cell expand="None" name="A5" row="5" col="1" col-span="5"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[合计]]></simple-value></cell><cell expand="None" name="F5" row="5" col="6" left-cell="root" top-cell="root"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[sum(F4)]]></expression-value></cell><cell expand="None" name="G5" row="5" col="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><row row-number="1" height="88" band="headerrepeat"/><row row-number="2" height="19" band="headerrepeat"/><row row-number="3" height="26" band="headerrepeat"/><row row-number="4" height="27"/><row row-number="5" height="23" band="summary"/><column col-number="1" width="68"/><column col-number="2" width="68"/><column col-number="3" width="68"/><column col-number="4" width="68"/><column col-number="5" width="68"/><column col-number="6" width="74"/><column col-number="7" width="74"/><datasource name="NeoUnit" type="buildin"><dataset name="ds1" type="sql"><sql><![CDATA[${
+  if(param("classifyId") == null){
+      return "select * from tb_classification where parentclassid =\'\' or parentclassid is null order by sortsequence"
+  }
+  else{
+      return "select * from tb_classification where (parentclassid =\'\' or parentclassid is null)  and classid in (\'" + replace(param("classifyId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}]]></sql><field name="classid"/><field name="classname"/><field name="code"/><field name="parentclassid"/><field name="sortsequence"/><field name="classlevel"/><field name="codelevel"/><field name="organid"/><parameter name="classifyId" type="String" default-value=""/></dataset><dataset name="ds2" type="sql"><sql><![CDATA[${
+  if(param("classifyId") == null){
+      return "select * from tb_classification order by sortsequence"
+  }
+  else{
+      return "select * from tb_classification where classid in (\'" + replace(param("classifyId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}
+]]></sql><field name="classid"/><field name="classname"/><field name="code"/><field name="parentclassid"/><field name="sortsequence"/><field name="classlevel"/><field name="codelevel"/><parameter name="classifyId" type="String" default-value=""/></dataset><dataset name="ds3" type="sql"><sql><![CDATA[${
+  if(param("classifyId") == null){
+      return "select * from tb_classification order by sortsequence"
+  }
+  else{
+      return "select * from tb_classification where classid in (\'" + replace(param("classifyId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}
+]]></sql><field name="classid"/><field name="classname"/><field name="code"/><field name="parentclassid"/><field name="sortsequence"/><field name="classlevel"/><field name="codelevel"/><parameter name="classifyId" type="String" default-value=""/></dataset><dataset name="ds4" type="sql"><sql><![CDATA[${
+  if(param("classifyId") == null){
+      return "select * from tb_classification order by sortsequence"
+  }
+  else{
+      return "select * from tb_classification where classid in (\'" + replace(param("classifyId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}
+]]></sql><field name="classid"/><field name="classname"/><field name="code"/><field name="parentclassid"/><field name="sortsequence"/><field name="classlevel"/><field name="codelevel"/><parameter name="classifyId" type="String" default-value=""/></dataset><dataset name="ds5" type="sql"><sql><![CDATA[${
+  if(param("classifyId") == null){
+      return "select * from tb_classification order by sortsequence"
+  }
+  else{
+      return "select * from tb_classification where classid in (\'" + replace(param("classifyId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}
+]]></sql><field name="classid"/><field name="classname"/><field name="code"/><field name="parentclassid"/><field name="sortsequence"/><field name="classlevel"/><field name="codelevel"/><parameter name="classifyId" type="String" default-value=""/></dataset><dataset name="tj" type="sql"><sql><![CDATA[${
+  "select  count(tei.entryid) as count ,cls.classid,cls.classname from tb_entry_index tei inner join tb_borrowmsg msg on tei.entryid = msg.entryid inner join tb_borrowdoc doc on doc.borrowcode = msg.borrowcode inner join tb_data_node tdn on tdn.nodeid = tei.nodeid inner join tb_classification cls on cls.classid = tdn.classid inner join tb_right_organ tro on tro.organid = tdn.organid  where doc.state=\'已通过\' and doc.type=\'实体借阅\'"
+     + ( emptyparam("organId")==false  ?  " and  tro.organid in (\'" + replace(param("organId"),",","\',\'") + "\')" : "") 
+     + ( emptyparam("starttime")==false && emptyparam("endtime")==false && param ("starttime") == param ("endtime")  ?  " and tei.filedate = \'" + replace(param("starttime"),"-","") + "\'" : "" ) 
+	 + ( emptyparam("starttime")==false && emptyparam("endtime")==false && param ("starttime") != param ("endtime")  ?  " and tei.filedate >= \'" + replace(param("starttime"),"-","") + "\' and tei.filedate <= \'" + replace(param("endtime"),"-","") + "\' " : "" )
+	 + ( emptyparam("starttime")==false && emptyparam("endtime")==true  ?  " and tei.filedate >= \'" + replace(param("starttime"),"-","") + "\' " : "" )
+	 + ( emptyparam("starttime")==true && emptyparam("endtime")==false  ?  " and tei.filedate <= \'" + replace(param("endtime"),"-","") + "\' " :  "" )
+	 + ( emptyparam("lycopies")==false  ?  " and msg.jyts in (\'" + replace(param("lycopies"),",","\',\'") + "\') " :  "")
+     + " group by cls.classid"
+}]]></sql><field name="count"/><field name="classid"/><field name="classname"/><parameter name="organId" type="String" default-value=""/><parameter name="starttime" type="String" default-value=""/><parameter name="endtime" type="String" default-value=""/><parameter name="lycopies" type="String" default-value=""/></dataset><dataset name="organ" type="sql"><sql><![CDATA[${
+  if(param("organId") == null){
+      return "select organname from tb_right_organ where organid = \'\'"
+  }
+  else{
+      return "select organname from tb_right_organ where  organid in (\'" + replace(param("organId"),",","\',\'") + "\')  order by sortsequence"
+  }
+}
+
+]]></sql><field name="organname"/><parameter name="organId" type="String" default-value=""/></dataset></datasource><paper type="A4" left-margin="57" right-margin="57"
+    top-margin="28" bottom-margin="72" paging-mode="fixrows" fixrows="20"
+    width="595" height="842" orientation="portrait" footerEnabled="false" html-report-align="center" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper><search-form form-position="up"/></ureport>

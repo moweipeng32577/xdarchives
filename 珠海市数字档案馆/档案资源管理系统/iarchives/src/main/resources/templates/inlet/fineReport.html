@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>报表打印</title>
+    <script src="../../js/jquery/jquery-1.11.1.js"></script>
+    <script charset="utf-8" src="../../js/comps/FineReport.js"></script>
+</head>
+<body>
+</body>
+<script th:inline="javascript">
+    var reportlet = [[${reportlet}]];
+    var reportserver = [[${reportserver}]];
+    if(reportlet.indexOf('{')==0&&reportlet.indexOf(':')>0){//jsutils.js中拼接了参数json
+        var reportlets = FR.cjkEncode("[" + reportlet + "]");
+        var config = {
+            url: reportserver + '/WebReport/ReportServer',
+            isPopUp: false,
+            data: {
+                reportlets: reportlets  //将参数放到data里面传到指定的URL中
+            }
+        };
+        FR.serverURL = reportserver;
+        FR.servletURL = reportserver + '/WebReport/ReportServer';
+        FR.server = reportserver + '/WebReport';
+        FR.doURLPDFPrint(config);
+    }else{//数据库直接命名链接的统计类报表
+        window.location.href = reportserver + '/WebReport/ReportServer?reportlet='+reportlet;
+    }
+</script>
+</html>

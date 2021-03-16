@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.saac.gov.cn/standards/ERM" targetNamespace="http://www.saac.gov.cn/standards/ERM" elementFormDefault="qualified">
+  <xs:element name="sip">
+    <xs:annotation>
+      <xs:documentation>电子文件交换包</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="unit_name" type="xs:string" >
+          <xs:annotation>
+            <xs:documentation>单位名称</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="document_type">
+          <xs:annotation>
+            <xs:documentation>文书类型</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="收文" />
+              <xs:enumeration value="发文" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="title" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>题名</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="funds" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>全宗号</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="catalog" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>目录号</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="number" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>文件编号</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="retention">
+          <xs:annotation>
+            <xs:documentation>保管期限</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="永久" />
+              <xs:enumeration value="长期" />
+              <xs:enumeration value="短期" />
+              <xs:enumeration value="30年" />
+              <xs:enumeration value="10年" />
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="file_date" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>文件日期</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="filing_year" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>归档年度</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element ref="file" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="file">
+    <xs:annotation>
+      <xs:documentation>电子文档</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="file_name" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>文件名</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

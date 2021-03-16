@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('实体查档审批')">
+</head>
+<script src="../../js/stApprove/app.js"></script>
+<script src="../../js/comps/EntryFormView.js"></script>
+<link href="../js/audio/css/font-awesome.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../js/photoview/css/photoview.css"/>
+<link href="../js/audio/css/audio.css" rel="stylesheet"/>
+<link href="../js/video/css/video-js.css" rel="stylesheet"/>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../js/flowplayerFlash/flowplayer.min.js"></script>
+<script src="../js/audio/js/audio.js"></script>
+<script src="../js/video/js/video.min.js"></script>
+<script src="../js/comps/MediaFormView.js"></script>
+<script src="../../js/photoview/js/photoview.js"></script>
+<script src="../js/comps/DynamicFormView.js"></script>
+<body>
+<script th:inline="javascript">
+    var taskid = [[${taskid}]];
+    var flowsText = [[${flowsText}]];
+    var nodeId = [[${nodeId}]];
+    var iflag = [[${iflag}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+</script>
+</body>
+</html>

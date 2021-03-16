@@ -1,0 +1,35 @@
+/**
+ * Created by RonJiang on 2018/05/09.
+ */
+Ext.define('AppraisalStandard.view.AppraisalStandardView',{
+    extend:'Ext.panel.Panel',
+    xtype:'appraisalStandard',
+    layout:'card',
+    activeItem:0,
+    items:[{
+        layout:'border',
+        xtype:'panel',
+        itemId:'gridview',
+        items:[{
+            region:'west',
+            width:XD.treeWidth,
+            xtype:'treepanel',
+            itemId:'treepanelId',
+            rootVisible:true,
+            store:'AppraisalStandardTreeStore',
+            collapsible:true,
+            split:1,
+            hideHeaders: true,
+            header:false
+        },{
+            region:'center',
+            xtype:'appraisalStandardGridView'
+        }
+        ,
+            {
+                region:'center',
+                xtype:'autoRetentionGridView',
+            }
+        ]
+    }]
+});

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+    	<meta charset="utf-8" />
+		<link rel="stylesheet" href="js/layui/css/layui.css"/>
+    </head>
+    <!--<script type="text/javascript" src="js/jquery-1.11.1.js" ></script>-->
+    <style>
+    	html,body{
+    		width:100%;
+    		height:100%;
+    		overflow: hidden;
+			margin:0px;
+			padding: 0px;
+			background: #fff;
+    	}
+    	
+    	.xdtop{
+    		width:98%;
+    		height:15%;
+    		min-height: 100px;
+    		border-radius:5px 5px 3px 3px ;
+    		margin: auto;
+			margin-top: 10px;
+    		-webkit-box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    		box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    	}
+    	
+    	.xdcontent{
+    		width:98%;
+    		height:80%;
+    		padding: 20px;
+    		margin: auto;
+    	}
+    	
+    	.xdleft{
+    		width:35%;
+    		height:95%;
+    		border-radius: 5px;
+    		float: left;
+    		-webkit-box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    		box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    	}
+    	
+    	.xdright{
+    		width:63%;
+    		height:95%;
+    		border-radius: 5px;
+    		float: right;
+    		-webkit-box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    		box-shadow: 0 2px 20px rgba(0,0,0,.2);
+    	}
+    	
+    	.xdshortcuttp{
+    		height: 36%;
+    		background: #41c3d4;
+    		border-radius: 5px 5px 0 0;
+    	}
+    	
+    	.xdshortcutcontent{
+    		height: 64%;
+    	}
+    	
+    	.xdshortcuttpleft{
+    		width:100px;
+    		height: 100%;
+    		line-height: 300%;
+    		padding-left: 10px;
+    		font-size: 1.1em;
+    		color: #fff;
+    		float: left;
+    	}
+    	
+    	.xdshortcuttpright{
+    		height: 100%;
+    		line-height: 300%;
+    		padding-right: 10px;
+    		color: #fff;
+    		text-align: right;
+    		float: right;
+    	}
+		
+		.xdshortcuttpright span:hover{
+			cursor: pointer;
+		}
+    	
+    	.xdcontentlefttop,.xdcontentrighttop{
+    		height: 8%;
+    		min-height: 50px;
+    		background: #3498d5;
+    		border-radius: 5px 5px 0 0;
+    		padding-left: 10px;
+    		color: #fff;
+    		line-height: 300%;
+    		font-size: 1.1em;
+    	}
+
+		.xdcontentleftbody,.xdcontentrightbody{
+			height:92%;
+		}
+    	
+    	.xdshortcutcontent ul{
+    		height: 100%;
+    		list-style: none;
+    		margin: 0px;
+    		padding: 0px;
+    		border: 0px;
+    	}
+    	.xdshortcutcontent ul li{
+			position: relative;
+    		float: left;
+    		min-width:100px;
+    		height: 100%;;
+    		text-align: center;
+    		vertical-align:auto;
+    		position: relative;
+  			transition: all .5s ease;
+    	}
+
+		.closeIcon{
+			position: absolute;
+			top:8px;
+			right:15px;
+			width: 20px;
+			height:20px;
+			border-radius: 50%;
+			background: red;
+			color:#fff;
+			font-size: 30px;
+			line-height: 16px;
+			display: none;
+		}
+
+    	.xdshortcutcontent ul li:hover{
+    		cursor: pointer;
+    		background: rgba(171,205,239,.6);
+    	}
+    	
+    	.xdshortcutcontent ul li img{
+    		width:35px;
+    		height: 35px;
+    		position: relative;
+    		top:30%;
+    	}
+    	
+    	
+    	.xdshortcutimg{
+    		height:50%;
+    	}
+    	
+    	.xdshortcuttext{
+    		height:50%;
+    		padding: 10px;
+    		color:rgba(0,0,0,.7)
+    	}
+
+		.layui-table-view{
+			margin: 0px 0px;
+		}
+
+		.layui-table-view{
+			border:0px;
+		}
+    </style>
+    <body>
+        <div class="xdtop">
+        	<div class="xdshortcuttp">
+        		<div class="xdshortcuttpleft">常用菜单</div>
+        		<div class="xdshortcuttpright"><span>删除快捷方式 | </span>右键菜单添加为常用功能</div>
+        	</div>
+        	<div class="xdshortcutcontent">
+        		<ul></ul>
+        	</div>
+        </div>
+        <div class="xdcontent">
+        	<div class="xdleft">
+        		<div class="xdcontentlefttop">
+        			公告
+        		</div>
+        		<div class="xdcontentleftbody">
+					<table class="layui-table" lay-data="{width:'full-0',height: 'full-0',limit:10,even:true,url:'/indexly/getInform'}"
+						   lay-filter="informEvent">
+						<thead>
+						<tr>
+							<th lay-data="{field:'title', width:700, sort: true,event:'setText'}">信息</th>
+						</tr>
+						</thead>
+					</table>
+				</div>
+        	</div>
+        <div class="xdright">
+        	<div class="xdcontentrighttop">
+        		代办事项
+        	</div>
+        	<div class="xdcontentrightbody">
+				<table class="layui-table" lay-data="{width:'full-0',height: 'full-0',limit:10,even:true,url:'/user/getMsg'}"
+					   lay-filter="msgEvent">
+					<thead>
+					<tr>
+						<th lay-data="{field:'msgtypetext', width:200, sort: true,event:'setText'}">任务名</th>
+						<th lay-data="{field:'msgtext',width:1000, sort: true,event:'setText'}">描述</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+        </div>
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="../js/jquery/jquery-1.11.1.js" ></script>
+<script src="../js/layui/layui.js"></script>
+<script type="text/javascript" src="../js/jquery/jquery.json.min.js" ></script>
+<script>
+    layui.use(['table', 'jquery', 'layer'], function () {
+        var table = layui.table
+            , layer = layui.layer;
+
+        table.on('tool(informEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'setText') {
+                $(".layui-table-tips-c").click();
+                ifpanel1('查看公告', '/user/inform?msgid=' + data.id, '700px', '600px');
+            }
+        });
+        function ifpanel1(titl, url, x, y) {
+            var index = layer.open({
+                title: titl,
+                type: 2,
+                skin: 'layui-layer-lan',
+                shade: 0,
+                offset: '100px',
+                content: url,
+                zIndex: layer.zIndex,
+                area: [x, y],
+                shade: 0.3,
+                resize: false
+            });
+            return index;
+        }
+
+        table.on('tool(msgEvent)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'setText') {
+                var li = document.createElement('li');
+                var url = '/electronApprove/main?taskid='+data.msgid;
+                var text = data.msgtypetext;
+
+                if (text.indexOf('销毁审批') > -1) {
+                    url = '/destructionBill/billApproval?taskid=' + data.msgid;
+                } else if (text.indexOf('实体查档审批') > -1) {
+                    url = '/stApprove/main?taskid=' + data.msgid;
+                } else if (text.indexOf('数据开放') > -1) {
+                    url = '/openApprove/main?taskid=' + data.msgid;
+                } else if (text.indexOf('磁盘存储空间不足提醒') > -1) {
+                    url =  '/diskspace/main?taskid=' + data.msgid;
+                } else if (text.indexOf('查档到期提醒') > -1) {
+                    url =  '/jyAdmins/ghmain';
+                }
+                li.setAttribute('id','k'+data.msgid);
+                li.setAttribute('dataurl',url);
+                li.innerHTML = '<img src="img/icon/数据采集.png">'+text;
+                window.parent.desktop.menuClick(li);
+
+                /**
+				 * <li id="k1" dataurl="/acquisition/main?isp=k1">
+                 <img src="img/icon/数据采集.png">
+                 数据采集
+                 </li>
+                 */
+            }
+        });
+
+    });
+
+    var tbcount;
+
+    function initIcon(){
+        $.ajax({
+            type: "post",
+            url: '/geticon',
+            dataType: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    window.iconData = data;
+                    tbcount = parseInt(data[data.length - 1].orders) + 1;
+                    var html = '';
+                    for(var i=0;i<data.length;i++){
+                        if(data[i].pid=='0'){
+                            continue;
+                        }
+                        html += '<li class="layui-anim layui-anim-scale" tkey="'+data[i].tkey+'" url="'+data[i].url+'" icon="'+data[i].icon+'">'
+                            +'<div class="closeIcon">-</div><div class="xdshortcutimg"><img src="'+data[i].icon+'"/></div>'
+                            +'<div class="xdshortcuttext">'+data[i].text+'</div></li>';
+                    }
+
+                    $('.xdshortcutcontent ul').append(html);
+                }
+            },
+            error: function () {
+                layer.msg('桌面图标加载失败...', {icon: 5});
+            },
+            async: false
+        });
+    }
+
+    initIcon();
+
+    $('.xdshortcutcontent ul').on('click','li',function(event){
+        var html = '<li id="'+$(this).attr('tkey')+'" dataurl="'+$(this).attr('url')+'"><img src="'+$(this).attr('icon')+'"> '+$(this).text()+' </li>';
+        window.parent.desktop.menuClick($(html)[0]);
+    });
+
+    $('.xdshortcutcontent ul').on('click','.closeIcon',function(event){
+        event.stopPropagation();
+        $(this).parent().remove();
+//        var flag = "0";
+//        $.ajax({
+//            type: "post",
+//            url: '/user/delicon',
+//            data: {orders: $(this).attr("val"), flag: flag},
+//            dataType: 'json',
+//            success: function (data) {
+//
+//            },
+//            error: function () {
+//
+//            }
+//        });
+	});
+
+    $('.xdshortcuttpright span').click(function(){
+        if($('.closeIcon').css('display')=='none'){
+            $('.closeIcon').fadeIn(300);
+        }else{
+            $('.closeIcon').fadeOut(300);
+		}
+	});
+
+    $(window).resize(function () {
+        panelSize();
+    });
+
+    function panelSize() {
+        $('.layui-table-view').height($('.xdright').height()-$('.xdcontentlefttop').height());
+    }
+
+    panelSize();
+
+
+    function saveIcon(strs){
+        window.iconData = window.iconData?window.iconData.concat(strs):strs;
+        $.ajax({
+            type: "post",
+            url: '/user/saveicon',
+            contentType: 'application/json;charset=utf-8', //设置请求头信息
+            data: $.toJSON( window.iconData),
+            dataType: 'json',
+            success: function (data) {
+                $('.xdshortcutcontent>ul>li').remove();
+                tbcount++;
+                initIcon();
+            },
+            error: function () {
+                //layer.msg('图标保存失败...', {icon: 5});
+            }
+        });
+	}
+
+
+</script>

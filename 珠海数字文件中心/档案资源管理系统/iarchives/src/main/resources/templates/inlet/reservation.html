@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('预约管理')">
+</head>
+<body>
+<script src="../../js/reservation/app.js"></script>
+<script src="../../ext/ux/Datetimefield.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var iflag = [[${iflag}]];
+    var taskid = [[${taskid}]];
+    var yytype = [[${yytype}]];
+</script>
+</html>

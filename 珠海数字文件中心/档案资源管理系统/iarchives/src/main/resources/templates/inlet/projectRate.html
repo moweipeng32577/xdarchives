@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('项目进度')">
+</head>
+<body>
+<script src="../../js/projectRate/app.js"></script>
+<script src="../../js/comps/EntryFormView.js"></script>
+</body>
+<script th:inline="javascript">
+    var nodeId = [[${nodeId}]]; //项目管理节点id
+    //报表服务
+    var reportServer = [[${reportServer}]];
+</script>
+</html>

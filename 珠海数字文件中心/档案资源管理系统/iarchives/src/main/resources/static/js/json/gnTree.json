@@ -1,0 +1,66 @@
+[{
+	"text": "数据采集",
+	"cls": "folder",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"text": "未归管理",
+		"leaf": true,
+		"checked": true
+	},{
+		"text": "归档管理",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "卷内管理",
+		"leaf": true,
+		"checked": false
+	}]
+},{
+	"text": "数据管理",
+	"cls": "folder",
+	"checked": false,
+	"children": [{
+		"text": "Bananas",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "Milk",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "Cereal",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "Energy foods",
+		"cls": "folder",
+		"checked": false,
+		"children": [{
+			"text": "Coffee",
+			"leaf": true,
+			"checked": false
+		},{
+			"text": "Red Bull",
+			"leaf": true,
+			"checked": false
+		}]
+	}]
+},{
+	"text": "开放管理",
+	"cls": "folder",
+	"checked": false,
+	"children": [{
+		"text": "Finish the budget",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "Call contractors",
+		"leaf": true,
+		"checked": false
+	},{
+		"text": "Choose design",
+		"leaf": true,
+		"checked": true
+	}]
+}]

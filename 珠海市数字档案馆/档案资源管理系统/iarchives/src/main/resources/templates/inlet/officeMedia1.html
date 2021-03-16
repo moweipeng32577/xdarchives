@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>office文档查看</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=9;IE=8;IE=7">
+		<!--设置缓存-->
+		<meta http-equiv="cache-control" content="no-cache,must-revalidate">
+		<meta http-equiv="pragram" content="no-cache">
+		<meta http-equiv="expires" content="0">
+	<style>
+		html,body,object{
+			width:100%;
+			height: 100%;
+			padding:0;
+			margin:0;
+			overflow: hidden;
+		}
+	</style>
+   <script th:inline="javascript">
+    var isJy = [[${isJy}]];
+    var filesrc = [[${imgsrc}]];
+    var filetype = [[${filetype}]];
+    var itemclickDownload=[[${itemclickDownload}]];
+    window.onload=function(){
+        var webObj=document.getElementById("WebOffice1");
+            setTimeout(function(){//延时加载,保证在控件准备就绪时打开文档
+                try{
+					webObj.ShowToolBar = false;//隐藏最顶部菜单栏
+					webObj.LoadOriginalFile(filesrc, filetype);
+					webObj.HideMenuArea('hideall','','','');//隐藏工具类
+                }catch(err){
+                      //显示插件不支持提示
+//                    var notIEtip = document.getElementById("notIEtip");
+//                    webObj.style.display = 'none';
+//                    notIEtip.style.display = 'block';
+                    if(itemclickDownload=='true'){
+                        location.href = filesrc;
+                    }
+                    console.error(err);
+                }
+            },200);
+
+//        if(!!window.ActiveXObject || "ActiveXObject" in window){//判断是否支持activex插件
+//            setTimeout(function(){//延时加载,保证在控件准备就绪时打开文档
+//				webObj.ShowToolBar = false;
+//                webObj.LoadOriginalFile(filesrc, filetype);
+//                webObj.HideMenuArea('hideall','','','');
+//            },200);
+//		}
+//		else{
+//            var notIEtip = document.getElementById("notIEtip");
+//            webObj.style.display = 'none';
+//            notIEtip.style.display = 'block';
+//		}
+    }
+
+    //浏览器兼容配置(不起作用o(╥﹏╥)o)
+    //初始化控件 可以初始化加载文档等和设置weboffice的相关属性
+    function NotifyCtrlReady() {
+        document.all.WebOffice1.LoadOriginalFile(filesrc, filetype);
+    }
+    //监听工具栏的事件
+    function NotifyToolBarClick(id) {
+    }
+    //监听word操作事件
+    function NotifyWordEvent(name) {
+    }
+   </script>
+</head>
+<body>
+	<OBJECT id='WebOffice1' style='margin:0;padding:0;'  classid='clsid:E77E049B-23FC-4DB8-B756-60529A35FAD5'  codebase='../../weboffice/WebOffice.cab#Version=7,0,1,8'>
+	   <param name='_ExtentX' value='6350'><param name='_ExtentY' value='6350'>
+	</OBJECT>
+<!--浏览器兼容	-->
+<!--[if !IE]> -->
+<!--<object  id="WebOffice1"-->
+		 <!--TYPE="application/x-itst-activex"-->
+		 <!--ALIGN="baseline" BORDER="0"-->
+		 <!--WIDTH="100%%"HEIGHT="100%"-->
+		 <!--clsid="{E77E049B-23FC-4DB8-B756-60529A35FAD5}"-->
+		 <!--event_NotifyCtrlReady="NotifyCtrlReady"-->
+		 <!--event_NotifyToolBarClick="NotifyToolBarClick"-->
+		 <!--event_NotifyWordEvent="NotifyWordEvent">-->
+<!--</object>-->
+<!-- <![endif]-->
+<!--插件不兼容提示-->
+<!--<div id="notIEtip">-->
+	<!--加载失败，请先安装文件的查看控件，才可在IE内核浏览器中在线预览。<a th:href="${imgsrc}">下载（电子文件到本地查看）</a>-->
+<!--</div>-->
+</body>
+</html>

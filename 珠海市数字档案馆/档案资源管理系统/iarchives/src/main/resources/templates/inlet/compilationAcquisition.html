@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('编研采集')">
+</head>
+<body>
+<script src="../../js/batchModify/view/BatchModifyModifyFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyReplaceFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyAddFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyResultPreviewGrid.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../../js/comps/ElectronicSaveVersionFormView.js"></script>
+<script src="../../js/compilationAcquisition/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    //key == 1 (全宗卷管理)
+    var key =[[${key}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];
+</script>
+</html>

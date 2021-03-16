@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('分类检索')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../../js/classifySearch/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var buttonflag = [[${buttonflag}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+</script>
+</html>

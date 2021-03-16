@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('实体档案入库')">
+</head>
+<body>
+<!--<script src="../../js/management/view/ManagementView.js"></script>-->
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/storeroom/inware/app.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+</body>
+<script th:inline="javascript">
+    var templateNodeid = [[${templateNodeid}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+</script>
+</html>

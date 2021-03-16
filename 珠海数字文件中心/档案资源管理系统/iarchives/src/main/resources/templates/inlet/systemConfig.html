@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('参数设置')">
+</head>
+<body>
+<script src="../../js/systemConfig/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var openSxData = [[${openSxData}]];
+</script>
+</html>

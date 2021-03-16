@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('用户组管理')">
+</head>
+<body>
+<script src="../../js/userGroup/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var userType = [[${userType}]];
+    var userLoginname = [[${loginname}]];//用户登录账号
+    var openSxData = [[${openSxData}]];
+</script>
+</html>

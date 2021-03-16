@@ -1,0 +1,10 @@
+Ext.define('MetadataTemplate.view.MetadataTemplateFormInfoView',{
+    extend:'Ext.panel.Panel',
+    xtype:'atemplateFormInfoView',
+    layout:'border',
+    items:[{
+    	region:'center',//中间
+    	itemId:'northform',//上方的表单视图
+    	xtype:'atemplateFormView'//表单类型
+    }]
+});

@@ -1,0 +1,24 @@
+Ext.define('Lot.model.DeviceInformationModel',{
+    extend:'Ext.data.Model',
+    fields:[{name:'devicename',
+        mapping:'deviceInformation.name'
+    },{
+        name:'devicecode',
+        mapping:'deviceInformation.devicecode'
+    },{
+        name:'manufacturers',
+        mapping:'deviceInformation.manufacturers'
+    },{
+        name:'installdate',
+        mapping:'deviceInformation.installdate'
+    },{
+        name:'pthone',
+        mapping:'deviceInformation.pthone'
+    },{
+        name:'adminuser',
+        mapping:'deviceInformation.adminuser'
+    },{
+        name:'maintenance',
+        mapping:'deviceInformation.maintenance'
+    }]
+});

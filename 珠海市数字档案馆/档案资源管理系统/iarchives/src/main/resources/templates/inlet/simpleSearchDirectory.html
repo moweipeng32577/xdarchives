@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('目录简单检索')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/simpleSearchDirectory/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var buttonflag = [[${buttonflag}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    var systemLoginType = [[${systemLoginType}]];
+</script>
+</html>

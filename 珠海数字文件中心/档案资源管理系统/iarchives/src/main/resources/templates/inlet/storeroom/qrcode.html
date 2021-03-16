@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('档案详细')">
+</head>
+<body>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/comps/AdvancedSearchDynamicFormView.js"></script>
+<script src="../../js/storeroom/qrcode/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var archivecode = [[${archivecode}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+</script>
+</html>

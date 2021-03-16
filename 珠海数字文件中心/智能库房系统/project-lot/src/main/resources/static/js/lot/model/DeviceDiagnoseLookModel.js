@@ -1,0 +1,15 @@
+Ext.define('Lot.model.DeviceDiagnoseLookModel',{
+    extend:'Ext.data.Model',
+    fields:[{name:'diagnosename',
+        mapping:'diagnosename'
+    },{
+        name:'diagnosecode',
+        mapping:'diagnosecode'
+    },{
+        name:'faultcause',
+        mapping:'faultcause'
+    },{
+        name:'suggest',
+        mapping:'suggest'
+    }]
+});

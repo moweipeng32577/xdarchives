@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8" />
+    <title>系统切换</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <style>
+        html,body{
+            width:100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            /*overflow: hidden;*/
+            background-image: url('img/background/hp-switch-bg.jpg');
+            background-size:100% 100%;
+            overflow: hidden;
+        }
+        .main{
+            position: absolute;
+            top: 14%;
+            width: 100%;
+            height:560px;
+        }
+        /*.messageleft{*/
+            /*height: 100%;*/
+            /*width: 12%;*/
+        /*}*/
+        .messageright{
+            margin-left: 10%;
+            position: absolute;
+            width: 260px;
+            top: 14%;
+        }
+        .switch{
+            position: absolute;
+            width: 60%;
+            top: 20%;
+            left: 34%;
+            overflow: hidden;
+            min-width: 960px;
+            font-size: 26px;
+            color: #FEFEFE;
+        }
+        .login-panel-menu{
+            border-radius: 8px;
+            margin: 0px 60px 38px 0;
+            padding: 16px 0 0 20px;
+            width: 400px;
+            height:54px;
+            background-image: url('img/switchImg/default.png');
+            float: left;
+            cursor:pointer;
+        }
+        .login-panel-menu:hover{
+            background-image: url('img/switchImg/current.png');
+        }
+        .login-panel-menu>img{
+            vertical-align:middle;
+        }
+        .back-btn{
+            margin:8px 0;
+            height: 35px;
+            background-size: 100% 100%;
+        }
+        .back-btn{
+            width: 119px;
+            height: 40px;
+            background-image: url('img/switchImg/返回-默认.png');
+            cursor: pointer;
+        }
+
+        .back-btn:hover{
+            background-image: url('img/switchImg/返回-鼠标经过.png');
+        }
+
+        .back-btn:active{
+            background-image: url('img/switchImg/返回-默认.png');
+        }
+
+        /*a{color: #000000 !important;text-align:center; width:264px; height:37px; line-height:35px; display:block; text-decoration:none;}*/
+
+        /*来自desktop.css*/
+        .list-grouppy{
+            position: relative;
+            top:-100%;
+            text-align:right
+        }
+        .list-group-item>img{
+            width: 110px;
+            height: 110px;
+            margin-bottom: 16px;
+        }
+        .list-grouppy>li{
+            list-style: none;
+            color: #FEFEFE;
+        }
+        .realname{
+            margin-bottom: 33px;
+            font-size: 24px;
+        }
+        .rang{
+            font-style: italic;
+            margin-bottom: 26px;
+            font-size: 20px;
+        }
+        .backbtn{float:right;}
+        .userheadimg{
+            border-radius:50%;
+            width:50px;
+            height:50px;
+            margin-right:6px;
+        }
+        .hidden-text{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media screen and (max-width:1366px){/*低于1366时*/
+            .switch{
+                left: 32%;
+                min-width: 880px;
+            }
+            .messageright{
+                margin-left: 5%;
+            }
+            .login-panel-menu{
+                margin: 0px 45px 18px 0;
+                padding: 16px 0 0 11px;
+                width: 375px;
+                height:60px;
+            }
+        }
+        @media screen and (min-width:2400px){/*高于2400时*/
+            .switch {
+                top:13%;
+                left: 25%;
+            }
+        }
+    </style>
+    <script th:inline="javascript">
+        var isLy = [[${isLy}]];
+        var realname = [[${realname}]];
+        var personalized = [[${personalized}]];
+        var personalizedObject = JSON.parse(personalized)?JSON.parse(personalized):{};
+        var personalized1 = JSON.parse(personalized)?JSON.parse(personalized):{};
+        var sysType=[[${sysType}]];//系统类型,用于统一登录平台
+        var loginname=[[${loginname}]];
+        var userid = [[${userid}]];
+        var imgpath=[[${imgsrc}]];
+        var userDoc=[[${doc}]];
+        var usertype = [[${usertype}]];
+        var platformopen=[[${platformopen}]];
+        if(!platformopen) {
+            $(".hide-li").hide();
+        }
+        var single = [[${single}]];
+        if(single){
+            $(".gxhli").hide();
+        }
+    </script>
+    <link rel = "Shortcut Icon" th:href="@{img/icon/title.jpg}"/>
+    <!--<link rel="stylesheet" th:href="@{js/zui/css/zui.min.css}" />-->
+    <!--<link rel="stylesheet" th:href="@{js/desktop/list/list.css}" />-->
+</head>
+<body>
+<div class="main">
+    <!--<div class="messageleft"></div>-->
+
+    <div class="messageright">
+        <ul class="list-group list-grouppy">
+            <li class="list-group-item userMsg hidden-text" linum="0">
+                <img src="" class="userheadimg"><br/>
+            </li>
+            <li class="realname"><div style="height:10px;"></div></li>
+            <li class="rang">请选择你要切换的系统</li>
+            <li class="backbtn"><div class="back-btn"></div></li>
+        </ul>
+    </div>
+    <div class="switch">
+        <!--<div class="login-panel-menu -6" alt="6">
+            <img src="img/switchImg/新闻影像采集归档系统.png" alt="6" class="src">
+            新闻影像采集归档管理系统
+        </div>-->
+        <div class="login-panel-menu -1"  alt="1">
+            <img src="img/switchImg/档案资源管理系统.png" alt="1" class="src">
+            数字档案长期存储系统
+        </div>
+        <div class="login-panel-menu -2" alt="2">
+            <img src="img/switchImg/声像系统.png" alt="2" class="src">
+            声像档案资源管理系统
+        </div>
+        <!--<div class="login-panel-menu -3" alt="3">
+            <img src="img/switchImg/数字化加工.png" alt="3" class="src">
+            数字化加工(辅助工具)
+        </div>
+        <div class="login-panel-menu -5" alt="5">
+            <img src="img/switchImg/目录中心系统.png" alt="5" class="src">
+            目录中心系统
+        </div>-->
+        <div class="login-panel-menu -8" alt="8">
+            <img src="img/switchImg/库房管理系统.png" alt="8" class="src">
+            环境控制系统
+        </div>
+       <!-- <div class="login-panel-menu -7"  alt="7">
+            <img src="img/switchImg/编研管理系统.png" alt="7" class="src">
+            编研管理系统
+        </div>-->
+        <div class="login-panel-menu -4"  alt="4">
+            <img src="img/switchImg/基础平台系统.png" alt="4" class="src">
+            基础安全平台
+        </div>
+        <div class="login-panel-menu -13"  alt="13">
+            <img src="img/switchImg/数据共享.png" alt="13" class="src">
+            安全离线数据交换系统
+        </div>
+        <div class="login-panel-menu -0" alt="0">
+            <img src="img/switchImg/自助查询系统.png" alt="0" class="src">
+            馆内利用平台
+        </div>
+<!--        <div class="login-panel-menu -0" alt="10">-->
+<!--            <img src="img/switchImg/综合事务管理系统.png" alt="10" class="src">-->
+<!--            综合事务管理系统-->
+<!--        </div>-->
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script type="text/javascript" th:src="@{js/jquery/jquery.json.min.js}" ></script>
+<script type="text/javascript" th:src="@{js/layer/layer.js}" ></script>
+<!--<script type="text/javascript" th:src="@{js/desktop/switch.js}" ></script>-->
+</html>
+<script>
+    var elUtils = getElUtils();
+    var menuPanel = elUtils.$('.switch');
+    var systemType='-1';
+    var msg;
+    $(function () {
+        if(!personalizedObject.path) {
+            $(".userheadimg").attr("src", "img/user_default.png");
+        }else{
+            $.ajax({
+                type: 'POST',
+                url: imgpath,
+                success: function(){
+                    $(".userheadimg").attr("src", imgpath);
+                },
+                error:function(){
+                    $(".userheadimg").attr("src", "img/user_default.png");
+                }
+            });
+        }
+        $('.realname').append(realname,"");
+        /////////////////////////////////////////监听鼠标右击事件////////////////////////////////////////////////
+        //使所在平台图标光亮
+        setSystembg(sysType);
+    });
+    //绑定点击事件
+    elUtils.bindEvent('click',menuPanel,function(e){
+        var el = e.srcElement||e.target;
+        if(el.tagName&&(el.tagName.toLowerCase()=='div'||el.tagName.toLowerCase()=='img')){
+            systemType = el.getAttribute('alt');
+            if(systemType){
+                if(isPermissed(systemType)){
+                    if(msg){
+                        layer.msg(msg);
+                    }else{
+                        layer.msg('该用户没有该平台权限');
+                    }
+                    return;
+                }
+                location.href = "/index?sysType="+systemType
+            }
+        }
+    });
+
+    function getElUtils(){
+        return {
+            $:function(ele,select,isList){
+                var _d = document;
+                if(ele.nodeType&&ele.nodeType==1){
+                    _d = ele;
+                }else{
+                    isList = select;
+                    select = ele;
+                }
+
+                if(isList){
+                    var nodeList = _d.querySelectorAll(select);
+                    nodeList = Array.prototype.slice.call(nodeList);
+                    return nodeList.length==1?nodeList[0]:nodeList;
+                }else{
+                    return _d.querySelector(select);
+                }
+            },
+            bindEvent:function(type,ele,callback){
+                try{
+                    ele.addEventListener(type,callback,false);
+                }catch(error){
+                    throw new Error('绑定事件失败',error);
+                }
+            }
+        }
+    }
+    //返回
+    $('.back-btn').click(function() {
+        window.history.back(-1);
+    })
+    //当前系统高亮
+    function setSystembg(sysType) {
+        var type=sysType;
+        var classname='login-panel-menu -'+type;
+        var div = document.getElementsByClassName(classname)[0];
+        div.style.backgroundImage = 'url("img/switchImg/current.png")';
+    }
+    //是否有登录权限
+    function isPermissed(logintype){
+        var ran=Math.random();
+        var permiss=false;
+        var url='/isPermiss?loginname='+loginname+'&logintype='+logintype+'&t='+ran;
+        $.ajax({
+            type: "post",
+            url: url,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                permiss = data.success;
+                msg = data.msg;
+            },
+            error: function () {
+                layer.msg('登录权限错误！', {icon: 5});
+            }
+        });
+        return permiss;
+    }
+</script>

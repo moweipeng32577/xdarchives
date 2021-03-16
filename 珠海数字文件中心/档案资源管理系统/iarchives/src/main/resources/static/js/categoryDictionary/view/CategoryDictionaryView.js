@@ -1,0 +1,26 @@
+Ext.define('CategoryDictionary.view.CategoryDictionaryView',{
+    extend:'Ext.panel.Panel',
+    xtype:'categoryDictionary',
+    layout:'card',
+    activeItem:0,
+    items:[{
+        layout:'border',
+        xtype:'panel',
+        itemId:'gridview',
+        items:[{
+            region:'west',
+            width:XD.treeWidth,
+            xtype:'treepanel',
+            itemId:'treepanelId',
+            rootVisible:true,
+            store:'CategoryDictionaryTreeStore',
+            collapsible:true,
+            split:1,
+            hideHeaders: true,
+            header:false
+        },{
+            region:'center',
+            xtype:'categoryDictionaryGridView'
+        }]
+    }]
+});

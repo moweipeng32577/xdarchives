@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>录像回放</title>
+    <script language="javascript">
+        function Play()
+        {
+            var prop = {};
+            var params = location.search.substr(1).split("&");
+            for(var i=0;i<params.length;i++){
+                prop[params[i].split("=")[0]] = params[i].split("=")[1];
+            }
+            //1.检测是否已安装插件
+            var iRet = WebVideoCtrl.I_CheckPluginInstall();
+            if (-1 == iRet) {
+                alert("您还未安装过插件，双击开发包目录里的WebComponentsKit.exe安装！");
+                return;
+            }
+            //2.初始化插件参数及插入插件
+            WebVideoCtrl.I_InitPlugin('100%', '100%', {
+                bWndFull: true,
+                iPackageType: 2,
+                bNoPlugin: true,
+                cbInitPluginComplete:function(){
+                    //插入插件
+                    WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+                    //3.登录设备
+                    WebVideoCtrl.I_Login(prop.addr, 1, prop.port, prop.user, prop.pwd, {
+                        success:function(xmlDoc){
+                            setTimeout(function () {
+                                //4.录像回放
+                                prop.start = prop.start.replace('T',' ');
+                                prop.end = prop.end.replace('T',' ');
+                                WebVideoCtrl.I_StartPlayback(prop.addr, {
+                                    iChannelID : prop.channel,
+                                    szStartTime: prop.start,
+                                    szEndTime: prop.end
+                                });
+                            }, 1000);
+                        }
+                    });
+                }
+            });
+        }
+
+        function Stop()
+        {
+            WebVideoCtrl.I_Stop();
+        }
+
+        function PlayFast(){
+            WebVideoCtrl.I_PlayFast();
+        }
+
+        function PlaySlow(){
+            WebVideoCtrl.I_PlaySlow();
+        }
+    </script>
+</head>
+<body style="margin:0px;" onload="Play();" onunload="Stop();">
+<div id="divPlugin" style="width:600px;height:400px;">
+</div>
+</body>
+<script id="videonode" src="../../js/hkweb/webVideoCtrl.js"></script>
+</html>

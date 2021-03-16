@@ -1,0 +1,13 @@
+Ext.define('QuestionnaireManagement.model.QuestionnaireManagementGridModel',{
+    extend:'Ext.data.Model',
+    fields:[
+        {name:'userID',type:'string'},
+        {name:'title',type:'string'},
+        {name:'createtime',type:'string'},
+        {name:'starttime',type:'string'},
+        {name:'endtime',type:'string'},
+        {name:'publishtime',type:'string'},
+        {name:'publishstate',type:'string'},
+        {name:'stick',type:'string'}
+    ]
+});

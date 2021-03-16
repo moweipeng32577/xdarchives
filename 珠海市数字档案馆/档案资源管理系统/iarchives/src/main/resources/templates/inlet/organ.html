@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('机构管理')">
+</head>
+<body>
+<script src="../../js/organ/app.js"></script>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var syncUserid = [[${userid}]];//用户id
+</script>
+</body>
+</html>

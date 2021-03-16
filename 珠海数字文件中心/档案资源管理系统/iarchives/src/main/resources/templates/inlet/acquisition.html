@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据采集')">
+</head>
+<body>
+<script src="../../js/batchModify/view/BatchModifyModifyFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyReplaceFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyAddFormView.js"></script>
+<script src="../../js/batchModify/view/BatchModifyResultPreviewGrid.js"></script>
+<script src="../../js/comps/ElectronicSaveVersionFormView.js"></script>
+<script src="../../sockjs/sockjs.min.js"></script>
+<script src="../../sockjs/stomp.min.js"></script>
+<script src="../../js/acquisition/app.js"></script>
+<script src="../../js/netca/netcawebsocket.js"></script>
+<script src="../../js/netca/netcaseal.js"></script>
+<script src="../../js/netca/base64.min.js"></script>
+<script src="../../js/netca/json2.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    //声像节点id
+    var  mediaNodeids = [[${mediaNodeids}]];
+    if(mediaNodeids != null)
+        for(var i = 0; i < mediaNodeids.length; i++){
+            var nodeid = mediaNodeids[i];
+            if(nodeid != null)
+                sessionStorage.setItem("mediaNodeid_" + nodeid,"1");
+        }
+
+    //是否打开数据审核
+    var auditOpened  = [[${auditOpened}]];
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //用户id
+    var userid = [[${userid}]];
+    var userRealname = [[${userRealname}]];
+    //用户绑定证书编号
+    var caUserid = [[${caUserid}]];
+    //是否显示电子文件重名命名设置
+    var showElectronicRename = [[${showElectronicRename}]];
+
+    var systemType =[[${systemType}]];
+
+    var systemLoginType =[[${systemLoginType}]];
+    var netcatUse = [[${netcatUse}]];//是否使用网证通电子签章  1使用  0禁用
+</script>
+</html>

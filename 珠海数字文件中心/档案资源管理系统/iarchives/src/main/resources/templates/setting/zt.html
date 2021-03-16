@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../js/picker/css/colpick.css"/>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+
+	</head>
+	<body>
+		<div style="background:#e6e6e6;height:35px;width:100%;text-align: center;">
+			<!--<form class="layui-form" action="" >-->
+			  <!--<div class="layui-form-item" >-->
+			    <!--<label class="layui-form-label">区 域 : </label>-->
+			    <!--<div class="layui-input-block" style="text-align: left;">-->
+			      <!--<input  type="radio" name="addr" value="0" title="边框" checked>-->
+			      <!--&lt;!&ndash;<input type="radio" name="addr" value="1" title="磁块">&ndash;&gt;-->
+			      <!---->
+			    <!--</div>-->
+			  <!--</div>-->
+			<!--</form>-->
+		</div>
+		<div class="dg-wrapper">
+				<div id="picker"></div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/picker/js/colpick.js" type="text/javascript"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+			var flag = '0';
+//			layui.use('form', function(){
+//			  var form = layui.form;
+//			  form.on('radio', function(data){
+//			   	flag = data.value;
+//			  });
+//			});
+
+            var zts = parent.personalized1?(parent.personalized1.zts?parent.personalized1.zts:'2c80cf'):"2c80cf";
+        	$('#picker').colpick({
+				submitText:'确定',
+				color:'#'+zts,
+				onSubmit:function(obj,tt,rgb){
+					if(flag=='1'){
+						$('#zts', window.parent.document).attr({'ckb':tt});
+                        parent.personalized1.zts = tt;
+					}else{
+                        parent.personalized1.zts = tt;
+                        parent.personalized1.rgb = rgb.r+','+rgb.g+','+rgb.b;
+						$('#zts', window.parent.document).attr({'zts':tt,rgb:rgb.r+','+rgb.g+','+rgb.b});
+					}
+					$('#zts', window.parent.document).click();
+
+					//var index = parent.layer.getFrameIndex(window.name); 
+					//parent.layer.close(index); 
+				}
+			});
+			
+			$('#picker').click();			
+</script>

@@ -1,0 +1,8 @@
+{
+	"children":[
+	    {"id":"1",
+	    "pid":"1",
+	    "text":"全宗单位",
+	    "leaf":true
+	  	}]
+}

@@ -1,0 +1,19 @@
+.x-action-upload-start-icon:before{font:18px/1 FontAwesome;color:#81cb31;content:'\f144'}
+.x-action-upload-pause-icon:before{font:18px/1 FontAwesome;color:#FF8C00;content:'\f28b'}
+.x-action-upload-delete-icon:before{font:18px/1 FontAwesome;color:#FF6347;content:'\f057'}
+.x-action-electronic-icon{background-image:url('images/ele.png')}
+.x-tab-electronic-icon:before{font:18px/1 FontAwesome;content:'\f0c5'}
+.x-tab-entry-icon:before{font:18px/1 FontAwesome;content:'\f0f6'}
+.x-search-close-icon:before{font:18px/1 FontAwesome;content:'\f2d3'}
+.x-search-cancel-icon:before{font:18px/1 FontAwesome;content:'\f05e'}
+.x-ctxmenu-delete-icon:before{font:18px/1 FontAwesome;content:'\f057'}
+.x-ctxmenu-edit-icon:before{font:18px/1 FontAwesome;content:'\f040'}
+.x-ctxmenu-add-icon:before{font:18px/1 FontAwesome;content:'\f055'}
+.x-ctxmenu-addleaf-icon:before{font:16px/1 FontAwesome;content:'\f06c'}
+.x-ctxmenu-type-icon:before{font:18px/1 FontAwesome;content:'\f097'}
+.x-ctxmenu-exchange-icon:before{font:18px/1 FontAwesome;content:'\f0ec'}
+.x-ctxmenu-expand-icon:before{font:16px/1 FontAwesome;content:'\f196'}
+.x-ctxmenu-collapse-icon:before{font:16px/1 FontAwesome;content:'\f147'}
+.x-ctxmenu-checked-icon:before{font:16px/1 FontAwesome;content:'\f046'}
+.x-ctxmenu-firstChild-icon:before{font:15px/1 FontAwesome;content:'\f016'}
+.x-ctxmenu-allChild-icon:before{font:17px/1 FontAwesome;content:'\f0c5'}

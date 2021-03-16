@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../js/zui/css/zui.css"/>
+    <link rel="stylesheet" href="../../js/photoview/css/photoview.css"/>
+    <title>电子文件显示</title>
+    <style>
+
+        html,body{
+            width:100%;
+            height:100%;
+            margin:0px;
+            padding:0px;
+            background-color: #DFE8F6;
+            overflow: hidden;
+        }
+
+        .center{
+            width:100%;
+            height:100%;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+
+        .tapdiv{
+        }
+
+        .zglayer:hover{
+            cursor: move;
+        }
+        .zglayer{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: rgba(0,0,0,0);
+        }
+
+        .toolBar{
+            width:60px;
+            height:150px;
+            background:rgba(0,0,0,.5);
+            position:fixed;
+            right:0px;
+            top:30%;
+            z-index: 10000;
+        }
+
+        .toolBar ul{
+            width:100%;
+            height:100%;
+            margin:0px;
+            padding:0px;
+        }
+
+        .toolBar ul li{
+            text-align:center;
+            width:100%;
+            height:25%;
+            list-style:none;
+            transition: all .2s;
+        }
+
+        .toolBar ul li:hover{
+            cursor:pointer;
+            background:rgba(0,191,255,.7);
+        }
+
+        .toolBar ul li i{
+            line-height:35px;
+            font-size:1.3em;
+            color:#fff;
+        }
+
+        .tapdiv img{
+            width:400px;
+        }
+
+        .pw-btn>img{top:0px;}
+
+        @media screen and (max-width:1660px){
+            .pw-btn-view{ height:80px;}
+            .pw-btn{font-size:20px;padding: 5px 6px;}
+            .pw-btn>img{width:23px;}
+        }
+
+    </style>
+    <script th:inline="javascript">
+        var isJy = [[${isJy}]];
+        var filesrc = [[${imgsrc}]];
+        var filetype = [[${filetype}]];
+        var itemclickDownload=[[${itemclickDownload}]];
+    </script>
+</head>
+<body>
+<div class="center">
+    <div id="tapdiv" class="tapdiv">
+        <!--<img th:src="${imgsrc}">-->
+        <!--<embed id="pdfPlayer" th:src="${imgsrc}" type="application/pdf" width="700px" height="600px" >-->
+    </div>
+</div>
+<object width='100%' height='100%' classid="CLSID:106E49CF-797A-11D2-81A2-00E02C015623" name="tiffObj" style="display: none">   
+      加载失败，请先用管理员权限安装文件的查看控件，才可在IE和360-兼容模式浏览器中在线预览。<a th:href="${imgsrc}">下载（电子文件到本地查看）</a>&nbsp;&nbsp;<a href="/plugins/alternatiff-1.8.exe">tiff插件下载</a>
+    <input type="text" class="downloadFocus"  style="width:0px !important;border:0px;background: transparent"/>
+    <param id="tiffSrc" name="src"  th:value="${imgsrc}" >   
+    <param  name="negative"  value="no">  
+</object> 
+</body>
+<script src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layer/layer.js"></script>
+<script src="../../js/photoview/js/photoview.js"></script>
+<script src="../../js/photoview/js/tiff.js"></script>
+<script src="../../js/photoview/js/TiffView.js"></script>
+</html>
+<script>
+    var imgtype = 'jpg,jpeg,png';
+    if(filetype&&imgtype.indexOf(filetype.toLowerCase())>-1){
+        $('.center').hide();
+        $('body').prepend('<div id="p1" class="pw-view"></div>');
+        var p1 = new PhotoView({eleid:'p1'});
+        p1.changeImg(filesrc);
+    }else if('tiff,tif'.indexOf(filetype.toLowerCase())>-1){
+        $('.center').hide();
+        $('body').prepend('<div id="p1" class="pw-view"></div>')
+        var tiff=new TiffView({eleid:'p1',filesrc:filesrc});
+    }else{
+        if(isJy){
+            if(filetype&&filetype.toLowerCase()=="pdf"){
+                filesrc = filesrc.replace(/\&/g,"%26");//对&转义
+                filesrc = filesrc.replace(/\=/g,"%3D");//对=转义
+                location.href = '/js/pdfJs/web/viewer.html?file='+filesrc;
+            }else{
+                layer.msg('此文件不是有效的阅读文件，请联系办公室...', {icon: 5});
+            }
+        }
+        else if('pdf'.indexOf(filetype.toLowerCase())>-1||itemclickDownload=='true'){
+            //location.href = filesrc;
+            filesrc = filesrc.replace(/\&/g,"%26");//对&转义
+            filesrc = filesrc.replace(/\=/g,"%3D");//对=转义
+            location.href = '/js/pdfJs/web/viewer.html?file='+filesrc;
+        }
+        else if('txt'.indexOf(filetype.toLowerCase())>-1||itemclickDownload=='true'){
+            location.href=filesrc;
+        }
+    }
+
+    var current = 0;
+    function turnLeft(){
+        current = (current-90)%360;
+        document.getElementById('target').style.transform = 'rotate('+current+'deg)';
+    }
+    function turnRight(){
+        current = (current+90)%360;
+        document.getElementById('target').style.transform = 'rotate('+current+'deg)';
+    }
+
+    function amplification(){
+        var maxWidth = document.getElementById('tapdiv').parentNode.scrollWidth;
+        if(img.width<maxWidth){
+            $(img).css({'width':img.width*1.2});
+        }
+    }
+
+    function narrow(){
+        if(img.width>60){
+            $(img).css({'width':img.width*0.8});
+        }
+    }
+
+    if($('object').css('display')=='inline'&&$('.downloadFocus')[0].offsetHeight!=0){
+        $('.downloadFocus').focus();
+    }
+
+    var isDownLoad = false;
+    $('.downloadFocus').focus(function(){
+        setTimeout(function(){
+            if(!isDownLoad&&(window.ActiveXObject || "ActiveXObject" in window)){
+                isDownLoad = true;
+                location.href = '/plugins/alternatiff-1.8.exe';
+            }
+        },300);
+    });
+</script>

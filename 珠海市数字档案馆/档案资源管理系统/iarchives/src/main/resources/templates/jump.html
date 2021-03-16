@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>声像系统</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+</head>
+<body onload="jump()">
+<form method="post" action="" class="systypeform" style="display: none">
+	<input class="username" name="username" value=""/>
+	<input class="pwd" type="password" name="password" value="***&4"/>
+</form>
+</body>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script th:inline="javascript">
+    var username=[[${username}]];//用户名,用于统一登录平台
+    var iarchivesxPath=[[${iarchivesxPath}]];//声像调整路径
+    var pwd=[[${pwd}]];//密码
+    $('.systypeform').attr('action',iarchivesxPath);
+	$('.username').val(username);
+    $('.pwd').val(pwd);
+</script>
+<script>
+	function jump(){
+        $('.systypeform').submit();
+	}
+</script>
+</html>
+

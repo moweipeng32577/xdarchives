@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('统计报表打印')">
+</head>
+<body>
+<script src="../../js/reportSearch/app.js"></script>
+</body>
+<script th:inline="javascript">
+    var reportname = [[${reportname}]];
+</script>
+</html>

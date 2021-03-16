@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>欣档科技智能库房</title>
+    <script src="threejs/three.min.js"></script>
+    <script src="threejs/ThreeBSP.js"></script>
+    <script src="threejs/OrbitControls.js"></script>
+    <script src="xd3d.js"></script>
+    <script src="threejs/MTLLoader.js"></script>
+    <script src="threejs/OBJLoader.js"></script>
+    <script src="threejs/RectAreaLightUniformsLib.js"></script>
+    <script src="threejs/dat.gui.min.js"></script>
+    <script src="threejs/stats.min.js"></script>
+    <script src="threejs/tweenjs.js"></script>
+    <script src="layui/layui.js"></script>
+    <script type="text/javascript" src="threejs/Water2.js" ></script>
+    <script type="text/javascript" src="threejs/Reflector.js" ></script>
+    <script type="text/javascript" src="threejs/Refractor.js" ></script>
+    <script type="text/javascript" src="socketjs/sockjs.min.js" ></script>
+    <script type="text/javascript" src="socketjs/stomp.min.js" ></script>
+    <script src="jquery/jquery.js"></script>
+    <script src="imsg/message.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="imsg/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="imsg/message.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media screen and (min-width:1024px)and (max-width: 1860px)  {
+
+        }
+        @media screen and (max-width:1600px){
+
+        }
+        @media screen and (max-width:1366px){
+
+        }
+        @media screen and (max-width:1280px){
+
+        }
+        @media screen and (max-width:1024px){
+
+        }
+    </style>
+</head>
+
+<body>
+<ul class="layui-nav layui-nav-tree layui-bg-cyan" lay-filter="demo" style="position:absolute;top: 5px;left: 5px;">
+    <li class="layui-nav-item" lay-unselect><a href="javascript:;">切换2D显示</a></li>
+    <!--<li class="layui-nav-item">-->
+    <!--<a href="javascript:;">楼层切换</a>-->
+    <!--<dl class="layui-nav-child">-->
+    <!--<dd><a href="">三楼</a></dd>-->
+    <!--<dd><a href="">四楼</a></dd>-->
+    <!--<dd><a href="">五楼</a></dd>-->
+    <!--</dl>-->
+    <!--</li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">布防/撤防</a></li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">防火报警</a></li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">漏水提醒</a></li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">库房通风</a></li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">档案检索</a></li>-->
+    <!--<li class="layui-nav-item" lay-unselect><a href="javascript:;">清除缓存</a></li>-->
+</ul>
+
+
+<!-- 信息面板-->
+<div style="position:fixed; left: 300px;top: 10px" id="message"></div>
+
+<div id="canvas"></div>
+
+<script>
+
+    layui.use(['element','layer'],function(){
+        layui.element.on('nav(demo)',function(elem){
+            switch(elem.text()){
+                case '切换2D显示':
+                    var panel = window.parent.Ext.all('visualization')[0].down('[itemId = totalPanel]');
+                    panel.fireEvent('render',panel);
+                    break;
+//                    case '库房通风':
+//                        air();
+//                        break;
+//                    case '档案检索':
+//                        search();
+//                        break;
+//                    case '布防/撤防':
+//                        infrared();
+//                        break;
+//                    case '清除缓存':
+//                        clean();
+//                        break;
+//                    case '防火报警':
+//                        openfire();
+//                        break;
+//                    case '漏水提醒':
+//                        openwater();
+//                        break;
+                default:
+                    break;
+            }
+        });
+    });
+
+
+    $.getJSON("config.json",function(data) {
+        var server = 'http://' + data.server.ip + ':' + data.server.port;//读取配置文件
+
+        //智能设备推送信息
+        var socket = new SockJS(server + "/devicewebsocket");
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            //智能设备信息推送
+            stompClient.subscribe('/devicesStatus', function (respnose) {
+                var jsonStr = respnose.body;
+
+                setTimeout(function () {
+//                    moveMJJ('1','9','');
+                }, 2000)
+            });
+
+            //借阅消息推送
+            stompClient.subscribe('/stApprove', function (respnose) {
+                var json = respnose.body;
+                MessagePlugin.sendData(json);
+            });
+        });
+
+        //初始化消息列表
+        $(function(){
+            MessagePlugin.init({
+                elem: "#message",
+                server:server,
+            });
+        });
+    });
+
+
+    var kfcommonFunc = Object.create(XD3D.commonFunc);
+    var kf = Object.create(XD3D);
+    kf.start(2.5);
+    kf.light1Open =false;//光源1
+    kf.light2Open =false;//光源2
+    var sreachMjjColor; //档案检索密集架默认颜色
+    var sreachMjj; //档案检索密集架
+
+    //地板
+    kf.initFloor(2500,2500,-2700,0,250);//左下
+    kf.initFloor(2500,2500,-2700,0,-2250);//左上
+    kf.initFloor(3000,3000,0,0,0);//中
+    kf.initFloor(3000,3000,3000,0,0);//中右
+
+
+    /* --------------------------------------------右边--------------------------------------------- */
+    kf.initWall(5900, 1500, -1500, 1, {}, true);//上墙
+    kf.initWall(8400, 270, 1500, 0, {}, true); //下墙
+    var wall = kf.initWall(3000, 4450, 0, 0.5, {});//右墙
+    var hole = kf.initWall(500, 4450,  180, 0.5, {height:480,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+
+//    var wall=   kf.initWall(1320, -100, -780, 0.5, {});//中上1 纵墙
+//    var hole = kf.initWall(300, -100, -800, 0.5, {height:280,y:145});
+//    kf.scene.add(kf.initHole(wall,hole));
+//    kf.initDoor(150,280,5,230,145,-100,0,150,280,5,370,145,-100,0);   //创建门
+      kf.initWall(1350, 800,-780, 0.5, {}, true);//中上2 纵墙
+//    kf.initWall(1350, 1700,-780, 0.5, {}, true);//中上3 纵墙
+//    kf.initWall(1350, 2700,-780, 0.5, {}, true);//中上4 纵墙
+//    var wall=  kf.initWall(500, 2850,150, -0.5, {});//中上5 纵墙
+//    var hole = kf.initWall(300, 2850, 150, -0.5, {height:280,y:145});
+//    kf.scene.add(kf.initHole(wall,hole));
+
+    var wall = kf.initWall(1400, -740,-100, 0, {});//中上 1 横墙
+    var hole = kf.initWall(300, -700, -100, 0, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-770,145,-100,0,150,280,5,-630,145,-100,0);   //创建门
+    var wall=  kf.initWall(900, 400, -100, 0, {});//中上 2 横墙
+    var hole = kf.initWall(300, 300, -100, 0, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,230,145,-100,0,150,280,5,370,145,-100,0);   //创建门
+    var wall=  kf.initWall(900, 1300, -100, 0, {});//中上 3 横墙
+    var hole = kf.initWall(300, 1200, -100, 0, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,1130,145,-100,0,150,280,5,1270,145,-100,0);   //创建门
+    kf.initWall(900, 2200, -100, 0, {},true);//中上 4 横墙
+    kf.initWall(1300, 3000, -100, 0, {},true);//中上 5 横墙
+    var wall=  kf.initWall(1350, 4200, -100, 0, {});//中上 6 横墙
+    var hole= kf.initWall(300, 4000, -100, 0, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,3930,145,-100,0,150,280,5,4070,145,-100,0);   //创建门
+
+
+
+    kf.initWall(1100, -700,930, -0.5, {}, true);//中下1 纵墙
+    var wall = kf.initWall(1100, -300,930, 0.5, {});//中下2 纵墙
+    var hole = kf.initWall(150, -300, 600, 0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-300,145,600,0.5);   //创建门
+
+
+
+    kf.initWall(1100, 0,930, 0.5, {},true);//中下2 纵墙
+
+
+    kf.initWall(1100, 2500,930, 0.5, {}, true);//中下3 纵墙
+//    kf.initWall(1100, 3300,930, 0.5, {}, true);//中下4 纵墙
+    kf.initWall(300, 4000,560, 0.5, {}, true);//中下5纵墙
+    kf.initWall(480, 4870,160, -0.5, {}, true);//中下6纵墙
+
+     kf.initWall(1130, -880, 400, 1, {},true);//中下 1 横墙
+
+
+    var wall=  kf.initWall(910, 460, 400, 1, {});//中下 2 横墙
+    var hole = kf.initWall(300, 300, 400, 1, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,230,145,400,0,150,280,5,370,145,400,0);   //创建门
+
+
+    var wall=  kf.initWall(1800, 1700, 400, 1, {});//中下 4 横墙
+    var hole = kf.initWall(300, 2000, 400, 1, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,1930,145,400,0,150,280,5,2070,145,400,0);   //创建门
+
+    var wall=  kf.initWall(1000, 2900, 400, 1, {});//中下 4 横墙
+    var hole = kf.initWall(300, 3000, 400, 1, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,2930,145,400,0,150,280,5,3070,145,400,0);   //创建门
+
+    var wall=  kf.initWall(800, 3600, 400, 1, {});//中下 5 横墙
+    var hole = kf.initWall(300, 3800, 400, 1, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,3730,145,400,0,150,280,5,3870,145,400,0);   //创建门
+
+    kf.initWall(450, 4230, 700, 1, {},true);//中下 6 横墙
+    kf.initWall(450, 4630, 400, 0, {},true);//中下 7 横墙
+
+
+    /* --------------------------------------------右边--------------------------------------------- */
+
+
+
+
+
+
+    /* --------------------------------------------左边（从上到下，从左到右）--------------------------------------------- */
+
+    kf.initWall(5000, -3950, -1000, -0.5, {}, true);//左墙
+    kf.initWall(1300, -1470, -2870, 0.5, {}, true);//右1墙
+    kf.initWall(1700, -1450, -950, -0.5, {}, true);//右2墙
+    kf.initWall(1100, -1450, 950, -0.5, {}, true);//右3墙
+    var wall = kf.initWall(500, -1450,145, -0.5, {});//右4墙
+    var hole = kf.initWall(300, -1450, 145, -0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+
+    kf.initWall(2500, -2700, -3500, 1, {}, true);//上墙
+    var wall = kf.initWall(600, -2780, 470, 1, {});//中横墙
+    var hole = kf.initWall(300, -2780, 470, 1, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-2850,145,470,1,150,280,5,-2710,145,470,1);   //创建门
+
+
+    var wall =  kf.initWall(1200, -3085, -2900, 0.5, {});//中左1纵墙
+    var hole = kf.initWall(300, -3085, -3200, 0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-3085,145,-3130,0.5,150,280,5,-3085,145,-3270,0.5);   //创建门
+
+    var wall =  kf.initWall(1200, -3085, -2000, 0.5, {});//中左2纵墙
+    var hole = kf.initWall(300, -3085, -2000, 0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-3085,145,-1930,0.5,150,280,5,-3085,145,-2070,0.5);   //创建门
+
+    var wall =  kf.initWall(1000, -3085, -1000, 0.5, {});//中左3纵墙
+    var hole = kf.initWall(300, -3085, -1200, 0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-3085,145,-1130,0.5,150,280,5,-3085,145,-1270,0.5);   //创建门
+
+    var wall =  kf.initWall(1000, -3085, -480, 0.5, {});//中左4纵墙
+    var hole = kf.initWall(300, -3085, -400, 0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-3085,145,-330,0.5,150,280,5,-3085,145,-470,0.5);   //创建门
+
+    kf.initWall(1000, -3085, 980, 0.5, {},true);//中左5纵墙
+    kf.initWall(400, -3630, 600, 0.5, {},true);//中左6纵墙
+    kf.initWall(400, -3485, 1000, 0.5, {},true);//中左7纵墙
+
+
+    var wall =  kf.initWall(1700, -2480, -2630, -0.5, {});//中右1纵墙
+    var hole = kf.initWall(300, -2480, -3000, -0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-2480,145,-2930,-0.5,150,280,5,-2480,145,-3070,-0.5);   //创建门
+
+    var wall =  kf.initWall(800, -2480, -1100, -0.5, {});//中右2纵墙
+    var hole = kf.initWall(300, -2480, -1100, -0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-2480,145,-1030,-0.5,150,280,5,-2480,145,-1170,-0.5);   //创建门
+
+    var wall =  kf.initWall(800, -2480, -500, -0.5, {});//中右3纵墙
+    var hole = kf.initWall(300, -2480, -350, -0.5, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-2480,145,-280,-0.5,150,280,5,-2480,145,-420,-0.5);   //创建门
+
+    kf.initWall(1000, -2480, 1000, 0.5, {},true);//中右4纵墙
+
+
+    kf.initWall(860, -3500, -1500, 0, {}, true);//中左1横墙
+    kf.initWall(860, -3500, 0, 0, {}, true);//中左2横墙
+    kf.initWall(300, -3800, 400, 0, {}, true);//中左3横墙
+    kf.initWall(450, -3720, 800, 0, {}, true);//中左4横墙
+    kf.initWall(850, -3500, 1200, 0, {}, true);//中左5横墙
+
+
+    kf.initWall(1000, -1970, -2230, 0, {},true);//中右1横墙
+    var wall = kf.initWall(1000, -1970, -1800, 0, {});//中右2横墙
+    var hole = kf.initWall(300, -1970, -1800, 0, {height:280,y:145});
+    kf.scene.add(kf.initHole(wall,hole));
+    kf.initDoor(150,280,5,-1900,145,-1800,0,150,280,5,-2040,145,-1800,0);   //创建门
+    kf.initWall(1000, -1965, -1500, 1, {},true);//中右3横墙
+    kf.initWall(1000, -1965, -100, 0, {},true);//中右4横墙
+    /* --------------------------------------------左边（从上到下，从左到右）--------------------------------------------- */
+
+
+
+    //电梯
+    kf.loadObj({modal:'dianti',x:-1750,y:0,z:1400,rotation:0.5,scale:0.08});
+    kf.loadObj({modal:'dianti',x:4350,y:0,z:700,rotation:0.5,scale:0.08});
+
+    //楼梯
+    kf.loadObj({modal:'louti',x:4800,y:-300,z:1150,rotation:0.5,scale:0.08});
+    kf.loadObj({modal:'louti',x:-2100,y:-150,z:1450,rotation:0.5,scale:0.08});
+    kf.loadObj({modal:'louti',x:-710,y:-300,z:-2150,rotation:1,scale:0.08});
+//
+//    // 外围四边墙
+//    var bottomupwall=kf.initWall(2000, -500, -1000, 1, {});
+//    var bottomuphole = kf.initWall(300, -800, -1000, 1, {height:280,y:150});
+//    kf.scene.add(kf.initHole(bottomupwall,bottomuphole));
+//    kf.initDoor(150,280,5,-870,145,-1000,150,280,5,-730,145,-1000);   //创建门
+//
+//    kf.initWall(400, 500, -780, 0.5, {}, true);
+//    kf.initWall(1000, 1000, -570, 1, {}, true);
+//
+//    var bottomdownwall= kf.initWall(3000, 0, 1000, 0, {});
+//    var bottomdownhole = kf.initWall(300, -1000, 1000, 0, {height:200,y:200});
+//    kf.scene.add(kf.initHole(bottomdownwall,bottomdownhole));
+//
+//
+//
+//    kf.initWall(2000, -1500, 0, -0.5, {}, true);
+//    kf.initWall(1570, 1500, 220, 0.5, {}, true);
+
+
+    //贴图
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-3050,y:190,z:-170,rotationy:1.5},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-3050,y:190,z:-970,rotationy:1.5},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-3050,y:190,z:-1780,rotationy:1.5},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-3050,y:190,z:-2950,rotationy:1.5},'lock');
+
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-2500,y:190,z:-570,rotationy:-1.5},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-2500,y:190,z:-1300,rotationy:-1.5},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-2500,y:190,z:-3180,rotationy:-1.5},'lock');
+
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:-928,y:190,z:-80,rotationy:6.26},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:100,y:190,z:-80,rotationy:6.26},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:1000,y:190,z:-80,rotationy:6.26},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:3800,y:190,z:-80,rotationy:6.26},'lock');
+    kf.initPlane('obj/tv.jpg',{width:300,height:150,x:-300,y:190,z:-80},'tv');
+    kf.initPlane('obj/tv.jpg',{width:300,height:150,x:1600,y:190,z:-80},'tv');
+
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:100,y:190,z:380,rotationy:3.13},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:1800,y:190,z:380,rotationy:3.13},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:2800,y:190,z:380,rotationy:3.13},'lock');
+    kf.initPlane('obj/lock.png',{width:60,height:100,x:3600,y:190,z:380,rotationy:3.13},'lock');
+    kf.initPlane('obj/tv.jpg',{width:300,height:150,x:800,y:190,z:380,rotationy:3.13},'tv');
+    kf.initPlane('obj/tv.jpg',{width:300,height:150,x:3400,y:190,z:380,rotationy:3.13},'tv');
+
+//    kf.initPlane('obj/zd_idc.jpg',{width:70,height:140,x:-900,y:210,z:350});
+//    kf.initPlane('obj/zd_bm.jpg',{width:140,height:200,x:-1200,y:210,z:-938});
+//    kf.initPlane('obj/zd_gl.jpg',{width:140,height:200,x:-600,y:210,z:-938});
+//    kf.initPlane('obj/zd_lc.jpg',{width:400,height:140,x:0,y:210,z:-938});
+
+    //Logo
+    //      kf.initPlane('2.gif',{width:292,height:64,x:-1050,z:650,y:10,rotationx:-1.55});
+
+    //机房空调
+    kf.loadObj({modal:'kongtiao',x:-400,y:120,z:1430,rotation:-0.75,scale:1.3});
+
+    //机房工作台
+    kf.loadObj({modal:'workcenter',x:-400,y:65,z:800,rotation:-0.01,scale:0.8});
+
+    //走廊摄像头
+//    kf.loadObj({modal:'camera',x:-200,y:300,z:-948,rotation:0,scale:2});
+//    kf.loadObj({modal:'camera',x:100,y:300,z:-948,rotation:0,scale:2});
+
+    //办公室摄像头
+//    kf.loadObj({modal:'camera',x:-1450,y:300,z:340,rotation:0.3,scale:2});
+
+    //走廊灭火箱
+    kf.loadObj({modal:'firebox',x:-400,y:55,z:1230,rotation:0.5,scale:1});
+
+    // 中央空调
+//    kf.loadObj({modal:'aircondtioner',x:200,y:450,z:-100,rotation:0,scale:5});
+
+    //楼梯
+    //        kf.loadObj({modal:'louti',x:-1100,y:0,z:650,rotation:-0.5,scale:0.03});
+    //        kf.loadObj({modal:'louti',x:-869,y:92,z:938,rotation:0.5,scale:0.03});
+
+    //电梯
+    //        kf.loadObj({modal:'dianti',x:1180,y:0,z:-800,rotation:-1,scale:0.04});
+    //        kf.loadObj({modal:'dianti',x:1180,y:0,z:-660,rotation:-1,scale:0.04});
+
+    //灯控（上左—上右-下左-下右）
+    //        kf.loadObj({id:'l1', modal:'light',x:-700,y:700,z:-250,rotation:0.5,scale:5}); //灯1
+    //        kf.loadObj({id:'l2',modal:'light',x:130,y:700,z:-250,rotation:0.5,scale:5});//灯2
+    //        kf.loadObj({id:'l3',modal:'light',x:900,y:700,z:-250,rotation:0.5,scale:5});//灯3
+    //        kf.loadObj({id:'l4',modal:'light',x:-1100,y:700,z:650,rotation:0,scale:5});//灯4
+    //        kf.loadObj({id:'l5',modal:'light',x:0,y:700,z:650,rotation:0,scale:5});//灯5
+    //        kf.loadObj({id:'l6',modal:'light',x:900,y:700,z:650,rotation:0.5,scale:5});//灯6
+    //        kf.loadObj({modal:'light',x:210,y:700,z:-600,rotation:0.5,scale:5});
+
+
+//    库房密集架 4楼03号库房
+    kf.initLine({x:3000,y:8,z:950},{x:4400,y:8,z:950});
+    kf.initLine({x:3000,y:8,z:1050},{x:4400,y:8,z:1050});
+    kf.initLine({x:3000,y:8,z:1150},{x:4400,y:8,z:1150});
+    for(var i=0;i<12;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_3', op: op, col: {total: 12, fix: 6, num: i + 1}}, name: 'mjj_4_3_' + (i + 1), modal: 'mjjleft6-6', x: 3985- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if(i == 11){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_3', op: op, col: {total: 12, fix: 6, num: i + 1}}, name: 'mjj_4_3_' + (i + 1), modal: 'mjjright6-6', x: 3990- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if (i < 5 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_3', op: op, col: {total: 12, fix: 6, num: i + 1}}, name: 'mjj_4_3_' + (i + 1), modal: 'mjjcenter6-6', x: 4000 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+        if (i == 5) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_3', op: op, col: {total: 12, fix: 6, num: i + 1}}, name: 'mjj_4_3_fit', modal: 'mjjcenter6-5-fit', x: 3635, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        else if (i > 5 && i != 11) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_3', op: op, col: {total: 12, fix: 6, num: i + 1}}, name: 'mjj_4_3_' + (i + 1), modal: 'mjjcenter6-6', x: 4000 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+    }
+
+
+    //    库房密集架 4楼04号库房
+    kf.initLine({x:300,y:8,z:950},{x:2400,y:8,z:950});
+    kf.initLine({x:300,y:8,z:1050},{x:2400,y:8,z:1050});
+    kf.initLine({x:300,y:8,z:1150},{x:2400,y:8,z:1150});
+
+
+    for(var i=0;i<15;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_1', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_1_' + (i + 1), modal: 'mjjleft6-6', x: 2385- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if(i == 14){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_1', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_1_' + (i + 1), modal: 'mjjright6-6', x: 2390- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if (i < 7 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_1', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_1_' + (i + 1), modal: 'mjjcenter6-6', x: 2400 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+        if (i == 7) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_1', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_1_fit', modal: 'mjjcenter6-5-fit', x: 1895, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        else if (i > 7 && i != 14) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_1', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_1_' + (i + 1), modal: 'mjjcenter6-6', x: 2400 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+    }
+
+    for(var i=0;i<15;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_2', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_2_' + (i + 1), modal: 'mjjleft6-6', x: 1085- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if(i == 14){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_2', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_2_' + (i + 1), modal: 'mjjright6-6', x: 1090- i * 71, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        if (i < 7 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_2', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_2_' + (i + 1), modal: 'mjjcenter6-6', x: 1100 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+        if (i == 7) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_2', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_2_', modal: 'mjjcenter6-5-fit', x: 595, y: 5, z: 900, rotation: 1, scale: 2});
+        }
+        else if (i > 7 && i != 14) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_4_2', op: op, col: {total: 15, fix: 8, num: i + 1}}, name: 'mjj_4_4_2_' + (i + 1), modal: 'mjjcenter6-6', x: 1100 - i * 71, y: 5, z:900, rotation: 1, scale: 2});
+        }
+    }
+
+
+
+    //    库房密集架 4楼05号库房
+    kf.initLine({x:-1300,y:8,z:-1150},{x:800,y:8,z:-1150});
+    kf.initLine({x:-1300,y:8,z:-1050},{x:800,y:8,z:-1050});
+    kf.initLine({x:-1300,y:8,z:-950},{x:800,y:8,z:-950});
+    kf.initLine({x:-1300,y:8,z:-730},{x:800,y:8,z:-730});
+    kf.initLine({x:-1300,y:8,z:-630},{x:800,y:8,z:-630});
+    kf.initLine({x:-1300,y:8,z:-530},{x:800,y:8,z:-530});
+
+
+    for(var i=0;i<8;i++) {
+        if(i == 0){
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_2', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_5_2_' + (i + 1), modal: 'mjjleft6-5-fit', x: -715- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_2', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_5_2_' + (i + 1), modal: 'mjjright6-6', x: -710- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        else if (i > 0) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_2', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_5_2_' + (i + 1), modal: 'mjjcenter6-6', x: -700 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+    }
+
+    for(var i=0;i<8;i++){
+        if(i == 0){
+            op = 'center';
+            kf.loadObj({params:{mjjid:'mjj_4_5_1',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_5_1_'+(i+1),modal:'mjjright6-5-fit',x:-788,y:5,z:-500,rotation:0,scale:2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params:{mjjid:'mjj_4_5_1',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_5_1_'+(i+1),modal:'mjjleft6-5',x:-770-i*71,y:5,z:-500,rotation:0,scale:2});
+        }
+        else if(i>0){
+            op = 'left';
+            kf.loadObj({params:{mjjid:'mjj_4_5_1',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_5_1_'+(i+1),modal:'mjjcenter6-6',x:-780-i*71,y:5,z:-500,rotation:0,scale:2});
+        }
+    }
+
+    for(var i=0;i<16;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_4', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_5_4_' + (i + 1), modal: 'mjjright6-6', x: 600- i * 71, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        if(i == 15){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_4', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_5_4_' + (i + 1), modal: 'mjjleft6-6', x: 610- i * 71, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        if (i < 8 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_4', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_5_4_' + (i + 1), modal: 'mjjcenter6-6', x: 600 - i * 71, y: 5, z:-500, rotation: 0, scale: 2});
+        }
+        if (i == 8) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_4', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_5_4_' + (i + 1), modal: 'mjjcenter6-5-fit', x: 42, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        else if (i > 8 && i != 15) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_4', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_5_4_' + (i + 1), modal: 'mjjcenter6-6', x: 600 - i * 71, y: 5, z:-500, rotation: 0, scale: 2});
+        }
+    }
+
+    for(var i=0;i<16;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_3', op: op, col: {total: 15, fix: 9, num: i + 1}}, name: 'mjj_4_5_3_' + (i + 1), modal: 'mjjleft6-6', x: 665- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if(i == 15){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_3', op: op, col: {total: 15, fix: 9, num: i + 1}}, name: 'mjj_4_5_3_' + (i + 1), modal: 'mjjright6-6', x: 680- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if (i < 8 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_3', op: op, col: {total: 15, fix: 9, num: i + 1}}, name: 'mjj_4_5_3_' + (i + 1), modal: 'mjjcenter6-6', x: 680 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+        if (i == 8) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_3', op: op, col: {total: 15, fix: 9, num: i + 1}}, name: 'mjj_4_5_3_' + (i + 1), modal: 'mjjcenter6-5-fit', x: 102, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        else if (i > 8 && i != 15) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_5_3', op: op, col: {total: 15, fix: 9, num: i + 1}}, name: 'mjj_4_5_3_' + (i + 1), modal: 'mjjcenter6-6', x: 680 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+    }
+
+
+
+    //    库房密集架 4楼06号库房
+    kf.initLine({x:900,y:8,z:-1150},{x:4400,y:8,z:-1150});
+    kf.initLine({x:900,y:8,z:-1050},{x:4400,y:8,z:-1050});
+    kf.initLine({x:900,y:8,z:-950},{x:4400,y:8,z:-950});
+    kf.initLine({x:900,y:8,z:-730},{x:4400,y:8,z:-730});
+    kf.initLine({x:900,y:8,z:-630},{x:4400,y:8,z:-630});
+    kf.initLine({x:900,y:8,z:-530},{x:4400,y:8,z:-530});
+
+
+
+    for(var i=0;i<8;i++) {
+        if(i == 0){
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_1', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_1_' + (i + 1), modal: 'mjjleft6-5-fit', x: 1685- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_1', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_1_' + (i + 1), modal: 'mjjright6-5', x: 1690- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        else if (i > 0) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_1', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_1_' + (i + 1), modal: 'mjjcenter6-6', x: 1700 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+    }
+
+    for(var i=0;i<8;i++){
+        if(i == 0){
+            op = 'center';
+            kf.loadObj({params:{mjjid:'mjj_4_6_2',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_2_'+(i+1),modal:'mjjright6-5-fit',x:1610,y:5,z:-500,rotation:0,scale:2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params:{mjjid:'mjj_4_6_2',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_2_'+(i+1),modal:'mjjleft6-5',x:1615-i*71,y:5,z:-500,rotation:0,scale:2});
+        }
+        else if(i>0){
+            op = 'left';
+            kf.loadObj({params:{mjjid:'mjj_4_6_2',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_2_'+(i+1),modal:'mjjcenter6-6',x:1600-i*71,y:5,z:-500,rotation:0,scale:2});
+        }
+    }
+
+    for(var i=0;i<8;i++) {
+        if(i == 0){
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_3', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_3_' + (i + 1), modal: 'mjjleft6-5-fit', x: 2685- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_3', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_3_' + (i + 1), modal: 'mjjright6-6', x: 2690- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        else if (i > 0) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_3', op: op, col: {total: 8, fix: 1, num: i + 1}}, name: 'mjj_4_6_3_' + (i + 1), modal: 'mjjcenter6-6', x: 2700 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+    }
+
+    for(var i=0;i<8;i++){
+            if(i == 0){
+                op = 'center';
+                kf.loadObj({params:{mjjid:'mjj_4_6_4',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_4_'+(i+1),modal:'mjjright6-5-fit',x:2610,y:5,z:-500,rotation:0,scale:2});
+            }
+            if(i == 7){
+                op = 'left';
+                kf.loadObj({params:{mjjid:'mjj_4_6_4',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_4_'+(i+1),modal:'mjjleft6-6',x:2615-i*71,y:5,z:-500,rotation:0,scale:2});
+            }
+            else if(i>0){
+                op = 'left';
+                kf.loadObj({params:{mjjid:'mjj_4_6_4',op:op,col:{total:8,fix:1,num:i+1}},name:'mjj_4_6_4_'+(i+1),modal:'mjjcenter6-6',x:2600-i*71,y:5,z:-500,rotation:0,scale:2});
+            }
+    }
+
+    for(var i=0;i<8;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_5', op: op, col: {total: 8, fix: 5, num: i + 1}}, name: 'mjj_4_6_5_' + (i + 1), modal: 'mjjleft6-6', x: 4185- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if(i == 7){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_5', op: op, col: {total: 8, fix: 5, num: i + 1}}, name: 'mjj_4_6_5_' + (i + 1), modal: 'mjjright6-6', x: 4190- i * 71, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        if (i < 4 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_5', op: op, col: {total: 8, fix: 5, num: i + 1}}, name: 'mjj_4_6_5_' + (i + 1), modal: 'mjjcenter6-6', x: 4200 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+        if (i == 4) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_5', op: op, col: {total: 8, fix: 5, num: i + 1}}, name: 'mjj_4_6_5_' + (i + 1), modal: 'mjjcenter6-5-fit', x: 3908, y: 5, z: -1200, rotation: 1, scale: 2});
+        }
+        else if (i > 4 && i != 7) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_5', op: op, col: {total: 8, fix: 5, num: i + 1}}, name: 'mjj_4_5_' + (i + 1), modal: 'mjjcenter6-6', x: 4200 - i * 71, y: 5, z:-1200, rotation: 1, scale: 2});
+        }
+    }
+
+    for(var i=0;i<16;i++) {
+        if(i == 0){
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_6', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_6_6_' + (i + 1), modal: 'mjjright6-6', x: 4110- i * 71, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        if(i == 15){
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_6', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_6_6_' + (i + 1), modal: 'mjjleft6-6', x: 4120- i * 71, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        if (i < 8 && i != 0) {
+            op = 'right';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_6', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_6_6_' + (i + 1), modal: 'mjjcenter6-6', x: 4100 - i * 71, y: 5, z:-500, rotation: 0, scale: 2});
+        }
+        if (i == 8) {
+            op = 'center';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_6', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_6_6_' + (i + 1), modal: 'mjjcenter6-5-fit', x: 3546, y: 5, z: -500, rotation: 0, scale: 2});
+        }
+        else if (i > 8 && i != 15) {
+            op = 'left';
+            kf.loadObj({params: {mjjid: 'mjj_4_6_6', op: op, col: {total: 16, fix: 9, num: i + 1}}, name: 'mjj_4_6_6_' + (i + 1), modal: 'mjjcenter6-6', x: 4105 - i * 71, y: 5, z:-500, rotation: 0, scale: 2});
+        }
+    }
+
+
+
+    //模型双击事件
+    kf.eventList.dbclick = [{
+        obj_name:'leftdoor',obj_event:function(_obj){
+            var doorstate = "close";
+            var tempobj = null;
+            if (_obj.doorState != null && typeof (_obj.doorState) != 'undefined') {
+                doorstate = _obj.doorState;
+                tempobj = _obj.parent;
+            } else {
+                var _objparent = _obj.parent;
+                tempobj = new THREE.Object3D();
+                tempobj.position.set(_obj.position.x - _obj.geometry.parameters.width / 2, _obj.position.y, _obj.position.z);
+                _obj.position.set(_obj.geometry.parameters.width / 2, 0, 0);
+                tempobj.add(_obj);
+                _objparent.add(tempobj);
+            }
+            _obj.doorState = (doorstate == "close" ? "open" : "close");
+            new createjs.Tween(tempobj.rotation).to({
+                y: (doorstate == "close" ? 0.5 * Math.PI : 0)
+            },1000);
+            if(doorstate == "close"){
+                openlight();
+            }else{
+                closelight();
+            }
+        }
+    },{
+        obj_name:'rightdoor',obj_event:function(_obj){
+            var doorstate = "close";
+            var tempobj = null;
+            if (_obj.doorState != null && typeof (_obj.doorState) != 'undefined') {
+                doorstate = _obj.doorState;
+                tempobj = _obj.parent;
+            } else {
+                var _objparent = _obj.parent;
+                tempobj = new THREE.Object3D();
+                tempobj.position.set(_obj.position.x + _obj.geometry.parameters.width / 2, _obj.position.y, _obj.position.z);
+                _obj.position.set(-_obj.geometry.parameters.width / 2, 0, 0);
+                tempobj.add(_obj);
+                _objparent.add(tempobj);
+            }
+            _obj.doorState = (doorstate == "close" ? "open" : "close");
+            new createjs.Tween(tempobj.rotation).to({
+                y: (doorstate == "close" ? -0.5 * Math.PI : 0)
+            }, 1000);
+            if(doorstate == "close"){
+                openlight();
+            }else{
+                closelight();
+            }
+        }
+    },{
+        obj_name:'kongtiao',obj_event:function(){alert('ccccc');}
+    },{
+        obj_name:'camera',obj_event:function(){
+            layui.use('layer',function(){
+                var html = '<video style="width:100%" autoplay="autoplay" src="camera.mp4"></video>'
+                    + '<fieldset class="layui-elem-field site-demo-button" style="margin-left:10px;margin-right:10px;"><legend>云台控制</legend>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:59px;margin-top:5px;"><i class="layui-icon layui-icon-up"></i></button>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:160px;">变倍+</button><button class="layui-btn layui-btn-sm">变倍-</button><br>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:10px;margin-top:5px;"><i class="layui-icon layui-icon-left"></i></button>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:10px;margin-top:5px;"><i class="layui-icon layui-icon-circle"></i></button>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:10px;margin-top:5px;"><i class="layui-icon layui-icon-right"></i></button>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:110px;">变焦+</button><button class="layui-btn layui-btn-sm">变焦-</button><br>'
+                    + '<button class="layui-btn layui-btn-sm" style="margin-left:59px;margin-top:5px;margin-bottom:5px"><i class="layui-icon layui-icon-down"></i></button>'
+                layer.open({
+                    type:1,
+                    title:'实时预览',
+                    area:['450px','450px'],
+                    content:html
+                });
+            });
+        }
+    },{
+        obj_name:'mjj',obj_event:function(_obj){
+            var target = _obj.parent;
+            if(target.params.col.fix == target.params.col.num){
+                //1.双击固定列通风或关闭
+                airmjj(target);
+            }else{
+                if(target.colstate == 'air'){
+                    layer.alert('该密集架正在通风，请先关闭通风再打开密集架！', {
+                        icon: 5,
+                        title: "提示"
+                    });
+                    return;
+                }
+                var movecols = moveModelList(target); //所有移动的列
+                for(var i=0;i<movecols.length;i++){
+                    var modal = movecols[i];
+                    //记录密集架是否在移动
+                    if(modal.move == true){
+                        layer.alert('该密集架正在移动,不能进行操作！', {
+                            icon: 5,
+                            title: "提示"
+                        });
+                        return;
+                    }
+                    else{
+                        modal.move=true;
+                    }
+                    setTimeout(moveModel, i*1500, modal);
+                }
+            }
+        }
+    },{
+        obj_name:'Mesh03',obj_event:function(_obj){
+            var lightstatus = "open";
+            if (_obj.lightstatus != null && typeof (_obj.lightstatus) != 'undefined') {
+                lightstatus = _obj.lightstatus;
+            }
+            _obj.lightstatus = (lightstatus == "close" ? "open" : "close");
+            if(lightstatus == 'open'){
+                openlight();
+            }else{
+                closelight();
+            }
+        }
+    },{
+        obj_name:'filebox',obj_event:function(_obj){
+            var record = _obj.parent;
+            showddview(record);
+        }
+    },{
+        obj_name:'workcenter',obj_event:function(_obj){
+            layer.open({
+                type: 2,
+                title:["处理页面详情",'background-image: url(img/200.png);'],
+                area: ['50%', '50%'],
+                maxmin:true,
+                scrollbar: false ,
+                content:['http://s11.hxjy.iwan4399.com/game.php']
+            });
+        }
+    },{
+        obj_name:'aircondtioner',obj_event:function(_obj){
+            layui.use('layer',function(){
+                layer.open({formType:1,title:'设置温湿度',
+                    content:'<form class="layui-form layui-form-pane" action="">'
+                    + '<div class="layui-form-item" pane>'
+                    + '<label class="layui-form-label">温度</label>'
+                    + '<div class="layui-input-block">'
+                    + '<input type="text" name="title" placeholder="请输入温度" autocomplete="off" class="layui-input" value="22">'
+                    + '</div>'
+                    + '</div>'
+                    + '<div class="layui-form-item" pane>'
+                    + '<label class="layui-form-label">湿度</label>'
+                    + '<div class="layui-input-block">'
+                    + '<input type="text" name="title" placeholder="请输入湿度" autocomplete="off" class="layui-input" value="55">'
+                    + '</div>'
+                    + '</div>'
+                    + '</form>'
+                    + '<blockquote class="layui-elem-quote layui-text">温度范围：14℃-24℃，湿度范围：45%-60%</blockquote>'
+                    ,yes: function(index, layero){
+                        layer.closeAll();
+                        var value = layero.find('input')[0].value;
+                        if(value > 24){
+                            openair();
+                        }else{
+                            closeair();
+                        }
+                    }
+                });
+            });
+        }
+    },{
+        obj_name:'lock',obj_event:function(_obj){
+            alert('门禁点击事件');
+        }
+    },{
+        obj_name:'tv',obj_event:function(_obj){
+            alert('led点击事件');
+        }
+    }];
+
+    //关灯
+    function closelight(lightid){
+        if( kf.light1Open == true){
+            kf.scene.remove( kf.plight1);
+            kf.light1Open =false;
+        }
+
+        if(kf.light2Open = true)
+        {
+            kf.scene.remove( kf.plight2);
+            kf.light2Open =false;
+        }
+    }
+
+    //开灯
+    function openlight(x,y,z){
+
+        if(kf.light1Open == false) {
+            kf.plight1 = new THREE.PointLight(0x555555,0.23);
+            kf.plight1.shadow.camera.near = 1;
+            kf.plight1.shadow.camera.far = 5000;
+            kf.plight1.position.set(-600, 4000, 0);
+            kf.plight1.castShadow = true;//表示这个光是可以产生阴影的
+            kf.scene.add( kf.plight1);
+            kf.light1Open =true;
+        }
+
+        if(kf.light2Open == false) {
+            kf.plight2 = new THREE.PointLight(0x555555, 0.23);
+            kf.plight2.shadow.camera.near = 1;
+            kf.plight2.shadow.camera.far = 5000;
+            kf.plight2.position.set(600, 4000, 0);
+            kf.plight2.castShadow = true;//表示这个光是可以产生阴影的
+            kf.scene.add(kf.plight2);
+            kf.light2Open = true;
+        }
+    }
+
+    //库房通风
+    function openair(){
+        kf.loadObj({name:'air1',modal:'arrow',x:100,y:500,z:0,rotation:0,scale:0.5});
+        kf.loadObj({name:'air2',modal:'arrow',x:120,y:500,z:0,rotation:0,scale:0.5});
+        kf.loadObj({name:'air3',modal:'arrow',x:100,y:500,z:0,rotation:-0.5,scale:0.5});
+        kf.loadObj({name:'air4',modal:'arrow',x:120,y:500,z:0,rotation:-0.5,scale:0.5});
+        kf.loadObj({name:'air5',modal:'arrow',x:110,y:500,z:0,rotation:0.5,scale:0.5});
+        kf.loadObj({name:'air6',modal:'arrow',x:130,y:500,z:0,rotation:0.5,scale:0.5});
+        kf.loadObj({name:'air7',modal:'arrow',x:110,y:500,z:0,rotation:1,scale:0.5});
+        kf.loadObj({name:'air8',modal:'arrow',x:130,y:500,z:0,rotation:1,scale:0.5});
+        setTimeout(function(){
+            var mjj;
+            for(var i=0;i<kf.objects.length;i++){
+                var mesh = kf.objects[i];
+                if(mesh.parent && mesh.parent.params && mesh.parent.params.mjjid == 'southmjj' && mesh.parent.params.col.fix == mesh.parent.params.col.num){
+                    mjj = mesh.parent;
+                }
+                switch (mesh.name){
+                    case 'air1':
+                    case 'air2':
+                        repeatair(mesh, 0, -70, -90);
+                        break;
+                    case 'air3':
+                    case 'air4':
+                        repeatair(mesh, 90, -70, 0);
+                        break;
+                    case 'air5':
+                    case 'air6':
+                        repeatair(mesh, -90, -70, 0);
+                        break;
+                    case 'air7':
+                    case 'air8':
+                        repeatair(mesh, 0, -70, 90);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            air()
+        }, 1000);
+    }
+
+    function repeatair(obj, x, y, z){
+        new createjs.Tween(obj.position).to({
+            x: obj.position.x + x,
+            y: obj.position.y + y,
+            z: obj.position.z + z
+        },1000);
+        setTimeout(function(){
+            new createjs.Tween(obj.position).to({
+                x: obj.position.x - x,
+                y: obj.position.y - y,
+                z: obj.position.z - z
+            });
+            setTimeout(function(){repeatair(obj, x, y, z)},100);
+        },1000);
+    }
+
+    //关闭通风
+    function closeair(){
+        var mjj;
+        for(var i=0;i<kf.objects.length;i++){
+            var mesh = kf.objects[i];
+            if(mesh.name && mesh.name.length == 4 && mesh.name.indexOf('air') > -1){
+                kf.scene.remove(mesh);
+            }else if(mesh.parent && mesh.parent.params && mesh.parent.params.mjjid == 'southmjj' && mesh.parent.params.col.fix == mesh.parent.params.col.num){
+                mjj = mesh.parent;
+            }
+        }
+        air();
+    }
+
+    //通风密集架区
+    function airmjj(mesh) {
+        var isopen = haveOpen(mesh);
+        if (isopen) {
+            layer.alert('有密集架已经打开，请先关闭密集架再进行通风！', {
+                icon: 5,
+                title: "提示"
+            });
+            return;
+        }
+
+        var movecols = moveModelList(mesh); //所有移动的列
+        for (var i = 0; i < movecols.length; i++) {
+            var modal = movecols[i];
+            //记录密集架是否在移动
+            if (modal.move == true) {
+                layer.alert('正在移动的密集架不能进行通风操作！', {
+                    icon: 5,
+                    title: "提示"
+                });
+                return;
+            }
+        }
+
+        for (var i = 0; i < mesh.parent.children.length; i++) {
+            var modal = mesh.parent.children[i];
+            if (modal.params && modal.params.mjjid && modal.params.mjjid == mesh.params.mjjid) {
+                //1.2根据通过或关闭状态、和密集架布局设置列移动方向
+                var colstate = 'close';
+                if (modal.colstate != null && typeof (modal.colstate) != 'undefined') {
+                    colstate = modal.colstate;
+                }
+                modal.colstate = (colstate == 'close' ? 'air' : 'close');
+                var flag = true;
+                if ((modal.params.op == 'right' && colstate == 'close') || (modal.params.op == 'left' && colstate == 'air') || (modal.params.op == 'top' && colstate == 'close') || (modal.params.op == 'down' && colstate == 'air')) {
+                    flag = false;
+                }
+                //1.3列移动距离，按比例移动，离固定列越远移动距离越大
+                var distance = Math.abs(modal.params.col.num - mesh.params.col.fix) * 25;
+
+                if (modal.params.op == 'top' || modal.params.op == 'down') {
+                    new createjs.Tween(modal.position).to({
+                        z: modal.position.z - (flag ? -distance : +distance)
+                    }, 4000);
+                }
+                if (modal.params.op == 'right' || modal.params.op == 'left') {
+                    new createjs.Tween(modal.position).to({
+                        x: modal.position.x + (flag ? -distance : +distance)
+                    }, 4000);
+                }
+            }
+        }
+    }
+
+    //全部通风//关闭
+    function air() {
+        var fixs = new Set();
+        for (var i = 0; i < kf.objects.length; i++) {
+            var mesh = kf.objects[i].parent;
+            if (mesh && mesh.params && mesh.params.mjjid && mesh.params.col.fix == mesh.params.col.num) {
+                fixs.add(mesh);
+            }
+        }
+        fixs.forEach(function (fix) {
+            airmjj(fix);
+        })
+    }
+
+    //初始化密集架存储档案
+    /*
+     op:密集架移动方向
+     r:密集架旋转方向
+     name:密集架名称
+     ddid:档案id
+     movetype:档案模型的显示类型
+     */
+    function creatfileobj(x, y, z, op, r, name, ddid, showtype){
+        for(var i=0; i<7; i++) {//行
+            for (var j=0; j<4; j++){//列
+                var count = Math.ceil(
+                    Math.random()*10);
+                for
+                (var n=0; n<count; n++){//本
+                    kf.loadObj({
+                        showtype:showtype,
+                        ddid: ddid == undefined? "":ddid,
+                        name: name + '-'+ (i+1)/*行*/ + '-'+(j+1) /*列*/ + '-'+ (n+1) /*本*/,
+                        modal: 'filebox',
+                        x:x+(x > 0 ?(r > 0 ? -107-100*j + n* 7 : 65 + 90 * j+n*7):(r > 0 ? -107- 100 * j+n*7 : 65+ 90* j + n *7)),
+                        y: y+ 13+ 50.5 * i,
+                        z: z + (r > 0 ? -40 : 40),
+                        rotation: (op == 'down' ? 0.5 : -0.5),//档案方向
+                        scale: 3,
+                    });
+                }
+            }
+        }
+    }
+
+    //档案检索
+    function search() {
+        layui.use('layer', function () {
+            layer.prompt({formType: 2, title: '档案检索(档号或题名)'}, function (value) {
+                //查找数据库找到档案位置。
+//                    $.ajax({
+//                        async:false,//同步，异步
+//                        url:"/addjoke", //请求的服务端地址
+//                        data:{
+//                            value:value,
+//                        },
+//                        type:"post",
+//                        dataType:"text",
+//                        success:function(data){
+//                            //成功之后的处理，返回的数据就是 data
+//                        }
+//                        error:function(){
+//                            alert('error'); //错误的处理
+//                        }
+//                    });
+                var pos;
+                if (value.length < 8) {
+                    pos = 'northmjj_1_1';
+                } else {
+                    pos = 'northmjj_1_2';
+                }
+                var obj = kf.commonFunc.findObject(pos);//寻找密集架
+                if (obj.colstate == 'air') {
+                    layer.alert('该密集架正在通风，请先关闭通风再打开密集架！', {
+                        icon: 5,
+                        title: "提示"
+                    });
+                    return;
+                }
+
+                //改变密集架模型颜色
+                obj.traverse(function (child) {
+                    if (child instanceof THREE.Mesh) {
+                        if (child.name.indexOf("mjj") == 0) {
+                            sreachMjj = obj.name;
+                            sreachMjjColor = child.material;
+                            child.material = new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+                        }
+                    }
+                });
+                layer.closeAll();
+            })
+        });
+    }
+
+
+    function infrared() {
+        var infrared = "open";
+        var lines = [];
+        if (kf.infrared != null && typeof (kf.infrared) != 'undefined') {
+            infrared = kf.infrared;
+        }
+        if (kf.lines != null && typeof (kf.lines) != 'undefined') {
+            lines = kf.lines;
+        } else {
+            kf.lines = lines;
+        }
+        kf.infrared = (infrared == "close" ? "open" : "close");
+        if (infrared == 'close') {
+            kf.lines.push(kf.initLine({x: -1300, y: 28, z: 100}, {x: 0, y: 28, z: 100}, 0xff0000));
+            kf.lines.push(kf.initLine({x: -1300, y: 128, z: 100}, {x: 0, y: 128, z: 100}, 0xff0000));
+            kf.lines.push(kf.initLine({x: -1300, y: 228, z: 100}, {x: 0, y: 228, z: 100}, 0xff0000));
+            kf.lines.push(kf.initLine({x: 1300, y: 28, z: 800}, {x: -200, y: 28, z: 800}, 0xff0000));
+            kf.lines.push(kf.initLine({x: 1300, y: 128, z: 800}, {x: -200, y: 128, z: 800}, 0xff0000));
+            kf.lines.push(kf.initLine({x: 1300, y: 228, z: 800}, {x: -200, y: 228, z: 800}, 0xff0000));
+            closelight();
+        } else {
+            kf.lines.forEach(function (item) {
+                kf.scene.remove(item);
+            });
+            openlight();
+        }
+    }
+
+    function showddview(record) {
+        layer.open({
+            type: 2,
+            title: ["当前点击档案位置：" + record.name],
+            area: ['50%', '50%'],
+            maxmin: true,
+            scrollbar: false,
+            content: ['https://api.wuzuhua.cn/mikutap/index.html', 'yes']
+        });
+    }
+
+    /*
+     *  获取所有需要移动的密集架
+     *  target：当前点击的密集架模型Obj
+     * */
+    function moveModelList(target){
+        //1.双击移动列打开或关闭
+        var movecols = [];
+        //1.1获取当前操作，打开或者关闭
+        var colstate = 'close';
+        if(
+            target.colstate != null && typeof (target.colstate) != 'undefined'){
+            colstate = target.colstate;
+        }
+        //2获取当前密集架所有移动列
+        for(var i=0; i< target.parent.children.length; i++){
+            var
+                modal = target.parent.children[i];
+            if(modal.params && modal.params.mjjid && modal.params.mjjid == target.params.mjjid){
+                //2.3打开操作时，操作列同一分区外侧的列一起打开(关闭状态下)
+                if(colstate == 'close' && (modal.colstate == null || modal.colstate == 'undefined' || modal.colstate == 'close')  && target.params.op == modal.params.op
+                    && Math.abs(modal.params.col.num - modal.params.col.fix) >= Math.abs(target.params.col.num - target.params.col.fix)){
+                    movecols.push(modal);
+                    //2.4关闭操作时，操作列同一分区内侧的列一起关闭(打开状态下)
+                }else if(colstate == 'open' && modal.colstate && modal.colstate == 'open' && target.params.op == modal.params.op
+                    && Math.abs(modal.params.col.num - modal.params.col.fix) <= Math.abs(target.params.col.num - target.params.col.fix)){
+                    movecols.push(modal);
+                }
+            }
+        }
+        //3.将待移动列进行排序，依次打开
+        if((colstate == 'close' && target.params.col.num < target.params.col.fix)
+            || (colstate == 'open' && target.params.col.num > target.params.col.fix)){
+            movecols.sort(
+                function(a,b){return a.params.col.num - b.params.col.num});
+        }else if((colstate == 'close' && target.params.col.num >target.params.col.fix)
+            || (colstate == 'open' && target.params.col.num < target.params.col.fix)){
+            movecols.sort(
+                function(a,b){return b.params.col.num - a.params.col.num});
+        }
+
+        return movecols;
+    }
+
+    /*
+     *  移动密集架
+     *  modal：当前点击的密集架模型Obj
+     * */
+    function moveModel(modal) {
+
+        //1、设置密集架close 和 open 标识
+        var colstate = 'close';
+        if (modal.colstate != null && typeof (modal.colstate) != 'undefined') {
+            colstate = modal.colstate;
+        }
+        modal.colstate = (colstate == 'close' ? 'open' : 'close');
+        var flag = true;
+        if ((modal.params.op == 'top' && colstate == 'close') || (modal.params.op == 'down' && colstate == 'open') || (modal.params.op == 'right' && colstate == 'close') || (modal.params.op == 'left' && colstate == 'open')) {
+            flag = false;
+        }
+
+        //上下移动
+        if (modal.params.op == 'top' || modal.params.op == 'down') {
+
+            //展开密集架
+            if (modal.colstate == 'open') {
+                this.openMjj(modal,flag,modal.params.op);
+            }
+
+            //关闭密集架
+            if (modal.colstate == 'close') {
+                this.closeMjj(modal,flag,modal.params.op)
+            }
+
+            //移动完毕设置完成标识
+            setTimeout(function () {
+                modal.move = false;
+            }, 4100);
+        }
+
+        //左右移动
+        if (modal.params.op == 'right' || modal.params.op == 'left') {
+
+            //展开密集架
+            if (modal.colstate == 'open') {
+                this.openMjj(modal, flag, modal.params.op);
+            }
+
+            //关闭密集架
+            if (modal.colstate == 'close') {
+                this.closeMjj(modal, flag, modal.params.op)
+            }
+
+            //移动完毕设置完成标识
+            setTimeout(function () {
+                modal.move = false;
+            }, 4100);
+        }
+    }
+
+    //展开密集架创建档案模型
+    function openmodal(modal,flag) {
+        //-----------------密集架左边档案-------------------start
+        if(modal.params.op == 'top') {
+            if (modal.leftfilemodel == undefined || modal.leftfilemodel.length == 0) {
+                var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd');   //查找密集架左档案模型
+                if (leftfilemodel.length == 0) {
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z, modal.params.op, modal.rotation._y, 'filemodel-'+ 'left', modal.name + '_' + 'left' + '_dd', modal.name);
+                    //找到该密集架对面的密集架，并创建当档案模型
+                    var pos = modal.name.lastIndexOf('_');
+                    var nextModalName = modal.name.substring(0, pos) + '_' + ( parseInt(modal.name.substring(pos + 1)) + (flag ? -1 : +1) );
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z + (flag ? -75 : +75), modal.params.op != 'top' ? 'top' : 'down', modal.rotation._y, 'filemodel-right', nextModalName + '_right' + '_dd', modal.name);
+                }
+                else {
+                    var showfilemodel = kfcommonFunc.findObjectByshowtype(modal.name);  //查找密集架需要展示的档案模型
+                    for (var i = 0; i < showfilemodel.length; i++) {
+                        kf.scene.add(showfilemodel[i]);
+                    }
+                }
+            }
+        }
+        if(modal.params.op == 'left') {
+            if (modal.leftfilemodel == undefined || modal.leftfilemodel.length == 0) {
+                var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd');   //查找密集架左档案模型
+                if (leftfilemodel.length == 0) {
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z, modal.params.op, modal.rotation._y, 'filemodel-'+ 'left', modal.name + '_' + 'left' + '_dd', modal.name);
+                    //找到该密集架对面的密集架，并创建当档案模型
+                    var pos = modal.name.lastIndexOf('_');
+                    var nextModalName = modal.name.substring(0, pos) + '_' + ( parseInt(modal.name.substring(pos + 1)) + (flag ? -1 : +1) );
+                    this.creatfileobj(modal.position.x + (flag ? -75 : +75), modal.position.y, modal.position.z , modal.params.op != 'top' ? 'top' : 'down', modal.rotation._y, 'filemodel-right', nextModalName + '_right' + '_dd', modal.name);
+                }
+                else {
+                    var showfilemodel = kfcommonFunc.findObjectByshowtype(modal.name);  //查找密集架需要展示的档案模型
+                    for (var i = 0; i < showfilemodel.length; i++) {
+                        kf.scene.add(showfilemodel[i]);
+                    }
+                }
+            }
+        }
+
+        //-----------------密集架左边档案-------------------end
+        //-----------------密集架右边档案-------------------start
+        if(modal.params.op == 'down') {
+            if (modal.rightfilemodel == undefined || modal.rightfilemodel.length == 0) {
+                var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd');
+                //查找密集架右档案模型
+                if (rightfilemodel.length == 0) {
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z, modal.params.op, modal.rotation._y, 'filemodel_right', modal.name + '_right' + '_dd', modal.name);//创建档案模型
+                    var pos = modal.name.lastIndexOf('_');
+                    var nextModalName = modal.name.substring(0, pos) + '_' + ( parseInt(modal.name.substring(pos + 1)) + (flag ? -1 : +1) );
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z + (flag ? -75 : +75), modal.params.op != 'top' ? 'top' : 'down', modal.rotation._y, 'filemodel-left', nextModalName + '_left' + '_dd', modal.name);
+                }
+                else {
+                    var showfilemodel = kfcommonFunc.findObjectByshowtype(modal.name);  //查找密集架需要展示的档案模型
+                    for (var i = 0; i < showfilemodel.length; i++) {
+                        kf.scene.add(showfilemodel[i]);
+                    }
+                }
+            }
+        }
+        if(modal.params.op == 'right') {
+            if (modal.rightfilemodel == undefined || modal.rightfilemodel.length == 0) {
+                var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd');
+                //查找密集架右档案模型
+                if (rightfilemodel.length == 0) {
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z, modal.params.op, modal.rotation._y, 'filemodel_right', modal.name + '_right' + '_dd', modal.name);//创建档案模型
+                    var pos = modal.name.lastIndexOf('_');
+                    var nextModalName = modal.name.substring(0, pos) + '_' + ( parseInt(modal.name.substring(pos + 1)) + (flag ? -1 : +1) );
+                    this.creatfileobj(modal.position.x, modal.position.y, modal.position.z + (flag ? -75 : +75), modal.params.op != 'top' ? 'top' : 'down', modal.rotation._y, 'filemodel-left', nextModalName + '_left' + '_dd', modal.name);
+                }
+                else {
+                    var showfilemodel = kfcommonFunc.findObjectByshowtype(modal.name);  //查找密集架需要展示的档案模型
+                    for (var i = 0; i < showfilemodel.length; i++) {
+                        kf.scene.add(showfilemodel[i]);
+                    }
+                }
+            }
+        }
+        //  -----------------密集架右边档案-------------------end
+    }
+
+    //当前密集架模型的父亲添加close or open 标识。 用于判断该密集架组是否有展开的密集架。
+    function haveOpen(modal) {
+        var isopen =false
+        ;
+        for (
+            var i = 0; i<  modal.parent.children.length;i++){
+            var colstate = modal.parent.children[i].colstate;
+            if(colstate == 'open'){
+                isopen =
+                    true;
+                break;
+            }
+            else{
+                isopen =false;
+            }
+        }
+        if(isopen == false){
+            modal.parent.colstate = 'close';
+        }
+        else {
+            modal.parent.colstate = 'open';
+        }
+        return isopen;
+    }
+
+    //清除档案模型
+    function clean() {
+        var leftfilemodel = kfcommonFunc.findObjectByddId('_left_dd'); //找到左档案模型
+        var rightfilemodel = kfcommonFunc.findObjectByddId('_right_dd'); //找到右档案模型
+        for (var i = 0; i < leftfilemodel.length; i++) {
+            kf.scene.remove(leftfilemodel[i]);//移除档案模型
+        }
+        for (var i = 0; i < rightfilemodel.length; i++) {
+            kf.scene.remove(rightfilemodel[i]);//移除档案模型
+        }
+    }
+
+    //展开密集架
+    function openMjj(modal,flag,op){
+        if(op == 'top' || op == 'down') {
+            //创建档案模型
+//                this.openmodal(modal, flag)
+
+            //移动密集架模型
+            new createjs.Tween(modal.position).to({
+                z: modal.position.z - (flag ? -100 : +100)
+            }, 4000);
+
+            //移动密集架档案模型
+//                setTimeout(function () {
+//                    var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd'); ///查找密集架左档案模型
+//                    var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd'); //查找密集架左档案模型
+//                    modal.rightfilemodel = rightfilemodel;
+//                    modal.leftfilemodel = leftfilemodel;
+//                    //移动密集架关联的档案模型
+//                    for (var i = 0; i < modal.rightfilemodel.length; i++) {
+//                        new createjs.Tween(modal.rightfilemodel[i].position).to({
+//                            z: modal.rightfilemodel[i].position.z - (flag ? -100 : +100)
+//                        }, 4000);
+//                    }
+//
+//                    //移动密集架关联的档案模型
+//                    for (var i = 0; i < modal.leftfilemodel.length; i++) {
+//                        new createjs.Tween(modal.leftfilemodel[i].position).to({
+//                            z: modal.leftfilemodel[i].position.z - (flag ? -100 : +100)
+//                        }, 4000);
+//                    }
+//                }, 200);
+        }
+        if(op == 'left' || op == 'right'){
+            //创建档案模型
+//                this.openmodal(modal, flag)
+
+            //移动密集架模型
+            new createjs.Tween(modal.position).to({
+                x: modal.position.x + (flag ? -100 : +100)
+            }, 4000);
+
+            //移动密集架档案模型
+//                setTimeout(function () {
+//                    var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd'); ///查找密集架左档案模型
+//                    var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd'); //查找密集架左档案模型
+//                    modal.rightfilemodel = rightfilemodel;
+//                    modal.leftfilemodel = leftfilemodel;
+//                    //移动密集架关联的档案模型
+//                    for (var i = 0; i < modal.rightfilemodel.length; i++) {
+//                        new createjs.Tween(modal.rightfilemodel[i].position).to({
+//                            x: modal.rightfilemodel[i].position.x + (flag ? -100 : +100)
+//                        }, 4000);
+//                    }
+//
+//                    //移动密集架关联的档案模型
+//                    for (var i = 0; i < modal.leftfilemodel.length; i++) {
+//                        new createjs.Tween(modal.leftfilemodel[i].position).to({
+//                            x: modal.leftfilemodel[i].position.x + (flag ? -100 : +100)
+//                        }, 4000);
+//                    }
+//                }, 200);
+        }
+    }
+
+    //关闭密集架
+    function closeMjj(modal,flag,op) {
+
+        if(op == 'top' || op == 'down') {
+//                var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd'); //找到左档案模型
+//                var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd'); //找到右档案模型
+
+            //移动密集架模型
+            new createjs.Tween(modal.position).to({
+                z: modal.position.z - (flag ? -100 : +100)
+            }, 4000);
+
+//                //移动密集架关联的右档案模型
+//                for (var i = 0; i < modal.rightfilemodel.length; i++) {
+//                    new createjs.Tween(modal.rightfilemodel[i].position).to({
+//                        z: modal.rightfilemodel[i].position.z - (flag ? -100 : +100)
+//                    }, 4000);
+//                }
+//
+//                //移动密集架关联的左档案模型
+//                for (var i = 0; i < modal.leftfilemodel.length; i++) {
+//                    new createjs.Tween(modal.leftfilemodel[i].position).to({
+//                        z: modal.leftfilemodel[i].position.z - (flag ? -100 : +100)
+//                    }, 4000);
+//                }
+//                if (modal.params.op == 'top') {
+//                    for (var i = 0; i < leftfilemodel.length; i++) {
+//                        kf.scene.remove(leftfilemodel[i]);//移除档案模型
+//                    }
+//                }
+//                else {
+//                    for (var i = 0; i < rightfilemodel.length; i++) {
+//                        kf.scene.remove(rightfilemodel[i]);//移除档案模型
+//                    }
+//                }
+
+//                modal.leftfilemodel = [];//移除关联的档案模型
+//                modal.rightfilemodel = [];//移除关联的档案模型
+
+            //改变颜色
+//                modal.traverse(function (child) {
+//                    if (child instanceof THREE.Mesh) {
+//                        if (child.name.indexOf("mjj") == 0 && modal.name == sreachMjj) {
+//                            child.material = sreachMjjColor;
+//                        }
+//                    }
+//                });
+        }
+
+        if(op == 'right' || op == 'left') {
+            var leftfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_left_dd'); //找到左档案模型
+            var rightfilemodel = kfcommonFunc.findObjectByddId(modal.name + '_right_dd'); //找到右档案模型
+
+            //移动密集架模型
+            new createjs.Tween(modal.position).to({
+                x: modal.position.x + (flag ? -100 : +100)
+            }, 4000);
+//
+//                //移动密集架关联的右档案模型
+//                for (var i = 0; i < modal.rightfilemodel.length; i++) {
+//                    new createjs.Tween(modal.rightfilemodel[i].position).to({
+//                        x: modal.rightfilemodel[i].position.x + (flag ? -100 : +100)
+//                    }, 4000);
+//                }
+//
+//                //移动密集架关联的左档案模型
+//                for (var i = 0; i < modal.leftfilemodel.length; i++) {
+//                    new createjs.Tween(modal.leftfilemodel[i].position).to({
+//                        x: modal.leftfilemodel[i].position.x + (flag ? -100 : +100)
+//                    }, 4000);
+//                }
+//                if
+//                (modal.params.op == 'top') {
+//                    for (var i = 0; i < leftfilemodel.length; i++) {
+//                        kf.scene.remove(leftfilemodel[i]);//移除档案模型
+//                    }
+//                }
+//                else {
+//                    for (var i = 0; i < rightfilemodel.length; i++) {
+//                        kf.scene.remove(rightfilemodel[i]);//移除档案模型
+//                    }
+//                }
+//
+//                modal.leftfilemodel = [];//移除关联的档案模型
+//                modal.rightfilemodel = [];//移除关联的档案模型
+
+            //改变颜色
+//                modal.traverse(function (child) {
+//                        if (child instanceof THREE.Mesh) {
+//                            if (child.name.indexOf("mjj") == 0 && modal.name == sreachMjj) {
+//                                child.material = sreachMjjColor;
+//                            }
+//                        }
+//                    }
+//                );
+        }
+    }
+
+    //开启火警动画
+    function openfire(){
+        //创建火动画1
+        var fire1 =  kfcommonFunc.findObject('fire1');
+        if(fire1 == null){
+            kf.initFire(-800,-2,0,'fire1');
+        }
+        else{
+            kf.scene.add(fire1);//加入火灾模型
+        }
+
+        //创建火动画2
+        var fire2 =  kfcommonFunc.findObject('fire2');
+        if(fire2 == null){
+            kf.initFire(1300,-2,0,'fire2');
+        }
+        else{
+            kf.scene.add(fire2);//加入火灾模型
+        }
+    }
+
+    //关闭火警动画
+    function closefire(){
+        var fire1 =  kfcommonFunc.findObject('fire1');
+        var fire2 =  kfcommonFunc.findObject('fire2');
+
+        if(fire1 != null){
+            kf.scene.remove(fire1);
+        }
+
+        if(fire2 !=null){
+            kf.scene.remove(fire2);
+        }
+    }
+
+    //开启漏水动画
+    function openwater(){
+        var water =  kfcommonFunc.findObject('water');
+        if(water == null){
+            kf.initWater(1500,700,0,-400,30,-400)
+        }
+        else{
+            kf.scene.add(water);
+        }
+
+    }
+
+    //关闭漏水动画
+    function closewater(){
+        var water =  kfcommonFunc.findObject('water');
+        if(water != null){
+            kf.scene.remove(water)
+        }
+    }
+
+    //智能设备获取状态
+    function dosomthing(obj){
+        switch(obj.StateType){
+            case '0203': //温度
+                if(obj.State.Temperature >30){
+                    openfire();
+                }
+                else{
+                    closefire();
+                }
+                break;
+            case '0204': //湿度
+                if(obj.State.Humidity >80){
+                    openwater();
+                }
+                else{
+                    closewater();
+                }
+                break;
+            case '0206': //红外探测仪
+                if(obj.State.Alarm == 1 ){
+                    infrared();
+                }
+                else{
+                    infrared();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    //同步实际密集架移动
+    //        code:库区号
+    //        col:列号
+    //        moveState:移动标识
+    function moveMJJ(code,col,moveState){
+        var mjjname;
+        switch (code){
+            case "1":
+                mjjname='mjj1_5'+'_'+col;
+                break;
+            case "2":
+                mjjname='mjj1_2'+'_'+col;
+                break;
+//                case "3":
+//                    mjjname='mjj_1'+'_'+col;
+//                    break;
+//                case "4":
+//                    mjjname='mjj_2'+'_'+col;
+//                    break;
+//                case "5":
+//                    mjjname='mjj_3'+'_'+col;
+//                    break;
+//                case "6":
+//                    mjjname='mjj_4'+'_'+col;
+//                    break;
+        }
+        var target=  kfcommonFunc.findObject(mjjname);
+
+        var movecols = moveModelList(target); //所有移动的列
+        for(var i=0;i<movecols.length;i++){
+            var modal = movecols[i];
+            //记录密集架是否在移动
+            if(modal.move == true){
+                layer.alert('该密集架正在移动,不能进行操作！', {
+                    icon: 5,
+                    title: "提示"
+                });
+                return;
+            }
+            else{
+                modal.move=true;
+            }
+            setTimeout(moveModel, i*1500, modal);
+        }
+    }
+
+</script>
+</body>
+</html>

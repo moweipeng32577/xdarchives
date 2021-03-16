@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('公车预约')">
+</head>
+<body>
+<script src="../../js/carOrder/app.js"></script>
+<script src="../../ext/ux/Datetimefield.js"></script>
+</body>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var realname = [[${realname}]];
+    var taskId = [[${taskId}]];
+    var iflag = [[${iflag}]];
+    var orderAuditState = [[${orderAuditState}]];
+</script>
+</html>

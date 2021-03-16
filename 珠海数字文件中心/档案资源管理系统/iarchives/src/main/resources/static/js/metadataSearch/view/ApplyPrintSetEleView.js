@@ -1,0 +1,104 @@
+/**
+ * Created by Administrator on 2019/5/17.
+ */
+
+
+Ext.define('MetadataSearch.view.ApplyPrintSetEleView',{
+    entryid: '',     //条目主键ID
+    entrytype: 'electronic',   //数据类型（采集、管理、利用）
+    extend: 'Ext.panel.Panel',
+    xtype: 'applyPrintSetEleView',
+    layout: 'border',
+    operateFlag:'',
+    bodyBorder: false,
+    defaults: {
+        split: true
+    },
+    items: [{
+        region: 'west',
+        layout: {
+            type:'vbox',
+            align:'stretch'
+        },
+        width: 450,
+        header: false,
+        hideHeaders: true,
+        items: [{
+            xtype:'grid',
+            width:'100%',
+            itemId:'eleGrid',
+            rowLines:true,
+            columnLines:true,
+            store:'ApplyPrintEleGridStore',
+            selType:'checkboxmodel',
+            columns:[{
+                text:'文件名称',
+                dataIndex:'filename',
+                flex:2
+            },{
+                text:'打印范围',
+                dataIndex:'printstate',
+                flex:1
+            },{
+                text:'页数范围',
+                dataIndex:'scopepage',
+                flex:1
+            },{
+                text:'打印份数',
+                dataIndex:'copies',
+                flex:1
+            }],
+            listeners: {
+                itemclick: function ( view, record, item, index, e, eOpts )  {
+                    if(e.getTarget('.x-grid-checkcolumn',1,true)){
+                        return;
+                    }
+                    var view = this.findParentByType('applyPrintSetEleView');
+                    var grid =view.down('[itemId=eleGrid]');
+                    // var mediaFrame = document.getElementById('mediaFrame');
+                    //当采集、管理模块在未归已归、案卷、卷内点击著录或修改时，会创建多个相同ID的iframe
+                    //document.getElementById只会拿第一个，导致下面的src对应不了正确显示的那个iframe
+                    var allMediaFrame = document.querySelectorAll('#mediaFrame');
+                    var mediaFrame;
+                    //创建electronicview需要指定是著录还是修改类型，经调试，著录的iframe是第一个，修改的是最后一个
+                    if (allMediaFrame.length > 0 ) {
+                        mediaFrame = allMediaFrame[allMediaFrame.length - 1];
+                    }
+                    var filename = record.get('filename');
+                    mediaFrame.setAttribute('src', '/electronic/media?entrytype=solid&eleid=' + record.get('eleid') + '&filetype=' + filename.substring(filename.lastIndexOf('.') + 1));
+                }
+            }
+        }],
+        autoScroll: true,
+        rootVisible: true,
+        checkPropagation: 'both',
+        dockedItems: [{
+            xtype: 'toolbar',
+            dock: 'top',
+            items: [{
+                xtype: 'button',
+                itemId:'setScope',
+                text: '设置范围'
+            },'-',{
+                xtype: 'button',
+                itemId:'cleanScope',
+                text: '取消范围'
+            }]
+
+        }]
+
+    },
+
+        {
+            region: 'center',
+            layout: 'border',
+            items: [
+                {
+                    region: 'center',
+                    width: '100%',
+                    height: '100%',
+                    html: '<iframe id="mediaFrame" src=""  width="100%" height="100%" style="border:0px;"></iframe>'
+                }
+            ]
+        }]
+});

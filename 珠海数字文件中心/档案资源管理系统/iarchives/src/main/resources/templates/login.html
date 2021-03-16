@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>广州市从化区数字档案馆</title>
+	<meta name="renderer" content="ie-comp">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel = "Shortcut Icon" href="img/icon/title.jpg"/>
+	<style>
+		html,body{
+			width:100%;
+			height: 100%;
+			margin: 0px !important;
+			padding: 0px !important;
+			background-image: url('img/background/ch-login-bg.jpg');
+			background-size:cover;
+			font-size: 13px;
+		}
+
+		.logo-img{
+			position: absolute;
+			top:25px;
+			left:35px;
+		}
+
+		.title-img{
+			position: relative;
+			height: 140px;
+			display: flex;
+			align-items: center;
+			background-image: url('img/chLoginImg/logo背景条.png');
+			/* justify-content: center; */
+		}
+
+		.title-img img{
+			margin-left:50px;
+		}
+
+		.login-panel{
+			position: absolute;
+			top:260px;
+			left:250px;
+			width:450px;
+			height:570px;
+			border-radius: 15px;
+			background-image: url('img/chLoginImg/登录框.png');
+			background-size: cover;
+			background-position-x: -24px;
+		}
+
+		.menu-panel{
+			position: absolute;
+			top:340px;
+			left:1100px;
+			min-width: 518px;
+			min-height: 400px;
+			background-image: url('img/chLoginImg/图标背景.png');
+			background-size: 100% 100%;
+			zoom:
+		}
+
+		.menu-panel-top{
+			position: relative;
+			left:130px;
+			top:-100px;
+		}
+
+		.menu-panel-bottom{
+			position: relative;
+			top:180px;
+			left:30px;
+		}
+
+		.menu-panel-center{
+			position: relative;
+			top:0px;
+			left:-140px;
+		}
+
+		.menu-panel-top2{
+			position: relative;
+			top:30px;
+		}
+
+		.menu-panel-top3{
+			position: relative;
+			top:60px;
+		}
+
+		.menu-panel-center2{
+			position:relative;
+			top:120px;
+			left:-100px;
+		}
+
+		.menu-panel-center3{
+			position:relative;
+			top:30px;
+			left:135px;
+		}
+
+		.menu-panel img{
+			margin-right: 12px;
+		}
+
+		.menu-panel-sel{
+			position: absolute;
+			display: none;
+		}
+
+		.menu-panel>div>div{
+			display: inline-block;
+			position: relative;
+		}
+
+		.login-panel-title{
+			text-align: center;
+			padding: 20px;
+			font-size: 25px;
+		}
+
+		.login-panel-title{
+			height: 70px;
+		}
+
+		.login-panel-input>div:not(.err-tip){
+			position: relative;
+			width:80%;
+			height: 50px;
+			margin:0 auto;
+			background-image: url('img/chLoginImg/输入框.png');
+			background-size: 100% 99%;
+		}
+
+		.err-tip{
+			width:80%;
+			margin:0 auto;
+			color: red;
+			font-size:12px;
+			visibility: hidden;
+		}
+
+		.login-verification-code{
+			 display: flex;
+			 justify-content: center;
+		 }
+
+		.login-verification-code>div{
+			border:2px solid #e2e2e2;
+			border-radius:5px;
+			width: 38%;
+			height: 43px;
+			font-size: 1.2em;
+		}
+
+		.login-verification-code input{
+			width:100%;
+			height:40px;
+			border:0;
+			font-size: 1em;
+		}
+
+		.login-verification-code img{
+			width:100%;
+			height: 100%;
+			border-radius:5px;
+		}
+
+		.login-verification-code-text:hover{
+			cursor: pointer;
+		}
+
+		.login-panel-input input{
+			position: relative;
+			top:2px;
+			width: 70%;
+			height: 43px;
+			border:0px;
+			margin-left: 15px;
+			background: transparent;
+			font-size: 1.2em;
+		}
+
+		input{
+			outline:none;
+			-webkit-box-shadow:0 0 0 100px white inset;
+		}
+
+		.login-panel-input>div:not(.err-tip) img{
+			position: relative;
+			top:7px;
+			left:10px;
+		}
+
+		.login-panel-input-close{
+			position: absolute;
+			top:12px;
+			right:10px;
+			display:inline-block;
+			width:24px;
+			height: 24px;
+			background-image: url('img/chLoginImg/清除.png');
+		}
+
+		.login-panel-input-close:hover{
+			cursor: pointer;
+			background-image: url('img/chLoginImg/清除-鼠标经过时.png');
+		}
+
+		.login-panel-menu,.login-panel-btn{
+			width:80%;
+			margin:0 auto;
+		}
+
+		.login-panel-menu>div:nth-child(1){
+			/*margin-top:16px;*/
+		}
+
+		.login-panel-menu>div:nth-child(2){
+			margin-top:10px;
+		}
+
+		.login-panel-menu>div{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			width:100%;
+			height: 50px;
+		}
+
+		.login-panel-menu>div:nth-child(2){
+			justify-content: flex-start;
+		}
+
+		.login-panel-menu>div>div{
+			width:50px;
+			height:50px;
+		}
+
+		.login-panel-menu>div:nth-child(2)>div:not(:nth-child(1)){
+			margin-left: 7.6%;
+		}
+
+		.login-panel-menu>div>div>img{
+			width:100%;
+			height: 100%;
+		}
+
+		.login-panel-btn{
+			margin-top:20px;
+		}
+
+		.login-panel-btn-msg{
+			font-size: 1.1em;
+		}
+
+		.login-panel-btn-msg>span{
+			color: red;
+		}
+
+		.login-panel-btn-lbtn{
+			margin:20px 0px;
+			height: 40px;
+			background-image: url('img/chLoginImg/登录-默认.png');
+			background-size: cover;
+			cursor: pointer;
+		}
+
+		.login-panel-btn-lbtn:hover{
+			background-image: url('img/chLoginImg/登录-选中.png');
+		}
+
+		.login-panel-btn-lbtn:active{
+			background-image: url('img/chLoginImg/登录-默认.png');
+		}
+
+		.login-panel-btn-plugin>div{
+			width:159px;
+			height: 18px;
+			margin:0 auto;
+			background-image: url('img/chLoginImg/插件-默认.png');
+		}
+
+		.login-panel-btn-plugin>div:hover{
+			cursor: pointer;
+			background-image: url('img/chLoginImg/插件-选中.png');
+		}
+
+		.login-panel-menu img:hover,.menu-panel img:hover{
+			cursor: pointer;
+		}
+
+		.footer{
+			position:fixed;
+			bottom:0px;
+			width:100%;
+			height:25px;
+			text-align:center;
+			font-size:18px;
+			background-color:white;
+		}
+
+		@media screen and (max-width: 1600px) {
+			.title-img{
+				height: 120px;
+			}
+
+			.logo-img{
+				top:20px;
+				left:27px;
+			}
+
+			.login-panel{
+				top:200px;
+				left:200px;
+				width:400px;
+				height:500px;
+			}
+
+			.login-panel-title{
+				height: 50px;
+			}
+
+			.login-panel-input>div:not(.err-tip){
+				height: 42px;
+			}
+
+			.login-panel-input input{
+				top:-2px;
+				height: 32px;
+				border:0px;
+				margin-left: 15px;
+			}
+
+			.login-panel-menu>div>div{
+				width:40px;
+				height:40px;
+			}
+
+			.login-panel-btn{
+				margin-top:15px;
+			}
+
+			.login-panel-menu>div{
+				height: 40px;
+			}
+
+			.login-panel-btn-lbtn{
+				margin:15px 0;
+				height: 38px;
+			}
+
+			.login-panel-input-close{
+				width:20px;
+				height:20px;
+				background-size: 100% 100%;
+				top:10px;
+			}
+
+			.menu-panel{
+				position: absolute;
+				top:260px;
+				left:1000px;
+				min-width: 470px;
+				min-height: 370px;
+			}
+
+			.menu-panel img{
+				width:100px;
+			}
+
+			.menu-panel-top{
+				position: relative;
+				top:-90px;
+				left:120px;
+			}
+
+			.menu-panel-center{
+				left:-110px;
+			}
+
+			.menu-panel-center2{
+				left:-95px;
+				top:110px;
+			}
+
+			.menu-panel-center3{
+				left:80px;
+				top:30px;
+			}
+
+			.login-panel-menu>div:nth-child(2)>div:not(:nth-child(1)){
+				margin-left: 9.35%;
+			}
+		}
+
+		@media screen and (max-width: 1367px) {
+
+			.title-img{
+				height:80px;
+			}
+
+			.logo-img{
+				top:15px;
+			}
+
+			.logo-img img{
+				height:35px;
+			}
+			.login-panel{
+				top:180px;
+				left:180px;
+				width:300px;
+				height:390px;
+			}
+
+			.login-panel-title{
+				height: 35px;
+			}
+
+			.login-panel-input>div:not(.err-tip){
+				height: 30px;
+				background-size: 100% 99%;
+			}
+
+			.login-panel-input input{
+				position: relative;
+				top:1px;
+				width:170px !important;
+				height: 25px;
+				border:0px;
+				margin-left: 15px;
+				background: transparent;
+				font-size: 1em;
+			}
+
+			.login-panel-menu>div>div{
+				width:30px;
+				height:30px;
+			}
+
+			.login-panel-btn{
+				margin-top:7px;
+			}
+
+			.login-panel-menu>div{
+				height: 30px;
+			}
+
+			.login-panel-btn-lbtn{
+				margin:8px 0;
+				height: 35px;
+			}
+
+			.login-panel-input-close{
+				width:16px;
+				height:16px;
+				background-size: 100% 100%;
+				top:7px;
+			}
+
+			.menu-panel{
+				position: absolute;
+				top:220px;
+				left:739px;
+				min-width: 345px;
+				min-height: 266px;
+			}
+
+			.menu-panel img{
+				width:90px;
+			}
+
+			.menu-panel-top{
+				position: relative;
+				top:-85px;
+				left:120px;
+			}
+
+			.menu-panel-center{
+				left:-95px;
+			}
+
+			.menu-panel-center2{
+				left:-90px;
+				top:110px;
+			}
+
+			.menu-panel-center3{
+				left:50px;
+				top:10px;
+			}
+
+			.menu-panel-bottom{
+				position: relative;
+				top:110px;
+				left:30px;
+			}
+
+			.login-panel-btn-msg{
+				font-size: 12px;
+			}
+
+			.login-panel-btn-lbtn,.login-panel-btn-cabtn>img{
+				background-size: 100% 100%;
+			}
+
+			.login-panel-input>div:not(.err-tip)>img{
+				height: 15px;
+				top:4px;
+			}
+
+			.login-verification-code>div{
+				width:36%;
+				height: 30px;
+			}
+
+			.login-verification-code input{
+				height:27px;
+				font-size: .7em;
+			}
+
+			.login-panel-menu>div:nth-child(2)>div:not(:nth-child(1)){
+				margin-left: 9.35%;
+			}
+		}
+
+		@media screen and (max-width: 1025px) {
+			.login-panel{
+				left:80px;
+			}
+			.menu-panel{
+				left:500px;
+			}
+
+		}
+	</style>
+</head>
+<body>
+<div class="title-img">
+	<img src="img/chLoginImg/logo.png" alt="">
+</div>
+<div class="login-panel">
+	<div class="login-panel-title"></div>
+	<form action="/login" method="post">
+		<div class="login-panel-input">
+			<div>
+				<img src="img/chLoginImg/用户图标.png" alt="">
+				<input type="text" name="username" placeholder="用户名"/>
+				<div class="login-panel-input-close" type="user"></div>
+			</div>
+			<div class="err-tip  tip1">
+				<img src="img/chLoginImg/提示.png">&nbsp;&nbsp;
+				<span></span>
+			</div>
+			<div>
+				<img src="img/chLoginImg/密码图标.png" alt="">
+				<input type="password" name="password" placeholder="密码"/>
+				<div class="login-panel-input-close" type="pwd"></div>
+			</div>
+			<div class="err-tip tip2">
+				<img src="img/chLoginImg/提示.png">&nbsp;&nbsp;
+				<span></span>
+			</div>
+		</div>
+		<div class="login-verification-code">
+			<div>
+				<input type="text" placeholder="请输入验证码"/>
+			</div>
+			&nbsp;&nbsp;
+			<div class="login-verification-code-text">
+				<img src="/verificationCode/getVerificationCode?_="+(new Date()).getTime() />
+			</div>
+		</div>
+		<div class="err-tip  tip3">
+			<img src="img/chLoginImg/提示.png">&nbsp;&nbsp;
+			<span></span>
+		</div>
+	</form>
+	<div class="login-panel-menu">
+		<div>
+			<div class="login-panel-menu-1">
+				<img src="img/chLoginImg/资源综合管理系统-选中.png" alt="1" class="src">
+			</div>
+			<div class="login-panel-menu-2">
+				<img src="img/chLoginImg/数字化-默认.png" alt="3" class="src">
+			</div>
+			<div class="login-panel-menu-3">
+				<img src="img/chLoginImg/库房系统-默认.png" alt="8" class="src">
+			</div>
+			<div class="login-panel-menu-4">
+				<img src="img/chLoginImg/新闻-默认.png" alt="6" class="src">
+			</div>
+			<div class="login-panel-menu-9">
+				<img src="img/chLoginImg/声像-默认.png" alt="2" class="src">
+			</div>
+		</div>
+		<div>
+			<div class="login-panel-menu-5">
+				<img src="img/chLoginImg/基础平台-默认.png" alt="4" class="src">
+			</div>
+			<div class="login-panel-menu-6">
+				<img src="img/chLoginImg/目录中心-默认.png" alt="5" class="src">
+			</div>
+			<div class="login-panel-menu-7">
+				<img src="img/chLoginImg/编研-默认.png" alt="7" class="src">
+			</div>
+			<div class="login-panel-menu-8">
+				<img src="img/chLoginImg/利用平台-默认.png" alt="0" class="src">
+			</div>
+<!--			<div class="login-panel-menu-10">-->
+<!--				<img src="img/chLoginImg/综合事务-默认.png" alt="10" class="src">-->
+<!--			</div>-->
+		</div>
+	</div>
+	<div class="login-panel-btn">
+		<div class="login-panel-btn-msg">
+			当前登录：<span>档案资源管理系统</span>
+		</div>
+		<div class="login-panel-btn-lbtn"></div>
+		<div class="login-panel-btn-plugin">
+			<div></div>
+		</div>
+	</div>
+</div>
+<div class="menu-panel">
+	<div class="menu-panel-top">
+		<div>
+			<img class="menu-panel-sel"  src="img/chLoginImg/档案系统图标-选中.png" alt="1">
+			<img src="img/chLoginImg/档案系统图标.png" alt="1">
+		</div>
+		<div class="menu-panel-top2">
+			<img class="menu-panel-sel" src="img/chLoginImg/数字化加工图标-选中.png" alt="3">
+			<img src="img/chLoginImg/数字化加工图标.png" alt="3">
+		</div>
+		<div class="menu-panel-top3">
+			<img class="menu-panel-sel" src="img/chLoginImg/库房系统图标-选中.png" alt="8">
+			<img src="img/chLoginImg/库房系统图标.png" alt="8">
+		</div>
+	</div>
+	<div class="menu-panel-center">
+		<div>
+			<img class="menu-panel-sel"  src="img/chLoginImg/新闻采集图标-选中.png" alt="6">
+			<img src="img/chLoginImg/新闻采集图标.png" alt="6">
+		</div>
+		<div class="menu-panel-center2">
+			<img class="menu-panel-sel" src="img/chLoginImg/声像图标-选中.png" alt="2">
+			<img src="img/chLoginImg/声像图标.png" alt="2">
+		</div>
+		<div class="menu-panel-center3">
+			<img class="menu-panel-sel" src="img/chLoginImg/基础平台图标-选中.png" alt="4">
+			<img src="img/chLoginImg/基础平台图标.png" alt="4">
+		</div>
+	</div>
+	<div class="menu-panel-bottom">
+<!--		<div>-->
+<!--			<img class="menu-panel-sel" src="img/chLoginImg/综合事务系统-选中.png" alt="10">-->
+<!--			<img src="img/chLoginImg/综合事务系统.png" alt="10">-->
+<!--		</div>-->
+		<div>
+			<img class="menu-panel-sel"  src="img/chLoginImg/目录中心图标-选中.png" alt="5">
+			<img src="img/chLoginImg/目录中心图标.png" alt="5">
+		</div>
+		<div>
+			<img class="menu-panel-sel" src="img/chLoginImg/编研系统图标-选中.png" alt="7">
+			<img src="img/chLoginImg/编研系统图标.png" alt="7">
+		</div>
+		<div>
+			<img class="menu-panel-sel" src="img/chLoginImg/利用平台图标-选中.png" alt="0">
+			<img src="img/chLoginImg/利用平台图标.png" alt="0">
+		</div>
+	</div>
+</div>
+<div class="footer" style="margin-bottom: 0px">Copyright © 2019  广州市从化区国家档案馆</div>
+</body>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script type="text/javascript" src="js/layer/layer.js"></script>
+<script th:inline="javascript">
+    var args1 = [[${#httpServletRequest.getParameter('error')}]];
+    var msg = [[${session.SPRING_SECURITY_LAST_EXCEPTION}]];
+    var errTip,backUsername,backPwd;
+    if(args1=='true'&& msg!=null){
+        errTip = msg.message;
+        var temp = errTip.split('&');
+        errTip = temp[0];
+        if(temp.length>1){
+            backUsername = temp[1];
+            backPwd = temp[2];
+		}
+    }
+</script>
+</html>
+<script>
+    var elUtils = getElUtils();
+    var menuImg = {
+        '1':{default:'资源综合管理系统-默认.png',select:'资源综合管理系统-选中.png',describe:'档案资源管理系统'},
+        '2':{default:'声像-默认.png',select:'声像-选中.png',describe:'声像档案管理系统'},
+        '3':{default:'数字化-默认.png',select:'数字化-选中.png',describe:'数字化加工(辅助工具)'},
+        '4':{default:'基础平台-默认.png',select:'基础平台-选中.png',describe:'基础安全平台'},
+        '5':{default:'目录中心-默认.png',select:'目录中心-选中.png',describe:'目录中心系统'},
+        '6':{default:'新闻-默认.png',select:'新闻-选中.png',describe:'新闻影像采集归档管理系统'},
+        '7':{default:'编研-默认.png',select:'编研-选中.png',describe:'编研管理系统'},
+        '8':{default:'库房系统-默认.png',select:'库房系统-选中.png',describe:'库房管理系统'},
+        '0':{default:'利用平台-默认.png',select:'利用平台-选中.png',describe:'利用平台'}/*,
+        // '10':{default:'综合事务-默认.png',select:'综合事务-选中.png',describe:'综合事务系统'}*/
+    };
+
+    var form = {type:1};
+    var loginMenuPanel = elUtils.$('.login-panel-menu');
+    var rightMenuPanel = elUtils.$('.menu-panel');
+    var submitBtn = elUtils.$('.login-panel-btn-lbtn');
+    var clearEls = elUtils.$('.login-panel-input-close',true);
+    var pwdType = elUtils.$('input[type="password"]');
+    var userType = elUtils.$('input[type="text"]');
+    var userTip = elUtils.$('.tip1>span');
+    var pwdTip =  elUtils.$('.tip2>span');
+    var codeTip =  elUtils.$('.tip3>span');
+    var plugin =  elUtils.$('.login-panel-btn-plugin>div');
+	var code =   elUtils.$('.login-verification-code-text img');
+	var codeInput = elUtils.$('.login-verification-code input');
+
+    backUsername&&(userType.value=backUsername);
+    backPwd&&(pwdType.value=backPwd);
+    elUtils.bindEvent('click',code,function(){
+        code.setAttribute('src','/verificationCode/getVerificationCode?_='+(new Date()).getTime());
+    });
+
+    elUtils.bindEvent('click',plugin,function(){
+        location.href = '/download';
+    });
+
+    elUtils.bindEvent('click',clearEls[0],function(){
+        userType.value = '';
+    });
+
+    elUtils.bindEvent('click',clearEls[1],function(){
+        pwdType.value = '';
+    });
+	function timeFunction(){
+		code.click();
+	};
+	setInterval(timeFunction, 60000);
+
+    //登录--点击事件
+    elUtils.bindEvent('click',submitBtn,function(){
+        var sform = elUtils.$('form');
+        if(userType.value == ''){
+            showTips('用户名不能为空');
+            return;
+		}
+
+        if(pwdType.value == ''){
+            showTips('密码不能为空');
+            return;
+        }
+
+        if(codeInput.value == ''){
+            showTips('验证码不能为空');
+            return;
+        }
+
+        pwdType.value = pwdType.value+'&'+form.type+'&'+codeInput.value;
+		if(form.type==2){
+			var url = getSysFormUrl(form.type);
+			pwdType.value = pwdType.value+'&8143';
+			sform.setAttribute('action',url);
+		}
+		if(form.type==6){
+			var url = getSysFormUrl(form.type);
+			pwdType.value = pwdType.value+'&'+ codeInput.value;
+			sform.setAttribute('action',url);
+		}//新闻系统
+        sform.submit();
+    });
+
+    //登录键盘事件
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            var sform = elUtils.$('form');
+            if(userType.value == ''){
+                showTips('用户名不能为空');
+                return;
+            }
+
+            if(pwdType.value == ''){
+                showTips('密码不能为空');
+                return;
+            }
+
+            if(codeInput.value == ''){
+                showTips('验证码不能为空');
+                return;
+            }
+
+            pwdType.value = pwdType.value+'&'+form.type+'&'+codeInput.value;
+            if(form.type==2){
+            	var url = getSysFormUrl(form.type);
+                pwdType.value = pwdType.value+'&8143';
+                sform.setAttribute('action',url);
+            }
+			if(form.type==6){
+				var url = getSysFormUrl(form.type);
+				pwdType.value = pwdType.value+'&'+ codeInput.value;
+				sform.setAttribute('action',url);
+			}//新闻系统
+            sform.submit();
+
+        }});
+
+
+    elUtils.bindEvent('click',loginMenuPanel,function(e){
+        var el = e.srcElement||e.target;
+        if(el.tagName&&el.tagName.toLowerCase()=='img'){
+            form.type = el.getAttribute('alt');
+            selRightMenu(form.type);
+            selLoginMenu(form.type);
+        }
+    });
+
+    elUtils.bindEvent('click',rightMenuPanel,function(e){
+        var el = e.srcElement||e.target;
+        if(el.tagName&&el.tagName.toLowerCase()=='img'){
+            form.type = el.getAttribute('alt');
+            selRightMenu(form.type);
+            selLoginMenu(form.type);
+            submitBtn.click();
+        }
+    });
+
+    /////////////////////错误信息//////////////////////
+
+    (errTip&&errTip!="")&&showTips(errTip);
+    function showTips(errTip){
+        var tip1 = elUtils.$('.tip1');
+        var tip2 = elUtils.$('.tip2');
+        var tip3 = elUtils.$('.tip3');
+        if(errTip.indexOf('密码')>-1){
+            pwdTip.innerText = errTip;
+            tip2.style.visibility='visible';
+        }else if(errTip.indexOf('验证码')>-1){
+            codeTip.innerText = errTip;
+            tip3.style.visibility='visible';
+		}else{
+            userTip.innerText = errTip;
+            tip1.style.visibility='visible';
+        }
+        setTimeout(function(){
+            tip1.style.visibility='hidden';
+            tip2.style.visibility='hidden';
+            tip3.style.visibility='hidden';
+        },3000);
+    }
+    ///////////////////////////////////////////////////
+
+    function selRightMenu(sel){
+        var rightMenuImgs = elUtils.$('.menu-panel-sel',true);
+        rightMenuImgs.forEach(function(img){
+            var alt = img.getAttribute('alt');
+            if(alt!=sel){
+                img.style.display = 'none';
+            }else{
+                img.style.display = 'inline';
+            }
+        });
+    }
+
+    function selLoginMenu(sel){
+        var imgs = elUtils.$('.login-panel-menu img',true);
+        var msgEl = elUtils.$('.login-panel-btn-msg span');
+        imgs.forEach(function(img){
+            var alt = img.getAttribute('alt');
+            if(alt!=sel){
+                img.src = 'img/chLoginImg/'+menuImg[alt]['default'];
+            }else{
+                var filename = menuImg[alt]['select'];
+                msgEl.innerText = menuImg[alt]['describe'];
+                img.src = 'img/chLoginImg/'+filename;
+            }
+        });
+    }
+
+    function getElUtils(){
+        return {
+            $:function(ele,select,isList){
+                var _d = document;
+                if(ele.nodeType&&ele.nodeType==1){
+                    _d = ele;
+                }else{
+                    isList = select;
+                    select = ele;
+                }
+
+                if(isList){
+                    var nodeList = _d.querySelectorAll(select);
+                    nodeList = Array.prototype.slice.call(nodeList);
+                    return nodeList.length==1?nodeList[0]:nodeList;
+                }else{
+                    return _d.querySelector(select);
+                }
+            },
+            bindEvent:function(type,ele,callback){
+                try{
+                    ele.addEventListener(type,callback,false);
+                }catch(error){
+                    throw new Error('绑定事件失败',error);
+                }
+            }
+        }
+    }
+
+	function getSysFormUrl(sysType){
+		var return_url = "";
+		$.ajax({
+			type:'POST',
+			url:"/getSysFormUrl",
+			data:{sysType:sysType},
+			async:false,
+			// contentType:"application/json",
+			dataType: 'json',
+			success:function(data) {
+				return_url = data;
+			},
+			error:function(data){
+			}
+		})
+		return return_url;
+	}
+</script>

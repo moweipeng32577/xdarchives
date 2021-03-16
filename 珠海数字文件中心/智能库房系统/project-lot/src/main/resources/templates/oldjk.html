@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=10">
+    <title>实时监控</title>
+
+    <script type="text/javascript" src="../js/jquery/jquery-1.11.1.js"></script>
+
+    <script language="javascript">
+        function Play() {
+            var prop = {};
+            var params = location.search.substr(1).split("&");
+            for (var i = 0; i < params.length; i++) {
+                prop[params[i].split("=")[0]] = params[i].split("=")[1];
+            }
+
+            var url = 'http://10.10.100.3:8012/chznkg-ibuilding-webapp/ocx.jsp?' +
+                'addr='+prop.addr+'&port='+prop.port+'&user='+prop.user+'&pwd='+prop.pwd+'&channel='+prop.channel;
+
+            $("#frame").attr('src' , url)
+        }
+    </script>
+</head>
+
+<body style="margin:0px;" onload="Play();">
+    <iframe id="frame" src="" frameborder=0 scrolling=no style="width:600px;height:400px;border:0;marginWidth:0;marginHeight:0;"></iframe>
+</body>
+
+</html>

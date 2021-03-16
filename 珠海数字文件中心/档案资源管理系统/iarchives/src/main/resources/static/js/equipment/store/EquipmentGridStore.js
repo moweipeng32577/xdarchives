@@ -1,0 +1,16 @@
+Ext.define('Equipment.store.EquipmentGridStore',{
+    extend:'Ext.data.Store',
+    model:'Equipment.model.EquipmentGridModel',
+    pageSize:XD.pageSize,
+    remoteSort:true,
+    proxy:{
+        type:'ajax',
+        url:'/equipment/getEquipments',
+        extraParams:{},
+        reader:{
+            type:'json',
+            rootProperty:'content',
+            totalProperty:'totalElements'
+        }
+    }
+});

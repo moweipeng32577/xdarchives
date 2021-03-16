@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<style>
+			.layui-form-item{
+				margin:0px !important;
+			}
+
+			.buttonDiv{
+				background:#e6e6e6;
+				height:35px;
+				width:100%;
+				text-align: center;
+				position: fixed;
+				bottom: 0px;
+				text-align: center;
+				line-height:35px;
+				font-size:1.2em;
+				color:#484f56;
+				transition: all .2s;
+			}
+
+			.buttonDiv:hover{
+				background: #00BFFF;
+				color:#fff;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<form class="layui-form layui-form-pane" action="" >
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户名</label>
+				<div class="layui-input-block">
+					<input type="text" name="realname" th:value="${realname}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">账 号</label>
+				<div class="layui-input-block">
+					<input type="text" name="loginname" th:value="${loginname}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">原密码</label>
+				<div class="layui-input-block">
+					<input type="password" name="oldpwd" required lay-verify="required" placeholder="请输入原密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密 码</label>
+				<div class="layui-input-block">
+					<input type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">确认密码</label>
+				<div class="layui-input-block">
+					<input type="password" name="pwd1" required lay-verify="required" placeholder="请确认密码" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">单 位</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" th:value="${organid}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+				</div>
+			</div>
+
+			<div class="layui-form-item">
+				<label class="layui-form-label">性别</label>
+				<div class="layui-input-block">
+					<input type="text" name="title" th:value="${sex}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+				</div>
+			</div>
+		</form>
+		<div class="buttonDiv">
+			确&nbsp;&nbsp;&nbsp;&nbsp;认
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+			var flag = '0';
+			layui.use('form', function(){
+			    var form = layui.form,
+				layer = layui.layer;
+
+			    $('.buttonDiv').click(function(){
+                    //var regex = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{3,30}$/;
+					var regex = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{8,20}$/;
+                    if($('input[name="oldpwd"]').val()==''){
+                        layer.msg('请输入原密码', {icon: 5});
+                        return;
+                    }
+                    if(!regex.test($('input[name="pwd"]').val())){
+						layer.msg('请输入8-20位字符，数字、字母、特殊字符（除空格），至少其中两种组合', {icon: 5});
+                        return;
+                    }
+
+					if($('input[name="pwd"]').val()==$('input[name="loginname"]').val()){
+						layer.msg('用户名和口令不能设置相同', {icon: 5});
+						return;
+					}
+
+					if($('input[name="pwd"]').val()!=$('input[name="pwd1"]').val()){
+                        layer.msg('确认密码不一致', {icon: 5});
+                        return;
+                    }
+
+                    $.ajax({
+                        type: "post",
+                        url: '/user/editPwd',
+                        data:{oldpwd:$('input[name="oldpwd"]').val(),pwd:$('input[name="pwd"]').val()},
+                        dataType:'json',
+                        success: function (data) {
+                            if(data.success==true){
+								if(data.msg=='samePwd'){
+									layer.msg('新修改的口令不能与旧口令相同', {icon: 6});
+									return;
+								}
+                                layer.msg(data.msg, {icon: 6});
+                                setTimeout(function(){
+                                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                                },500);
+							}else{
+                                layer.msg(data.msg, {icon: 5});
+							}
+                        },
+                        error:function(data){
+                            layer.msg('修改失败...', {icon: 5});
+                        },
+                        async:false
+                    });
+
+                });
+			});
+
+</script>

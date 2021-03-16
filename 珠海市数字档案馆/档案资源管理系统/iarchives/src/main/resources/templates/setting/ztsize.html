@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../js/layui/css/layui.css" />
+		<style>
+			.range{
+				width:80%;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<div style="background:#e6e6e6;height:35px;width:100%;text-align: center;">
+			<form class="layui-form" action="" >
+			  <div class="layui-form-item" >
+			      <input type="radio" name="addr" value="small" title="小" checked>
+			      <input type="radio" name="addr" value="medium" title="中">
+					<input type="radio" name="addr" value="large" title="大">
+			  </div>
+				<div class="layui-form-item" >
+					<input type="range" value="0" class="range" onchange="f1()" min="10" max="20"><span class="size">&nbsp;&nbsp;字体</span>
+				</div>
+
+			</form>
+		</div>
+
+	</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+
+    		var ztsize = parent.personalized1?(parent.personalized1.ztsize?parent.personalized1.ztsize:'small'):'small';
+			for(var i=0;i<$('input').length;i++){
+                //alert(ztsize.indexOf('px'));
+				if(ztsize.indexOf('px')<0&&$($('input')[i]).val()==ztsize){
+					$($('input')[i])[0].setAttribute("checked","true");
+					//$('.size').text(0);
+				}else{
+                    //$($('input')[i]).val(parseInt(ztsize.replace('px','')));
+                   // $('.size').text(ztsize.replace('px',''));
+				}
+			}
+
+			var flag = '0';
+			layui.use('form', function(){
+			  var form = layui.form;
+			  form.on('radio', function(data){
+
+                  parent.personalized1.ztsize = data.value;
+                  $('.size').css({'font-size':data.value});
+				  $('#zts', window.parent.document).attr({'ztsize':data.value});
+				  $('#zts', window.parent.document).click();
+			  });
+
+			});
+
+            function f1(){
+                $('.size').css({'font-size':$('.range').val()+'px'});
+                $('#zts', window.parent.document).attr({'ztsize':$('.range').val()+'px'});
+                $('#zts', window.parent.document).click();
+            }
+
+</script>

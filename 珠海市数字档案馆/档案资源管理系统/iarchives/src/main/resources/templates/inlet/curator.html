@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('馆长审阅')">
+</head>
+<body>
+<script src="../../js/curator/app.js"></script>
+<script src="../../js/comps/EntryFormView.js"></script>
+</body>
+<script th:inline="javascript">
+    //报表服务
+    var reportServer = [[${reportServer}]];
+</script>
+</html>

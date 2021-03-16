@@ -1,0 +1,19 @@
+Ext.define('Equipment.model.EquipmentGridModel',{
+    extend:'Ext.data.Model',
+    field:[
+        {name:'userID',type:'string'},
+        {name:'name',type:'string'},
+        {name:'type',type:'string'},
+        {name:'brand',type:'string'},
+        {name:'model',type:'string'},
+        {name:'specifications',type:'string'},
+        {name:'price',type:'string'},
+        {name:'amount',type:'string'},
+        {name:'purchasetime',type:'string'},
+        {name:'acceptancetime',type:'string'},
+        {name:'remarks',type:'string'},
+        {name:'enclosure',type:'string'},
+        {name:'organname',type:'string'},
+        {name:'ipaddress',type:'string'}
+    ]
+});

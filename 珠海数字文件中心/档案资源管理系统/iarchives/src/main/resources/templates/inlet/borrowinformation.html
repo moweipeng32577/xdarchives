@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css" />
+    <style>
+        .layui-form-item{
+            margin:0px !important;
+        }
+
+        .buttonDiv{
+            background:#e6e6e6;
+            height:35px;
+            width:100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0px;
+            text-align: center;
+            line-height:35px;
+            font-size:1.2em;
+            color:#484f56;
+            transition: all .2s;
+        }
+
+        .buttonDiv:hover{
+            background: #00BFFF;
+            color:#fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form layui-form-pane" action="" >
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档者姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="realname" th:value="${borrwman}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档者单位</label>
+        <div class="layui-input-block">
+            <input type="text" name="realname" th:value="${borroworgan}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">单据状态</label>
+        <div class="layui-input-block">
+            <input type="text" name="state" th:value="${state}" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档类型</label>
+        <div class="layui-input-block">
+            <input type="text" name="type" th:value="${type}" required lay-verify="required"  autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档天数</label>
+        <div class="layui-input-block">
+            <input type="text" name="borrowts" th:value="${borrowts}" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档目的</label>
+        <div class="layui-input-block">
+            <input type="text" name="borrowmd" th:value="${borrowmd}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="desci" th:value="${desci}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">查档时间</label>
+        <div class="layui-input-block">
+            <input type="text" name="borrowdate" th:value="${borrowdate}" required  lay-verify="required"  autocomplete="off" class="layui-input" readonly>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script type="text/javascript">
+
+</script>

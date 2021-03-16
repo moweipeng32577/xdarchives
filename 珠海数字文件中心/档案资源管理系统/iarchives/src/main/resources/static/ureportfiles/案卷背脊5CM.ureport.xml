@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><ureport><cell expand="Right" name="A1" row="1" col="1"><cell-style font-size="10" wrap-compute="true" align="center" valign="middle"></cell-style><dataset-value dataset-name="ds" aggregate="select" property="catalog" order="none" mapping-type="simple"></dataset-value><condition-property-item name="行高" row-height="0"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition type="expression" op="==" id="undefined"><left><![CDATA[1]]></left><right><![CDATA[1]]></right></condition></condition-property-item></cell><cell expand="None" name="B1" row="1" col="2" top-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="Right" name="A2" row="2" col="1" left-cell="A1"><cell-style font-size="10" wrap-compute="true" align="center" valign="middle"></cell-style><dataset-value dataset-name="ds" aggregate="select" property="filecode" order="none" mapping-type="simple"></dataset-value><condition-property-item name="行高" row-height="0"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition type="expression" op="==" id="undefined"><left><![CDATA[1]]></left><right><![CDATA[1]]></right></condition></condition-property-item></cell><cell expand="None" name="B2" row="2" col="2" top-cell="A1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A3" row="3" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B3" row="3" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A4" row="4" col="1"><cell-style font-size="12" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><top-border width="3" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[档 号]]></simple-value></cell><cell expand="None" name="B4" row="4" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A5" row="5" col="1" top-cell="A2"><cell-style font-size="11" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><expression-value><![CDATA[if(A1 != null){
+  if(A2 != null){
+       return A1 + "-" + A2 ;
+  }
+  else{
+     return '';
+  }
+}
+else{
+     return '';
+}
+]]></expression-value></cell><cell expand="None" name="B5" row="5" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A6" row="6" col="1"><cell-style font-size="12" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><top-border width="2" style="solid" color="0,0,0"/><bottom-border width="2" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[案卷题名]]></simple-value></cell><cell expand="None" name="B6" row="6" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A7" row="7" col="1" top-cell="A2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" wrap-compute="true" align="center" valign="middle"><bottom-border width="4" style="solid" color="0,0,0"/></cell-style><expression-value><![CDATA[var title= ds.select(title);
+if(title != null){
+  var count = length(title);
+  if(count >= 375){
+     return substring(title,0,375)+'...'
+  }
+  else{
+     return title;
+  }
+}
+else{
+  return '';
+}
+]]></expression-value></cell><cell expand="None" name="B7" row="7" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><row row-number="1" height="20"/><row row-number="2" height="18"/><row row-number="3" height="15"/><row row-number="4" height="35"/><row row-number="5" height="125"/><row row-number="6" height="50"/><row row-number="7" height="314"/><column col-number="1" width="152"/><column col-number="2" width="4"/><datasource name="NeoUnit" type="buildin"><dataset name="ds" type="sql"><sql><![CDATA[${
+  return "select catalog,filecode,title from tb_entry_index where entryid in (\'" + replace(param("entryid"),",","\',\'") + "\') union select catalog,filecode,title from tb_entry_index_capture where entryid in (\'" + replace(param("entryid"),",","\',\'") + "\')  order by catalog,filecode"
+}
+]]></sql><field name="catalog"/><field name="filecode"/><field name="title"/><parameter name="entryid" type="String" default-value=""/></dataset></datasource><paper type="A4" left-margin="54" right-margin="54"
+    top-margin="20" bottom-margin="19" paging-mode="fitpage" fixrows="0"
+    width="595" height="842" orientation="portrait" html-report-align="center" bg-image="" html-interval-refresh-value="0" column-enabled="true" column-count="8" column-margin="5"></paper></ureport>

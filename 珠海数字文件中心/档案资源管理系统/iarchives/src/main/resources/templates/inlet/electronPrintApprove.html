@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('电子打印')">
+</head>
+<body>
+<style>
+</style>
+<script th:inline="javascript">
+    var taskid = [[${taskid}]];
+    var flowsText = [[${flowsText}]];
+    var nodeId = [[${nodeId}]];
+    var iflag = [[${iflag}]];
+    var type = [[${type}]];
+    var printSendmsg = [[${printSendmsg}]];//电子打印是否短信通知
+</script>
+<script src="../../js/comps/EntryFormView.js"></script>
+<script src="../../js/electronPrintApprove/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+	<title>欣档文档资料综合管理软件</title>
+	<meta charset="UTF-8" http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel="Shortcut Icon" th:href="@{img/icon/favicon.ico}" />
+	<link rel="stylesheet" th:href="@{js/zui/css/zui.min.css}" />
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+			overflow: hidden;
+			background: #28abd1 url(img/background/loginbg.jpg) no-repeat top center;
+			background-size:100% 100%;
+		}
+
+		.logotop {
+			height: 120px;
+		}
+
+		.logotop img {
+			position: relative;
+			top: 73px;
+			height: 62px;
+			left: 150px;
+		}
+
+		.nrcontent {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		.icenter {
+			width: 100%;
+			height: 600px;
+			position: absolute;
+			top: 170px;
+		}
+
+		.logodiv {
+			position: absolute;
+			right: 300px;
+			top: 220px;
+			width: 380px;
+		}
+
+		.ctcard {
+			width: 430px;
+			height: 452px;
+			background: #f2f7fd;
+			border-radius: 2px;
+			position: fixed;
+			right: 22%;
+			top: 20%;
+			z-index: 2;
+			transition: all .2s ease;
+		}
+
+		.ctcardTitle {
+			margin: 18px 0px 0px 0px;
+		}
+
+		.usercard,
+		.pwdcard,
+		.btn1,
+		.plugins {
+			border: 1px solid #e6e6e6;
+			border-radius: 2px;
+			margin: 5px auto;
+			width: 85%;
+			height: 50px;
+		}
+
+		.plugins {
+			border: 0;
+			margin-top: 29px;
+			text-align: center;
+		}
+
+		.plugins a {
+			color: #8B6969 !important;
+			font-size: 1.2em !important;
+			text-decoration: none;
+		}
+
+		.plugins i {
+			font-size: 1.2em !important;
+		}
+
+		.typecard label {
+			font-family: 幼圆;
+			color: #8B6969;
+		}
+
+		.typecard label:hover {
+			cursor: pointer;
+		}
+
+		.btn1 {
+			background: #1E9FFF;
+			text-align: center;
+			color: #fff;
+			height: 50px;
+			border-radius: 8px;
+		}
+
+		.btn1:hover {
+			background: #1EAFFF !important;
+		}
+
+		.usercard label,
+		.pwdcard label {
+			height: 34px;
+			width: 35px;
+			display: inline-block;
+			color: #fff;
+			position: relative;
+			top: -1px;
+			background: rgba(1, 170, 237, .5);
+			text-align: center;
+		}
+
+		i {
+			font-size: 30px !important;
+		}
+
+		#password,
+		#username {
+			border: 0px;
+			border-radius: 6px;
+			background: transparent;
+			height: 44px;
+			width: 77%;
+			position: relative;
+			top: 3px;
+			font-size: 15px;
+			margin-left: 9px;
+			-webkit-box-shadow: 0 0 0px 1000px #f2f7fd inset !important;
+		}
+
+		input:focus {
+			outline: none;
+		}
+
+		.toptitle {
+			height: 30px;
+			margin: auto;
+			text-align: center;
+			width: 85%;
+			background: #f2dede;
+			display: none;
+		}
+
+		.footer {
+			position: fixed;
+			bottom: 0px;
+			width: 100%;
+			height: 100px;
+			text-align: center;
+		}
+
+		@keyframes ianimRight {
+			from,
+			to {
+				animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			}
+			from {
+				opacity: 0;
+				right: 0px;
+			}
+			to {
+				transform: none;
+			}
+		}
+
+		@keyframes ianimTop {
+			from,
+			to {
+				animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+			}
+			from {
+				opacity: 0;
+				top: 100px;
+			}
+			to {
+				transform: none;
+			}
+		}
+
+		.sysType {
+			position: relative;
+			right: -58%;
+			top: 28%;
+			width: 514px;
+			height: 514px;
+			/*border:2px dashed white;*/
+			/*border-color:rgba(255,255,255,.2);*/
+			border-radius: 50%;
+		}
+
+		.sysType>img {
+			width: 614px;
+			height: 525px;
+			position: relative;
+			top: -816px;
+			left: -42px;
+			z-index: 0;
+		}
+
+		.logopanel img {
+			height: 70px;
+		}
+
+		.sysdiv {
+			position: relative;
+			border-radius: 50%;
+			width: 132px;
+			height: 132px;
+			background: rgba(255, 255, 255, .3);
+			text-align: center;
+			z-index: 1;
+			transition: all .3s ease;
+			box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
+		}
+
+		.sysdiv:hover {
+			cursor: pointer;
+		}
+
+		.sys1 {
+			top: -148px;
+			left: -28px;
+			background: url("img/icon/query-circle.png");
+			background-size: cover;
+		}
+
+		.sys1 span,
+		.sys2 span,
+		.sys3 span,
+		.sys4 span,
+		.sys5 span{
+			position: absolute;
+			line-height: 10px;
+			font-size: 25px;
+			color: white;
+			width: 150px;
+		}
+
+		.sys1 span {
+			top: -40px;
+			left: -15px;
+		}
+
+		.sys2 {
+			left: -90px;
+			background: url("img/icon/text-circle.png");
+			background-size: cover;
+		}
+
+		.sys2 span {
+			top: 164px;
+			left: -3px;
+		}
+
+		.sys3 {
+			top: -406px;
+			left: 329px;
+			background: url("img/icon/soundImage-circle.png");
+			background-size: cover;
+		}
+
+		.sys3 span {
+			top: -45px;
+			left: -7px;
+		}
+
+		.sys4 {
+			top: -100px;
+			left: 150px;
+			background: url("img/icon/change-circle.png");
+			background-size: cover;
+		}
+
+		.sys4 span {
+			top: 143px;
+			left: -5px;
+		}
+
+		.sys5 {
+			top: -390px;
+			left: 376px;
+			background: url("img/icon/warehouse-circle.png");
+			background-size: cover;
+		}
+
+		.sys5 span {
+			top: 148px;
+			left: -5px;
+		}
+
+		.sysdiv > img {
+			width: 100%;
+			height: 100%;
+			display: none;
+		}
+
+		.sysContent {
+			font-size: 1.5em;
+			line-height: 80px;
+		}
+
+		.sysdiv i {
+			position: relative;
+			top: 30px;
+			left: 0px;
+			font-size: 90px !important;
+		}
+
+		.usercard>img,
+		.pwdcard>img {
+			position: relative;
+			top: -1px;
+		}
+
+		.clear {
+			cursor: pointer;
+		}
+
+		.operation {
+			margin: auto;
+			width: 85%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			padding: 8px 0px;
+			box-sizing: border-box;
+		}
+
+		.operation .operation-div {
+			position: relative;
+		}
+
+		.operation .operation-div img:last-child {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		.operation+p {
+			font-size: 15px;
+			text-align: center;
+		}
+
+		.operation+p>span {
+			color: red;
+		}
+
+		.operation:hover{
+			cursor: pointer;
+		}
+
+		#loginbtn {
+			display: block;
+			width: 85%;
+			margin: 10px auto;
+			background-color: #CCCCCC;
+			color: white;
+			height: 40px;
+			border-radius: 5px;
+			text-align: center;
+			line-height: 40px;
+			font-size: 20px;
+		}
+
+		.error {
+			color: red;
+			font-size: 14px;
+			vertical-align: middle;
+			display: none;
+		}
+
+		.error>img {
+			vertical-align: middle;
+			width: 12px;
+			height: 12px;
+		}
+
+		.error>span {
+			vertical-align: middle;
+		}
+
+		@media screen and (max-width: 1280px) {
+			.sysType {
+				position: relative;
+				right: -59%;
+				top: 11%;
+				width: 364px;
+				height: 300px;
+			}
+			.sysdiv {
+				width: 80px;
+				height: 80px;
+			}
+			.sys1 {
+				top: 1px;
+				left: -1px;
+			}
+			.sys2 {
+				top: 100px;
+			}
+			.sys3 {
+				top: -165px;
+				left: 225px;
+			}
+			.sys4 {
+				top: -8px;
+			}
+		}
+
+		@media screen and (max-width: 1370px) {
+			#loginbtn {
+				height: 30px;
+				line-height: 30px;
+				font-size: 15px;
+			}
+			.operation+p {
+				font-size: 13px;
+			}
+			.sysType>img {
+				width: 350px;
+				height: 350px;
+				position: relative;
+				top: -780px;
+				left: 90px;
+				z-index: 0;
+			}
+			.operation img {
+				width: 35px;
+				height: 35px;
+			}
+			.ctcard {
+				height: 360px;
+				width: 330px;
+				right: 250px;
+				/*top:0px;*/
+				/*border-radius: 0px;*/
+				/*-webkit-box-shadow:0 0px 30px rgba(0, 0, 0, 0.3);*/
+			}
+			.ctcardTitle {
+				/*margin-top: 25%;*/
+			}
+			.ctcardTitle span {
+				font-size: 1.6em !important;
+			}
+			.usercard,
+			.pwdcard,
+			.btn1 {
+				height: 30px !important;
+			}
+			.usercard>img,
+			.pwdcard>img {
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 4px;
+			}
+			.typecard {
+				font-size: 0.8em;
+			}
+			#password,
+			#username {
+				height: 25px !important;
+				font-size: 10px !important;
+				top: 2px !important;
+			}
+			.sysType>img {
+				width: 364px;
+				height: 312px;
+				/*top:-411px;
+                left:4px;*/
+				position: absolute;
+				top: -9px;
+				left: -24px;
+			}
+			.sysType {
+				position: relative;
+				right: -57%;
+				top: 14%;
+				width: 330px;
+				height: 330px;
+			}
+			.sysdiv {
+				width: 80px;
+				height: 80px;
+			}
+			.sys1 {
+				top: -3px;
+				left: -9px;
+			}
+			.sys1 span {
+				top: -44px;
+				left: -38px;
+			}
+			.sys2 {
+				top: 100px;
+				left: -42px;
+			}
+			.sys2 span {
+				top: 100px;
+				left: -36px;
+			}
+			.sys3 {
+				top: -162px;
+				left: 217px;
+			}
+			.sys3 span {
+				top: -43px;
+				left: -35px;
+			}
+			.sys4 {
+				top: 25px;
+				left: 107px;
+			}
+			.sys4 span {
+				top: 90px;
+				left: -35px;
+			}
+			.sys5 {
+				top: -138px;
+				left: 242px;
+				background-size: cover;
+			}
+			.sys5 span {
+				top: 98px;
+				left: -28px;
+			}
+			.sysContent {
+				font-size: .9em;
+				line-height: 40px;
+			}
+			.sysdiv i {
+				top: 15px;
+				left: 0px;
+				font-size: 50px !important;
+			}
+		}
+	</style>
+</head>
+
+<body>
+<div class="logotop">
+	<!--<img src="img/logo-while.png" />-->
+</div>
+<div class="nrcontent">
+	<!--<div class="sysType">-->
+	<!--<div class="sysdiv sys1" sysType="0">-->
+	<!--<span class="sysContent">-->
+	<!--<br/>-->
+	<!--查询平台-->
+	<!--</span>-->
+	<!--</div>-->
+	<!--<div class="sysdiv sys2" sysType="1">-->
+	<!--<span class="sysContent">-->
+	<!--<br/>-->
+	<!--档案管理系统-->
+	<!--</span>-->
+	<!--</div>-->
+	<!--<div class="sysdiv sys3" sysType="4">-->
+	<!--<span class="sysContent">-->
+	<!--<br/>-->
+	<!--声像档案系统-->
+	<!--</span>-->
+	<!--</div>-->
+	<!--<div class="sysdiv sys4" sysType="2">-->
+	<!--<span class="sysContent">-->
+	<!--<br/>-->
+	<!--交换平台-->
+	<!--</span>-->
+	<!--</div>-->
+	<!--<div class="sysdiv sys5" sysType="5">-->
+	<!--<span class="sysContent">-->
+	<!--<br/>-->
+	<!--库房管理系统-->
+	<!--</span>-->
+	<!--</div>-->
+	<!--<img src="img/icon/right.png">-->
+	<!--</div>-->
+</div>
+<div class="icenter">
+	<form id="iform" class="form-signin" role="form" name="form" th:action="@{/login}" action="/login" method="post">
+		<div class="ctcard">
+			<div class="ctcardTitle">
+				<center>
+					<span style="font-size: 20px;">用户登录</span>
+				</center>
+			</div>
+			<div class="toptitle">
+				<i class="icon icon-minus-sign" style="font-size: 15px !important;color:red;"></i>&nbsp;&nbsp;<span class="ispan" style="color:red;"></span>
+			</div>
+			<br/>
+			<div class="usercard">
+				<img src="img/loginuser.png" style="margin-left: 10px;" />
+				<input style="margin-left: 9px;" id="username" name="username" autofocus type="text" placeholder="用户名" />
+				<img class="clear" src="img/icon/clear.png" />
+				<span class="error" style="margin-top:10px;"><img src="img/icon/error.png" />请输入用户名</span>
+			</div>
+
+			<br />
+
+			<div class="pwdcard">
+				<img src="img/loginpwd.png" style="margin-left: 10px;" />
+				<input id="password" name="password" autofocus type="password" placeholder="密码" />
+				<img class="clear" src="img/icon/clear.png" />
+				<span class="error"><img src="img/icon/error.png"/><span>请输入密码</span></span>
+			</div>
+			<br />
+			<div class="operation">
+				<div class="operation-div" sysType="1">
+					<img src="img/icon/text.png" />
+					<img src="img/icon/mouse-text.png" style="display: none;" />
+					<img src="img/icon/text-gray.png" />
+				</div>
+				<div class="operation-div" sysType="0">
+					<img src="img/icon/query.png" />
+					<img src="img/icon/mouse-query.png" style="display: none;" />
+					<img src="img/icon/query-gray.png" />
+				</div>
+				<div class="operation-div" sysType="2">
+					<img src="img/icon/change.png" />
+					<img src="img/icon/mouse-change.png" style="display: none;" />
+					<img src="img/icon/change-gray.png" />
+				</div>
+				<div class="operation-div" sysType="4">
+					<img src="img/icon/soundImage.png" />
+					<img src="img/icon/mouse-soundImage.png" style="display: none;" />
+					<img src="img/icon/soundImage-gray.png" />
+				</div>
+				<div class="operation-div" sysType="5">
+					<img src="img/icon/warehouse.png" />
+					<img src="img/icon/mouse-warehouse.png" style="display: none;" />
+					<img src="img/icon/warehouse-gray.png" />
+				</div>
+			</div>
+			<p>当前登录：<span id="info">无</span></p>
+			<span id="loginbtn">登&nbsp;&nbsp;录</span>
+			<div class="plugins">
+				<a href="/download"><img src="img/icon/download.png" /></a>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+<script type="text/javascript" th:src="@{js/jquery/jquery-1.11.1.js}" ></script>
+<script th:inline="javascript">
+    var args1 = [[${#httpServletRequest.getParameter('error')}]];
+    var msg = [[${session.SPRING_SECURITY_LAST_EXCEPTION}]];
+
+    if(!parent.closeObj){
+        $.ajax({
+            type: "post",
+            url: '/logout',
+            data:'',
+            success: function (data) {
+            },
+            error:function(){
+            }
+        });
+    }
+
+    $('input').focus(function(){
+        if(args1!='true') {
+            $('.toptitle').fadeOut(200);
+            $('.ispan').text('');
+        }
+    });
+
+    if(args1=='true'&& msg!=null){
+        $('.toptitle').fadeIn(200);
+        if(msg.message==1){
+            $('.ispan').text("用户密码有误");
+        }else{
+            $('.ispan').text(msg.message);
+        }
+    }
+
+    //鼠标移入移出
+    $(document).on("mouseover", ".operation-div", function() {
+        if($(this).hasClass("act")) {
+            return false;
+        }
+        $(this).children().eq(-1).hide();
+    })
+    $(document).on("mouseout", ".operation-div", function() {
+        if($(this).hasClass("act")) {
+            return false;
+        }
+        $(this).children().eq(-1).show();
+    })
+
+    $('.sysdiv').click(function(){
+        //alert($(":radio[name=type]:checked").val());
+        if($('#username').val()==''){
+            $('.toptitle').fadeIn(200);
+            $('.ispan').text("用户名不能为空");
+            return;
+        }else if($('#password').val()==''){
+            $('.toptitle').fadeIn(200);
+            $('.ispan').text("密码不能为空");
+            return;
+        }else{
+            $('#password').val($('#password').val().split('&')[0]+'&'+$(this).attr('sysType'));
+            $('#iform').submit();
+        }
+    });
+
+    $(".clear").on("click", function() {
+        $(this).siblings("input").val("");
+    })
+
+    //鼠标点击
+    $(".operation-div").on("mousedown", function() {
+        $(this).parent().addClass("active").siblings().removeClass("active");
+    })
+
+    $(document).on("blur", "input", function() {
+        var this_ = $(this);
+        if(this_.val().length <= 0) {
+            this_.siblings(".error").show();
+            this_.addClass("active");
+        } else {
+            this_.siblings(".error").hide();
+            this_.removeClass("active");
+        }
+    })
+
+    $('#loginbtn').on("click", function() {
+        if($(".active").length == 0){
+            return;
+        }
+        if($("input.active").length > 0) {
+            return false;
+        } else {
+            if($('#username').val()==''){
+                $('.toptitle').fadeIn(200);
+                $('.ispan').text("用户名不能为空");
+                return;
+            }else if($('#password').val()==''){
+                $('.toptitle').fadeIn(200);
+                $('.ispan').text("密码不能为空");
+                return;
+            }else{
+                $('#password').val($('#password').val().split('&')[0]+'&'+$(".operation-div.act").attr('sysType'));
+                $('#iform').submit();
+            }
+        }
+    })
+
+    $(document).on("click", ".operation-div", function() {
+        var this_ = $(this);
+        var index = this_.index();
+        this_.addClass("act").siblings().removeClass("act");
+        $(".operation-div img:last-child").show();
+        this_.children().eq(2).hide();
+        if(index == 0) {
+            $(".operation+p>span").text("档案管理系统");
+//				$(".sys2").css({"box-shadow":"0px 0px 20px #fff"});
+//				$(".sys1").css({"box-shadow":"none"});
+//				$(".sys3").css({"box-shadow":"none"});
+//				$(".sys4").css({"box-shadow":"none"});
+//				$(".sys5").css({"box-shadow":"none"});
+        } else if(index == 1) {
+            $(".operation+p>span").text("查询平台");
+//				$(".sys1").css({"box-shadow":"0px 0px 20px #fff"});
+//				$(".sys2").css({"box-shadow":"none"});
+//				$(".sys3").css({"box-shadow":"none"});
+//				$(".sys4").css({"box-shadow":"none"});
+//				$(".sys5").css({"box-shadow":"none"});
+        } else if(index == 2) {
+            $(".operation+p>span").text("交换平台");
+//				$(".sys4").css({"box-shadow":"0px 0px 20px #fff"});
+//				$(".sys1").css({"box-shadow":"none"});
+//				$(".sys2").css({"box-shadow":"none"});
+//				$(".sys3").css({"box-shadow":"none"});
+//				$(".sys5").css({"box-shadow":"none"});
+        } else if(index == 3) {
+            $(".operation+p>span").text("声像档案系统");
+//				$(".sys3").css({"box-shadow":"0px 0px 20px #fff"});
+//				$(".sys1").css({"box-shadow":"none"});
+//				$(".sys2").css({"box-shadow":"none"});
+//				$(".sys4").css({"box-shadow":"none"});
+//				$(".sys5").css({"box-shadow":"none"});
+        } else if(index == 4) {
+            $(".operation+p>span").text("库房系统");
+//				$(".sys5").css({"box-shadow":"0px 0px 20px #fff"});
+//				$(".sys1").css({"box-shadow":"none"});
+//				$(".sys2").css({"box-shadow":"none"});
+//				$(".sys3").css({"box-shadow":"none"});
+//				$(".sys4").css({"box-shadow":"none"});
+        }
+        $("#loginbtn").css({"background-color":"#109dc7","cursor": "pointer"});
+    })
+    $(".sysdiv").on("mouseover", function() {
+        $(this).css({"box-shadow":"0px 0px 20px #fff"});
+    })
+    $(".sysdiv").on("mouseout", function() {
+        $(this).css({"box-shadow":"none"});
+    })
+    $(document).on("mouseover", ".operation-div", function() {
+        $(this).children().eq(0).hide();
+        $(this).children().eq(1).show();
+    })
+    $(document).on("mouseout", ".operation-div", function() {
+        $(this).children().eq(0).show();
+        $(this).children().eq(1).hide();
+    })
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            if($(".active").length > 0) {
+                $('#loginbtn').click();
+            }
+        }
+    });
+</script>
+</html>

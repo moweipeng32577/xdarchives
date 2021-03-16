@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>自助查询</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<link rel = "Shortcut Icon" href="img/icon/title.jpg"/>
+	<style>
+		html,body{
+			width:100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			background-image: url('img/zcEnquiryImg/从化-自主查询.jpg');
+			background-size:cover;
+		}
+
+		.logo-img{
+			position: absolute;
+			top:25px;
+			left:35px;
+		}
+
+		.title-img{
+			/* position: absolute; */
+			height: 240px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.login-panel{
+			position: absolute;
+			top:260px;
+			right:300px;
+			width:412px;
+			height:490px;
+			border-radius: 15px;
+			background-image: url('img/zcEnquiryImg/登录框.png');
+			background-size: cover;
+			background-position-x: -24px;
+		}
+
+		.menu-panel{
+			position: absolute;
+			top:280px;
+			left:1000px;
+			min-width: 700px;
+		}
+
+		.menu-panel-bottom{
+			position: relative;
+			top:-60px;
+		}
+
+		.menu-panel-center{
+			position: relative;
+			left:100px;
+			top:-30px;
+		}
+
+		.menu-panel img{
+			margin-right: 28px;
+		}
+
+		.menu-panel-sel{
+			position: absolute;
+			display: none;
+		}
+
+		.menu-panel>div>div{
+			display: inline-block;
+			position: relative;
+		}
+
+		.login-panel-title{
+			text-align: center;
+			padding: 20px;
+			font-size: 25px;
+		}
+
+		.login-panel-title{
+			height: 70px;
+		}
+
+		.login-panel-input>div:not(.err-tip){
+			position: relative;
+			width:80%;
+			height: 50px;
+			margin:0 auto;
+			background-image: url('img/zcEnquiryImg/输入框.png');
+			background-size: 100% 99%;
+		}
+
+		.err-tip{
+			width:80%;
+			margin:0 auto;
+			color: red;
+			font-size:17px;
+			visibility: hidden;
+		}
+
+		.login-verification-code{
+			display: flex;
+			justify-content: center;
+		}
+
+		.login-type-code{
+			display: flex;
+			justify-content: center;
+		}
+
+		.login-verification-code>div{
+			border:2px solid #e2e2e2;
+			border-radius:5px;
+			width: 38%;
+			height: 43px;
+			font-size: 1.2em;
+		}
+
+		.login-verification-code input{
+			width:100%;
+			height:40px;
+			border:0;
+			font-size: 1em;
+		}
+
+		.login-verification-code img{
+			width:100%;
+			height: 100%;
+			border-radius:5px;
+		}
+
+		.login-verification-code-text:hover{
+			cursor: pointer;
+		}
+
+		.login-panel-input input{
+			position: relative;
+			top:2px;
+			width: 70%;
+			height: 43px;
+			border:0px;
+			margin-left: 15px;
+			background: transparent;
+			font-size: 1.2em;
+		}
+
+		input{
+			outline:none;
+			-webkit-box-shadow:0 0 0 100px white inset;
+		}
+
+		.login-panel-input>div:not(.err-tip) img{
+			position: relative;
+			top:7px;
+			left:10px;
+		}
+
+		.login-panel-input-close{
+			position: absolute;
+			top:12px;
+			right:10px;
+			display:inline-block;
+			width:24px;
+			height: 24px;
+			background-image: url('img/zcEnquiryImg/清除.png');
+		}
+
+		.login-panel-input-close:hover{
+			cursor: pointer;
+			background-image: url('img/zcEnquiryImg/清除-鼠标经过时.png');
+		}
+
+		.login-panel-menu,.login-panel-btn{
+			width:80%;
+			margin:0 auto;
+		}
+
+		.login-panel-menu>div:nth-child(1){
+			/*margin-top:16px;*/
+		}
+
+		.login-panel-menu>div:nth-child(2){
+			margin-top:10px;
+		}
+
+		.login-panel-menu>div{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			width:100%;
+			height: 50px;
+		}
+
+		.login-panel-menu>div:nth-child(2){
+			justify-content: flex-start;
+		}
+
+		.login-panel-menu>div>div{
+			width:50px;
+			height:50px;
+		}
+
+		.login-panel-menu>div:nth-child(2)>div:not(:nth-child(1)){
+			margin-left: 7.7%;
+		}
+
+		.login-panel-menu>div>div>img{
+			width:100%;
+			height: 100%;
+		}
+
+		.login-panel-btn{
+			margin-top:20px;
+		}
+
+		.login-panel-btn-msg{
+			font-size: 1.1em;
+		}
+
+		.login-panel-btn-msg>span{
+			color: red;
+		}
+
+		.login-panel-btn-lbtn{
+			margin:20px 0px;
+			height: 40px;
+			background-image: url('img/zcEnquiryImg/登录-默认.png');
+			background-size: cover;
+			cursor: pointer;
+		}
+
+		.login-panel-btn-lbtn:hover{
+			background-image: url('img/zcEnquiryImg/登录-选中.png');
+		}
+
+		.login-panel-btn-lbtn:active{
+			background-image: url('img/zcEnquiryImg/登录-默认.png');
+		}
+
+		.login-panel-btn-plugin>div{
+			width:159px;
+			height: 18px;
+			margin:0 auto;
+			background-image: url('img/chLoginImg/插件-默认.png');
+		}
+
+		.login-panel-btn-plugin>div:hover{
+			cursor: pointer;
+			background-image: url('img/chLoginImg/插件-选中.png');
+		}
+
+		.login-panel-menu img:hover,.menu-panel img:hover{
+			cursor: pointer;
+		}
+
+		@media screen and (max-width: 1600px) {
+
+			.login-panel{
+				top:190px;
+			}
+		}
+
+		@media screen and (max-width: 1367px) {
+			.logo-img{
+				top:15px;
+			}
+
+			.logo-img img{
+				height:35px;
+			}
+			.login-panel{
+				top:140px;
+				right:260px;
+				width:300px;
+				height:390px;
+			}
+
+			.login-panel-title{
+				height: 35px;
+			}
+
+			.login-panel-input>div:not(.err-tip){
+				height: 30px;
+				background-size: 100% 99%;
+			}
+
+			.login-panel-input input{
+				position: relative;
+				top:1px;
+				width:170px !important;
+				height: 25px;
+				border:0px;
+				margin-left: 15px;
+				background: transparent;
+				font-size: .8em;
+			}
+
+			.login-panel-menu>div>div{
+				width:30px;
+				height:30px;
+			}
+
+			.login-panel-btn{
+				margin-top:7px;
+			}
+
+			.login-panel-menu>div{
+				height: 30px;
+			}
+
+			.login-panel-btn-lbtn{
+				margin:8px 0;
+				height: 35px;
+			}
+
+			.login-panel-input-close{
+				width:16px;
+				height:16px;
+				background-size: 100% 100%;
+				top:7px;
+			}
+
+			.menu-panel{
+				position: absolute;
+				top:190px;
+				left:650px;
+				min-width: 500px;
+			}
+
+			.menu-panel img{
+				width:110px;
+			}
+
+			.menu-panel-center{
+				left:72px;
+			}
+
+			.login-panel-btn-msg{
+				font-size: 12px;
+			}
+
+			.login-panel-btn-lbtn{
+				background-size: 100% 100%;
+			}
+
+			.title-img{
+				height:160px;
+			}
+
+			.title-img img{
+				height:50px;
+			}
+
+			.login-panel-input>div:not(.err-tip)>img{
+				height: 15px;
+				top:4px;
+			}
+
+			.login-verification-code>div{
+				width:36%;
+				height: 30px;
+			}
+
+			.login-verification-code input{
+				height:27px;
+				font-size: .7em;
+			}
+
+			.login-panel-menu>div:nth-child(2)>div:not(:nth-child(1)){
+				margin-left: 9.5%;
+			}
+		}
+	</style>
+</head>
+<body>
+
+<div class="login-panel">
+	<div class="login-panel-title"></div>
+	<form action="/selfquery" method="post">
+		<div class="login-panel-input">
+			<div>
+				<img src="img/zcEnquiryImg/用户图标.png" alt="">
+				<input type="text" name="username" placeholder="用户名"/>
+				<div class="login-panel-input-close" type="user"></div>
+			</div>
+			<div class="err-tip  tip1">
+				<img src="img/zcEnquiryImg/提示.png">&nbsp;&nbsp;
+				<span></span>
+			</div>
+			<div>
+				<img src="img/zcEnquiryImg/密码图标.png" alt="">
+				<input type="password" name="password" placeholder="密码"/>
+				<div class="login-panel-input-close" type="pwd"></div>
+			</div>
+			<div class="err-tip tip2">
+				<img src="img/zcEnquiryImg/提示.png">&nbsp;&nbsp;
+				<span></span>
+			</div>
+		</div>
+		<div class="login-verification-code">
+			<div>
+				<input type="text" placeholder="请输入验证码"/>
+			</div>
+			&nbsp;&nbsp;
+			<div class="login-verification-code-text">
+				<img src="/verificationCode/getVerificationCode?_="+(new Date()).getTime() />
+			</div>
+		</div>
+		<div class="err-tip  tip3">
+			<img src="img/zcEnquiryImg/提示.png">&nbsp;&nbsp;
+			<span></span>
+		</div>
+	</form>
+
+	<div class="login-panel-btn">
+		<div class="login-panel-btn-lbtn"></div>
+		<div class="login-panel-btn-plugin">
+			<div></div>
+		</div>
+	</div>
+</div>
+
+</body>
+<!--获取spring security信息-->
+<script th:inline="javascript">
+    var args1 = [[${#httpServletRequest.getParameter('error')}]];
+    var msg = [[${session.SPRING_SECURITY_LAST_EXCEPTION}]];
+    var errTip,backUsername,backPwd;
+    if(args1=='true'&& msg!=null){
+        errTip = msg.message;
+        var temp = errTip.split('&');
+        errTip = temp[0];
+        if(temp.length>1){
+            backUsername = temp[1];
+            backPwd = temp[2];
+		}
+    }
+</script>
+
+</html>
+<script src="js/jquery/jquery-1.11.1.js"></script>
+<script>
+    var elUtils = getElUtils();
+
+    var form = {type:9};//表单类型
+    var submitBtn = elUtils.$('.login-panel-btn-lbtn');//提交按钮
+    var clearEls = elUtils.$('.login-panel-input-close',true);//清除按钮
+    var pwdType = elUtils.$('input[type="password"]');//密码栏
+    var userType = elUtils.$('input[type="text"]');//用户名栏
+    var userTip = elUtils.$('.tip1>span');//用户名提示框
+    var pwdTip =  elUtils.$('.tip2>span');//密码提示框
+    var codeTip =  elUtils.$('.tip3>span');//验证码提示框
+    var plugin =  elUtils.$('.login-panel-btn-plugin>div'); //插件
+    var code =   elUtils.$('.login-verification-code-text img');//验证码图片
+    var codeInput = elUtils.$('.login-verification-code input');//验证码输入框
+
+    backUsername&&(userType.value=backUsername);
+    backPwd&&(pwdType.value=backPwd);
+
+    //  绑定点击事件--验证码图片
+    elUtils.bindEvent('click',code,function(){
+        code.setAttribute('src','/verificationCode/getVerificationCode?_='+(new Date()).getTime());
+    });
+    //    绑定点击事件--插件
+    elUtils.bindEvent('click',plugin,function(){
+        location.href = '/download';
+    });
+    //    绑定点击事件--消除按钮1
+    elUtils.bindEvent('click',clearEls[0],function(){
+        userType.value = '';
+    });
+    //    绑定点击事件--消除按钮2
+    elUtils.bindEvent('click',clearEls[1],function(){
+        pwdType.value = '';
+    });
+
+    //登录
+    elUtils.bindEvent('click',submitBtn,function(){
+        var sform = elUtils.$('form');
+        if(userType.value == ''){
+            showTips('用户名不能为空');
+            return;
+        }
+
+        if(pwdType.value == ''){
+            showTips('密码不能为空');
+            return;
+        }
+
+        if(codeInput.value == ''){
+            showTips('验证码不能为空');
+            return;
+        }
+
+        //密码内容（密码+表单类型+验证码+登录类型）
+        pwdType.value = pwdType.value+'&'+form.type+'&'+codeInput.value;
+        if(form.type==2){
+            pwdType.value = pwdType.value+'&8143';
+            sform.setAttribute('action','http://127.0.0.1:8090/login');
+        }
+        sform.submit();
+    });
+
+    //键盘回车登录
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            var sform = elUtils.$('form');
+            if(userType.value == ''){
+                showTips('用户名不能为空');
+                return;
+            }
+
+            if(pwdType.value == ''){
+                showTips('密码不能为空');
+                return;
+            }
+
+            if(codeInput.value == ''){
+                showTips('验证码不能为空');
+                return;
+            }
+
+            pwdType.value = pwdType.value+'&'+form.type+'&'+codeInput.value;
+            if(form.type==2){
+                pwdType.value = pwdType.value+'&8143';
+                sform.setAttribute('action','http://127.0.0.1:8090/login');
+            }
+            sform.submit();
+
+        }});
+
+  ////////////////返回错误类型//////////////////
+    (errTip&&errTip!="")&&showTips(errTip);
+    function showTips(errTip){
+        var tip1 = elUtils.$('.tip1');
+        var tip2 = elUtils.$('.tip2');
+        var tip3 = elUtils.$('.tip3');
+        if(errTip.indexOf('密码')>-1){
+            pwdTip.innerText = errTip;
+            tip2.style.visibility='visible';
+        }else if(errTip.indexOf('验证码')>-1){
+            codeTip.innerText = errTip;
+            tip3.style.visibility='visible';
+        }else{
+            userTip.innerText = errTip;
+            tip1.style.visibility='visible';
+        }
+        setTimeout(function(){
+            tip1.style.visibility='hidden';
+            tip2.style.visibility='hidden';
+            tip3.style.visibility='hidden';
+        },3000);
+    }
+    ///////////////////////////////////////////////////
+
+    function getElUtils(){
+        return {
+            $:function(ele,select,isList){
+                var _d = document;
+                if(ele.nodeType&&ele.nodeType==1){
+                    _d = ele;
+                }else{
+                    isList = select;
+                    select = ele;
+                }
+
+                if(isList){
+                    var nodeList = _d.querySelectorAll(select);
+                    nodeList = Array.prototype.slice.call(nodeList);
+                    return nodeList.length==1?nodeList[0]:nodeList;
+                }else{
+                    return _d.querySelector(select);
+                }
+            },
+            bindEvent:function(type,ele,callback){
+                try{
+                    ele.addEventListener(type,callback,false);
+                }catch(error){
+                    throw new Error('绑定事件失败',error);
+                }
+            }
+        }
+    }
+</script>

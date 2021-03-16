@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include::comonHeader('数据审核')">
+</head>
+<body>
+<script src="../../js/audit/app.js"></script>
+<script src="../../js/netca/netcawebsocket.js"></script>
+<script src="../../js/netca/netcaseal.js"></script>
+<script src="../../js/netca/base64.min.js"></script>
+<script src="../../js/netca/json2.js"></script>
+<script th:inline="javascript">
+    var functionButton = [[${functionButton}]];
+    var wjqxFunctionButton = [[${wjqxFunctionButton}]];//文件权限
+    //报表服务
+    var reportServer = [[${reportServer}]];
+    //用户id
+    var userid = [[${userid}]];
+    var userRealname = [[${userRealname}]];
+    //用户绑定证书编号
+    var caUserid = [[${caUserid}]];
+    var systemLoginType = [[${systemLoginType}]];//登录系统设置  政务网1  局域网0
+    var netcatUse = [[${netcatUse}]];//是否使用网证通电子签章  1使用  0禁用
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<style>
+			img{
+				height:200px;
+				width:300px;
+				margin:10px 3px  !important;
+				transition: all .2s;
+				border-radius: 3px;
+			}
+
+			img:hover{
+				cursor: pointer;
+				transform:scale(1.1);
+				-webkit-transform:scale(1.1);
+				-moz-transform:scale(1.1);
+				-o-transform:scale(1.1);
+				-ms-transform:scale(1.1);
+			}
+		</style>
+	</head>
+	<body>
+		<center>
+			<div style="margin-top: 20px;margin-left: 5px;">
+				<img src="../../img/background/bg1.jpg"  val="bg1.jpg" class="img-rounded" alt="">
+				<img src="../../img/background/sky.jpg"  val="sky.jpg" class="img-rounded" alt="">
+				<img src="../../img/background/bg2.jpg"  val="bg2.jpg" class="img-rounded" alt="">
+				<img src="../../img/background/bg3.jpg"  val="bg3.jpg" class="img-rounded" alt="">
+				<img src="../../img/background/bg4.jpg"  val="bg4.jpg" class="img-rounded" alt="">
+				<img src="../../img/background/bg5.jpg"  val="bg5.jpg" class="img-rounded" alt="">
+			</div>
+		</center>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/jquery/jquery-1.11.1.js"></script>
+<script>
+	$(function(){
+	    $('img').click(function(){
+			var img = $(this).attr('val');
+			//console.log(img);
+            $('#zts', window.parent.document).attr({'bg':img});
+            $('#zts', window.parent.document).click();
+		});
+	});
+
+</script>

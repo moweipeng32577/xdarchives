@@ -1,0 +1,9 @@
+Ext.define('Import.view.FormView',{
+    extend:'Ext.panel.Panel',
+    xtype:'importformView',
+    layout:'fit',
+    items:[{
+    	itemId:'northform',//上方的表单视图
+    	xtype:'importform'//表单类型
+    }]
+});

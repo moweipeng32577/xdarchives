@@ -1,0 +1,9 @@
+Ext.define('Acquisition.view.FormView',{
+    extend:'Ext.panel.Panel',
+    xtype:'formView',
+    layout:'fit',
+    items:[{
+    	itemId:'northform',//上方的表单视图
+    	xtype:'acquisitionform'//表单类型
+    }]
+});
